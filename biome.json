@@ -1,0 +1,19 @@
+{
+	"organizeImports": { "enabled": true },
+	"formatter": {
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"ignore": ["*.json"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	}
+}

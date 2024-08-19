@@ -1,0 +1,7 @@
+*
+!dist/*.d.ts
+!custom-elements.json
+!dist/**/*.js
+!dist/**/*.map
+!docs/**
+dist/**/*test*

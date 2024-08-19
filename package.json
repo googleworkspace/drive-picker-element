@@ -1,0 +1,155 @@
+{
+	"name": "@googleworkspace/drive-picker-element",
+	"version": "0.0.0",
+	"description": "A web component for Google Drive Picker",
+	"license": "Apache-2.0",
+	"author": {
+		"name": "Justin Poehnelt",
+		"email": "jpoehnelt@google.com",
+		"url": "https://justin.poehnelt.com"
+	},
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"homepage": "https://github.com/googleworkspace/drive-picker-element",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/googleworkspace/drive-picker-element.git"
+	},
+	"scripts": {
+		"prepare": "husky",
+		"build": "wireit",
+		"build:docs": "wireit",
+		"serve": "wireit",
+		"check": "tsc --noEmit",
+		"lint": "biome check .",
+		"format": "biome check --write .",
+		"test": "wireit",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build"
+	},
+	"dependencies": {
+		"lit": "^3.1.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@chromatic-com/storybook": "^1.5.0",
+		"@custom-elements-manifest/analyzer": "^0.10.2",
+		"@open-wc/lit-helpers": "^0.7.0",
+		"@open-wc/testing": "^4.0.0",
+		"@storybook/addon-actions": "^8.1.9",
+		"@storybook/addon-essentials": "^8.1.9",
+		"@storybook/addon-links": "^8.1.9",
+		"@storybook/blocks": "^8.1.9",
+		"@storybook/test": "^8.1.9",
+		"@storybook/web-components": "^8.1.9",
+		"@storybook/web-components-vite": "^8.1.9",
+		"@types/gapi": "^0.0.47",
+		"@types/google.accounts": "^0.0.14",
+		"@types/google.picker": "^0.0.42",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "^22.4.1",
+		"@web/dev-server": "^0.4.5",
+		"@web/test-runner": "^0.18.2",
+		"chai": "^5.1.1",
+		"husky": "^9.1.4",
+		"lint-staged": "^15.2.9",
+		"playwright": "^1.44.0",
+		"prettier": "^3.3.3",
+		"storybook": "^8.1.9",
+		"tsup": "^8.0.2",
+		"typescript": "^5.2.2",
+		"web-component-analyzer": "^2.0.0",
+		"wireit": "^0.14.4"
+	},
+	"customElements": "custom-elements.json",
+	"wireit": {
+		"build": {
+			"clean": true,
+			"command": "tsup --dts --format esm --target es2020 --splitting false --sourcemap src/**/*.ts",
+			"dependencies": [
+				"build:json",
+				"build:vscode",
+				"build:docs"
+			],
+			"files": [
+				"src/**/*.ts"
+			],
+			"output": [
+				"dist/**/*.js",
+				"dist/**/*.d.ts"
+			]
+		},
+		"build:json": {
+			"command": "cem analyze --litelement --outdir dist --exclude '**/*.test.ts'",
+			"files": [
+				"src/**/*.ts"
+			],
+			"output": [
+				"dist/custom-elements.json"
+			]
+		},
+		"build:vscode": {
+			"command": "wca src --outFile dist/custom-data-vscode.json --format vscode",
+			"files": [
+				"src/**/*.ts"
+			],
+			"output": [
+				"dist/custom-data-vscode.json"
+			]
+		},
+		"build:docs": {
+			"clean": false,
+			"command": "wca src --outDir docs --format 'md' --visibility 'public' --inlineTypes && node ./.github/docs.js",
+			"dependencies": [
+				"build:docs-wca"
+			],
+			"files": [
+				"docs/**/*.md",
+				"README.md"
+			],
+			"output": [
+				"README.md"
+			]
+		},
+		"build:docs-wca": {
+			"command": "wca src --outDir docs --format 'md' --visibility 'public' --inlineTypes",
+			"files": [
+				"src/**/*.ts"
+			],
+			"output": [
+				"docs/*.md"
+			]
+		},
+		"serve": {
+			"command": "wds --node-resolve --watch --open examples/drive-picker.html",
+			"dependencies": [
+				{
+					"cascade": true,
+					"script": "build"
+				}
+			],
+			"service": true
+		},
+		"test": {
+			"command": "wtr dist/*.test.js --node-resolve --coverage --reporter spec",
+			"dependencies": [
+				"build"
+			]
+		}
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*": "pnpm build:docs && pnpm format && pnpm lint && pnpm check"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://wombat-dressing-room.appspot.com"
+	},
+	"packageManager": "pnpm@9.3.0"
+}
