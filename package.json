@@ -52,6 +52,7 @@
 		"@types/node": "^22.4.1",
 		"@web/dev-server": "^0.4.5",
 		"@web/test-runner": "^0.18.2",
+		"@web/test-runner-playwright": "^0.11.0",
 		"chai": "^5.1.1",
 		"husky": "^9.1.4",
 		"lint-staged": "^15.2.9",
@@ -69,7 +70,6 @@
 			"clean": true,
 			"command": "tsup --dts --format esm --target es2020 --splitting false --sourcemap src/**/*.ts",
 			"dependencies": [
-				"build:json",
 				"build:vscode",
 				"build:docs"
 			],
@@ -133,7 +133,7 @@
 			"service": true
 		},
 		"test": {
-			"command": "wtr dist/*.test.js --node-resolve --coverage --reporter spec",
+			"command": "wtr dist/*.test.js --node-resolve --coverage --reporter spec --playwright --browsers chromium",
 			"dependencies": [
 				"build"
 			]
