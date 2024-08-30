@@ -31,12 +31,12 @@ import "@googleworkspace/drive-picker-element";
 ```
 
 ```html
-<drive-picker clientId="YOUR_CLIENT_ID" appId="YOUR_APP_ID">
+<drive-picker client-id="YOUR_CLIENT_ID" app-id="YOUR_APP_ID">
   <drive-picker-docs-view
-    mimeTypes="application/json"
+    mime-types="application/json"
     label="JSON"
   ></drive-picker-docs-view>
-  <drive-picker-docs-view ownedbyme="" label="Mine"></drive-picker-docs-view>
+  <drive-picker-docs-view owned-by-me="" label="Mine"></drive-picker-docs-view>
   <drive-picker-docs-view starred="" label="Starred"></drive-picker-docs-view>
 </drive-picker>
 ```
