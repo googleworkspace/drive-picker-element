@@ -80,24 +80,23 @@ Note: The Google Picker API does not support file organization, moving, or copyi
 
 ### Properties
 
-| Property       | Attribute        | Modifiers | Type                     | Default                                      | Description                                                                                |
-| -------------- | ---------------- | --------- | ------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `appId`        | `app-id`         |           | `string`                 |                                              | The Google Drive app ID.                                                                   |
-| `clientId`     | `client-id`      |           | `string`                 |                                              | The Google API client ID.                                                                  |
-| `developerKey` | `developerKey`   |           | `string \| undefined`    |                                              | The Google API developer key.                                                              |
-| `height`       | `height`         |           | `number \| undefined`    |                                              | The height of the picker dialog.                                                           |
-| `hideTitleBar` | `hide-title-bar` |           | `boolean \| undefined`   |                                              | Whether to hide the title bar of the picker dialog.                                        |
-| `locale`       | `locale`         |           | `string \| undefined`    |                                              | The locale of the picker dialog.                                                           |
-| `maxItems`     | `max-items`      |           | `number \| undefined`    |                                              | The maximum number of items that the user can select.                                      |
-| `multiselect`  | `multiselect`    |           | `boolean \| undefined`   |                                              | Whether the user can select multiple items.                                                |
-| `oauthToken`   | `oauth-token`    |           | `string \| undefined`    |                                              | The OAuth token to authenticate the user.                                                  |
-| `origin`       | `origin`         |           | `string \| undefined`    |                                              | The origin of the picker dialog.                                                           |
-| `relayUrl`     | `relay-url`      |           | `string \| undefined`    |                                              | The relay URL to use for cross-origin communication.                                       |
-| `scope`        | `scope`          |           | `string`                 | "https://www.googleapis.com/auth/drive.file" | The scope of the OAuth token.                                                              |
-| `title`        | `title`          |           | `string`                 | ""                                           | The title of the picker dialog.                                                            |
-| `views`        |                  | readonly  | `(DocsView \| ViewId)[]` |                                              | The `google.Picker.View` objects to display in the picker as defined by the slot elements. |
-| `visible`      | `visible`        |           | `boolean`                | true                                         | Whether the picker dialog is visible.                                                      |
-| `width`        | `width`          |           | `number \| undefined`    |                                              | The width of the picker dialog.                                                            |
+| Property       | Attribute        | Type                   | Default                                      | Description                                           |
+| -------------- | ---------------- | ---------------------- | -------------------------------------------- | ----------------------------------------------------- |
+| `appId`        | `app-id`         | `string`               |                                              | The Google Drive app ID.                              |
+| `clientId`     | `client-id`      | `string`               |                                              | The Google API client ID.                             |
+| `developerKey` | `developerKey`   | `string \| undefined`  |                                              | The Google API developer key.                         |
+| `height`       | `height`         | `number \| undefined`  |                                              | The height of the picker dialog.                      |
+| `hideTitleBar` | `hide-title-bar` | `boolean \| undefined` |                                              | Whether to hide the title bar of the picker dialog.   |
+| `locale`       | `locale`         | `string \| undefined`  |                                              | The locale of the picker dialog.                      |
+| `maxItems`     | `max-items`      | `number \| undefined`  |                                              | The maximum number of items that the user can select. |
+| `multiselect`  | `multiselect`    | `boolean \| undefined` |                                              | Whether the user can select multiple items.           |
+| `oauthToken`   | `oauth-token`    | `string \| undefined`  |                                              | The OAuth token to authenticate the user.             |
+| `origin`       | `origin`         | `string \| undefined`  |                                              | The origin of the picker dialog.                      |
+| `relayUrl`     | `relay-url`      | `string \| undefined`  |                                              | The relay URL to use for cross-origin communication.  |
+| `scope`        | `scope`          | `string`               | "https://www.googleapis.com/auth/drive.file" | The scope of the OAuth token.                         |
+| `title`        | `title`          | `string`               | ""                                           | The title of the picker dialog.                       |
+| `visible`      | `visible`        | `boolean`              | true                                         | Whether the picker dialog is visible.                 |
+| `width`        | `width`          | `number \| undefined`  |                                              | The width of the picker dialog.                       |
 
 ### Methods
 

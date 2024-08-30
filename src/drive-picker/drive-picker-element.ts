@@ -1,3 +1,6 @@
+import { LitElement, html } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
+import { loadApi, retrieveAccessToken } from "../utils";
 /**
  * Copyright 2024 Google LLC
  *
@@ -13,11 +16,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { LitElement, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-
-import { loadApi, retrieveAccessToken } from "../utils";
 
 export type View = google.picker.DocsView;
 
@@ -93,7 +91,7 @@ export class DrivePickerElement
 	extends LitElement
 	implements DrivePickerElementProps, DrivePickerElementEventListeners
 {
-	private picker: google.picker.Picker | undefined;
+	protected picker: google.picker.Picker | undefined;
 	protected observer: MutationObserver | undefined;
 
 	@state()
@@ -192,12 +190,12 @@ export class DrivePickerElement
 	/**
 	 * The `google.Picker.View` objects to display in the picker as defined by the slot elements.
 	 */
-	get views(): (View | google.picker.ViewId)[] {
+	protected get views(): (View | google.picker.ViewId)[] {
 		const views = nestedViews(this);
 		return views.length ? views : ["all" as google.picker.ViewId];
 	}
 
-	async connectedCallback(): Promise<void> {
+	override async connectedCallback(): Promise<void> {
 		super.connectedCallback();
 		await loadApi();
 
@@ -221,7 +219,7 @@ export class DrivePickerElement
 		});
 	}
 
-	update(changedProperties: Map<PropertyKey, unknown>) {
+	protected override update(changedProperties: Map<PropertyKey, unknown>) {
 		// dispose the picker if any property other than visible is changed
 		if (!(changedProperties.size === 1 && changedProperties.has("visible"))) {
 			this.picker?.dispose();
@@ -245,12 +243,10 @@ export class DrivePickerElement
 		super.update(changedProperties);
 	}
 
-	render() {
+	protected override render() {
 		if (!this.picker) {
 			this.build();
 		}
-
-		console.log(this.views);
 
 		this.picker?.setVisible(this.visible);
 
@@ -282,7 +278,7 @@ export class DrivePickerElement
 		this.dispatch(data.action, data);
 	}
 
-	disconnectedCallback(): void {
+	override disconnectedCallback(): void {
 		this.picker?.dispose();
 		super.disconnectedCallback();
 	}
@@ -294,7 +290,7 @@ export class DrivePickerElement
 		this.dispatchEvent(new CustomEvent(type, { detail }));
 	}
 
-	protected createRenderRoot(): HTMLElement | DocumentFragment {
+	protected override createRenderRoot(): HTMLElement | DocumentFragment {
 		return this;
 	}
 }
