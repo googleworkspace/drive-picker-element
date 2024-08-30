@@ -26,4 +26,5 @@ jobs:
       - run: pnpm install
       - run: pnpm build
       - run: pnpm check
+      - run: npx playwright install --with-deps
       - run: pnpm test
