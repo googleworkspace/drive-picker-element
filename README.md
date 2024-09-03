@@ -100,10 +100,10 @@ Note: The Google Picker API does not support file organization, moving, or copyi
 
 ### Methods
 
-| Method                | Type                                                                                                                                                 |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `addEventListener`    | `(type: "cancel" \| "picked", listener: (ev: CustomEvent<ResponseObject>): void, options?: boolean \| AddEventListenerOptions \| undefined) => void` |
-| `removeEventListener` | `(type: "cancel" \| "picked", listener: (ev: CustomEvent<ResponseObject>): void, options?: boolean \| EventListenerOptions \| undefined) => void`    |
+| Method                | Type                                                                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `addEventListener`    | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| AddEventListenerOptions \| undefined) => void` |
+| `removeEventListener` | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| EventListenerOptions \| undefined) => void`    |
 
 ### Events
 
