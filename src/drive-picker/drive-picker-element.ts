@@ -44,15 +44,19 @@ export interface DrivePickerElementProps {
 	width?: number;
 }
 
+export type DrivePickerEvent = CustomEvent<google.picker.ResponseObject>;
+
+// TODO fix typings for Action to include "loaded"
+
 export interface DrivePickerElementEventListeners {
 	addEventListener(
-		type: "cancel" | "picked",
-		listener: (ev: CustomEvent<google.picker.ResponseObject>) => void,
+		type: "cancel" | "picked" | "loaded",
+		listener: (ev: DrivePickerEvent) => void,
 		options?: boolean | AddEventListenerOptions,
 	): void;
 	removeEventListener(
-		type: "cancel" | "picked",
-		listener: (ev: CustomEvent<google.picker.ResponseObject>) => void,
+		type: "cancel" | "picked" | "loaded",
+		listener: (ev: DrivePickerEvent) => void,
 		options?: boolean | EventListenerOptions,
 	): void;
 }
@@ -275,6 +279,10 @@ export class DrivePickerElement
 
 	private callbackToDispatchEvent(data: google.picker.ResponseObject) {
 		this.visible = Boolean(this.picker?.isVisible());
+		// TODO file bug for this
+		if (data.action === google.picker.Action.CANCEL) {
+			this.visible = false;
+		}
 		this.dispatch(data.action, data);
 	}
 

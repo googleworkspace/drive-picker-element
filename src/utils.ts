@@ -36,7 +36,7 @@ export async function retrieveAccessToken(
 	}
 
 	return new Promise((resolve) => {
-		const client = google.accounts.oauth2.initTokenClient({
+		const client = window.google.accounts.oauth2.initTokenClient({
 			client_id: clientId,
 			scope,
 
