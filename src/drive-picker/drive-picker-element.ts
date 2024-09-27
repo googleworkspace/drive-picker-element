@@ -1,6 +1,4 @@
-import { LitElement, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-import { loadApi, retrieveAccessToken } from "../utils";
+import { loadApi, retrieveAccessToken, HTMLElementWithHelpers } from "../utils";
 /**
  * Copyright 2024 Google LLC
  *
@@ -20,42 +18,42 @@ import { loadApi, retrieveAccessToken } from "../utils";
 export type View = google.picker.DocsView;
 
 export interface PickerViewElement extends HTMLElement {
-	// TODO types for google.picker.View
-	view: google.picker.DocsView;
+  // TODO types for google.picker.View to @types/google.picker
+  view: google.picker.DocsView;
 }
 
-export interface DrivePickerElementProps {
-	// Required properties
-	appId: string;
-	clientId: string;
-	// Optional properties
-	developerKey?: string;
-	height?: number;
-	hideTitleBar?: boolean;
-	locale?: string;
-	maxItems?: number;
-	multiselect?: boolean;
-	oauthToken?: string;
-	origin?: string;
-	relayUrl?: string;
-	scope?: string;
-	title?: string;
-	visible?: boolean;
-	width?: number;
-}
+export type DrivePickerEvent = CustomEvent<google.picker.ResponseObject>;
 
+// TODO fix typings for Action to include "loaded" to @types/google.picker
 export interface DrivePickerElementEventListeners {
-	addEventListener(
-		type: "cancel" | "picked",
-		listener: (ev: CustomEvent<google.picker.ResponseObject>) => void,
-		options?: boolean | AddEventListenerOptions,
-	): void;
-	removeEventListener(
-		type: "cancel" | "picked",
-		listener: (ev: CustomEvent<google.picker.ResponseObject>) => void,
-		options?: boolean | EventListenerOptions,
-	): void;
+  addEventListener(
+    type: "cancel" | "picked" | "loaded",
+    listener: (ev: DrivePickerEvent) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+  removeEventListener(
+    type: "cancel" | "picked" | "loaded",
+    listener: (ev: DrivePickerEvent) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
+
+const AUTH_ATTRIBUTES = ["client-id", "scope"];
+const PICKER_ATTRIBUTES = [
+  "app-id",
+  "developer-key",
+  "height",
+  "hide-title-bar",
+  "locale",
+  "max-items",
+  "multiselect",
+  "oauth-token",
+  "origin",
+  "relay-url",
+  "title",
+  "visible",
+  "width",
+];
 
 /**
  * The `drive-picker` web component provides a convenient way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a "File Open" dialog for accessing and interacting with files stored on Google Drive.
@@ -86,280 +84,192 @@ export interface DrivePickerElementEventListeners {
  * ```
  *
  */
-@customElement("drive-picker")
 export class DrivePickerElement
-	extends LitElement
-	implements DrivePickerElementProps, DrivePickerElementEventListeners
+  extends HTMLElementWithHelpers
+  implements DrivePickerElementEventListeners
 {
-	protected picker: google.picker.Picker | undefined;
-	protected observer: MutationObserver | undefined;
+  static observedAttributes = [...AUTH_ATTRIBUTES, "app-id",
+  "developer-key",
+  "height",
+  "hide-title-bar",
+  "locale",
+  "max-items",
+  "multiselect",
+  "oauth-token",
+  "origin",
+  "relay-url",
+  "title",
+  "visible",
+  "width",];
 
-	@state()
-	private _oauthToken: string | undefined;
+  protected picker: google.picker.Picker | undefined;
+  protected observer: MutationObserver | undefined;
+  protected google: typeof google | undefined;
+  protected loading: Promise<void> | undefined;
 
-	/**
-	 * The Google Drive app ID.
-	 */
-	@property({ type: String, attribute: "app-id" })
-	appId!: string;
+  get visible(): boolean {
+    // TODO this doesn't work after a cancel... need to file a bug
+    return Boolean(this.picker?.isVisible());
+  }
 
-	/**
-	 * The Google API client ID.
-	 */
-	@property({ type: String, attribute: "client-id" })
-	clientId!: string;
+  set visible(value: boolean) {
+    this.picker?.setVisible(value);
+  }
 
-	/**
-	 * The Google API developer key.
-	 */
-	@property({ type: String })
-	developerKey?: string;
+  attributeChangedCallback() {
+    this.build();
+  }
 
-	/**
-	 * The height of the picker dialog.
-	 */
-	@property({ type: Number })
-	height?: number;
+  private async build() {
+    this.picker?.dispose();
 
-	/**
-	 * Whether to hide the title bar of the picker dialog.
-	 */
-	@property({ type: Boolean, attribute: "hide-title-bar" })
-	hideTitleBar?: boolean;
+    // this await is necessary as an attribute may have changed
+    // prior to the API initialy being loaded
+    await this.loading;
 
-	/**
-	 * The locale of the picker dialog.
-	 */
-	@property({ type: String })
-	locale?: string;
+    if (!this.google) return;
 
-	/**
-	 * The maximum number of items that the user can select.
-	 */
-	@property({ type: Number, attribute: "max-items" })
-	maxItems?: number;
+    let builder = new this.google.picker.PickerBuilder().setCallback(
+      (data: google.picker.ResponseObject) => {
+        this.callbackToDispatchEvent(data);
+      }
+    );
 
-	/**
-	 * Whether the user can select multiple items.
-	 */
-	@property({ type: Boolean })
-	multiselect?: boolean;
+    const appId = this.getAttribute("app-id");
+    if (appId !== null) builder = builder.setAppId(appId);
 
-	/**
-	 * The OAuth token to authenticate the user.
-	 */
-	@property({ type: String, attribute: "oauth-token" })
-	oauthToken?: string;
+    const developerKey = this.getAttribute("developer-key");
+    if (developerKey !== null) builder = builder.setDeveloperKey(developerKey);
 
-	/**
-	 * The origin of the picker dialog.
-	 */
-	@property({ type: String })
-	origin?: string;
+    const locale = this.getAttribute("locale");
+    if (locale !== null) builder = builder.setLocale(locale);
 
-	/**
-	 * The relay URL to use for cross-origin communication.
-	 */
-	@property({ type: String, attribute: "relay-url" })
-	relayUrl?: string;
+    const maxItems = this.getNumberAttribute("max-items");
+    if (maxItems !== null) builder = builder.setMaxItems(maxItems);
 
-	/**
-	 * The scope of the OAuth token.
-	 */
-	@property({ type: String })
-	scope = "https://www.googleapis.com/auth/drive.file";
+    const origin = this.getAttribute("origin");
+    if (origin !== null) builder = builder.setOrigin(origin);
 
-	/**
-	 * The title of the picker dialog.
-	 */
-	@property({ type: String })
-	title = "";
+    const relayUrl = this.getAttribute("relay-url");
+    if (relayUrl !== null) builder = builder.setRelayUrl(relayUrl);
 
-	/**
-	 * Whether the picker dialog is visible.
-	 */
-	@property({ type: Boolean, reflect: true })
-	visible = true;
+    const title = this.getAttribute("title");
+    if (title !== null) builder = builder.setTitle(title);
 
-	/**
-	 * The width of the picker dialog.
-	 */
-	@property({ type: Number })
-	width?: number;
+    const width = this.getNumberAttribute("width");
+    // @ts-ignore TODO: fix typings
+    if (width !== null) builder = builder.setWidth(width);
 
-	/**
-	 * The `google.Picker.View` objects to display in the picker as defined by the slot elements.
-	 */
-	protected get views(): (View | google.picker.ViewId)[] {
-		const views = nestedViews(this);
-		return views.length ? views : ["all" as google.picker.ViewId];
-	}
+    const height = this.getNumberAttribute("height");
+    // @ts-ignore TODO: fix typings
+    if (height !== null) builder = builder.setHeight(height);
 
-	override async connectedCallback(): Promise<void> {
-		super.connectedCallback();
-		await loadApi();
+    const hideTitleBar = this.getBooleanAttribute("hide-title-bar");
+    if (hideTitleBar !== null) builder = builder.hideTitleBar();
 
-		// Watch for changes in the picker element slot and their attributes
-		this.observer = new MutationObserver((mutations) => {
-			const filteredMutations = mutations.filter(
-				(mutation) =>
-					mutation.type === "childList" ||
-					(mutation.type === "attributes" && mutation.target !== this),
-			);
+    // OAuth token is required either as an attribute or from the OAuth flow using the client ID and scope
+    const oauthToken =
+      this.getAttribute("oauth-token") ??
+      (await retrieveAccessToken(
+        // biome-ignore lint/style/noNonNullAssertion: just let the error bubble up when null
+        this.getAttribute("client-id")!,
+        this.getAttribute("scope") ??
+          "https://www.googleapis.com/auth/drive.file"
+      ));
+    builder = builder.setOAuthToken(oauthToken);
 
-			if (filteredMutations.length) {
-				this.requestUpdate();
-			}
-		});
+    // Features
+    if (this.getBooleanAttribute("multiselect")) {
+      builder = builder.enableFeature(
+        this.google.picker.Feature.MULTISELECT_ENABLED
+      );
+    }
 
-		this.observer?.observe(this, {
-			childList: true,
-			subtree: true,
-			attributes: true,
-		});
-	}
+    for (const view of this.views) {
+      builder = builder.addView(view);
+    }
 
-	protected override update(changedProperties: Map<PropertyKey, unknown>) {
-		// dispose the picker if any property other than visible is changed
-		if (!(changedProperties.size === 1 && changedProperties.has("visible"))) {
-			this.picker?.dispose();
-			this.picker = undefined;
-		}
+    this.picker = builder.build();
 
-		if (changedProperties.has("oauthToken")) {
-			this._oauthToken = this.oauthToken;
-		}
+    this.picker.setVisible(true);
+  }
 
-		if (
-			(this.visible && changedProperties.has("clientId")) ||
-			changedProperties.has("scope") ||
-			!this._oauthToken
-		) {
-			retrieveAccessToken(this.clientId, this.scope).then((oauthToken) => {
-				this._oauthToken = oauthToken;
-				this.requestUpdate();
-			});
-		}
-		super.update(changedProperties);
-	}
+  /**
+   * The `google.Picker.View` objects to display in the picker as defined by the slot elements.
+   */
+  protected get views(): (View | google.picker.ViewId)[] {
+    const views = nestedViews(this);
+    return views.length ? views : ["all" as google.picker.ViewId];
+  }
 
-	protected override render() {
-		if (!this.picker) {
-			this.build();
-		}
+  async connectedCallback(): Promise<void> {
+    this.loading = loadApi().then((google) => {
+      this.google = google;
+      this.build();
+    });
 
-		this.picker?.setVisible(this.visible);
+    // Watch for changes in the picker element slot and their attributes
+    this.observer = new MutationObserver((mutations) => {
+      const filteredMutations = mutations.filter(
+        (mutation) =>
+          mutation.type === "childList" ||
+          (mutation.type === "attributes" && mutation.target !== this)
+      );
 
-		return html`<slot></slot>`;
-	}
+      if (filteredMutations.length) {
+        this.build();
+      }
+    });
 
-	private build() {
-		if (!this._oauthToken) {
-			return;
-		}
+    this.observer?.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    });
+  }
 
-		let builder = new google.picker.PickerBuilder()
-			.setOAuthToken(this._oauthToken)
-			.setCallback((data: google.picker.ResponseObject) => {
-				this.callbackToDispatchEvent(data);
-			});
+  private callbackToDispatchEvent(data: google.picker.ResponseObject) {
+    this.dispatch(data.action, data);
+  }
 
-		for (const view of this.views) {
-			builder = builder.addView(view);
-		}
+  disconnectedCallback(): void {
+    this.picker?.dispose();
+  }
 
-		builder = setBuilderProperties(builder, this);
-
-		this.picker = builder.build();
-	}
-
-	private callbackToDispatchEvent(data: google.picker.ResponseObject) {
-		this.visible = Boolean(this.picker?.isVisible());
-		this.dispatch(data.action, data);
-	}
-
-	override disconnectedCallback(): void {
-		this.picker?.dispose();
-		super.disconnectedCallback();
-	}
-
-	private dispatch(
-		type: "cancel" | "picked",
-		detail: google.picker.ResponseObject,
-	) {
-		this.dispatchEvent(new CustomEvent(type, { detail }));
-	}
-
-	protected override createRenderRoot(): HTMLElement | DocumentFragment {
-		return this;
-	}
+  private dispatch(
+    type: "cancel" | "picked",
+    detail: google.picker.ResponseObject
+  ) {
+    this.dispatchEvent(new CustomEvent(type, { detail }));
+  }
 }
 
 function isView(obj: HTMLElement): obj is PickerViewElement {
-	return (
-		"view" in obj &&
-		// @ts-ignore TODO missing types
-		obj.view instanceof google.picker.View
-	);
+  return (
+    "view" in obj &&
+    // @ts-ignore TODO missing types
+    obj.view instanceof window.google.picker.View
+  );
 }
 
 function filterElementsToViewOrViewGroup(
-	elements: Array<HTMLElement>,
+  elements: Array<HTMLElement>
 ): Array<View> {
-	return elements
-		.filter((element) => isView(element))
-		.map((element) => element.view);
+  return elements
+    .filter((element) => isView(element))
+    .map((element) => element.view);
 }
 
 function nestedViews(target: HTMLElement, selector = "*"): Array<View> {
-	return filterElementsToViewOrViewGroup(
-		Array.from(target.querySelectorAll<HTMLElement>(selector)),
-	);
-}
-
-function setBuilderProperties(
-	_builder: google.picker.PickerBuilder,
-	{
-		appId,
-		developerKey,
-		relayUrl,
-		title,
-		height,
-		width,
-	}: DrivePickerElementProps,
-) {
-	let builder = _builder;
-	if (appId) {
-		builder = builder.setAppId(appId);
-	}
-
-	if (developerKey) {
-		builder = builder.setDeveloperKey(developerKey);
-	}
-
-	if (relayUrl) {
-		builder = builder.setRelayUrl(relayUrl);
-	}
-
-	if (title) {
-		builder = builder.setTitle(title);
-	}
-
-	if (height) {
-		// @ts-ignore TODO: fix typings
-		builder = builder.setHeight(height);
-	}
-
-	if (width) {
-		// @ts-ignore TODO: fix typings
-		builder = builder.setWidth(width);
-	}
-
-	return builder;
+  return filterElementsToViewOrViewGroup(
+    Array.from(target.querySelectorAll<HTMLElement>(selector))
+  );
 }
 
 declare global {
-	interface HTMLElementTagNameMap {
-		"drive-picker": DrivePickerElement;
-	}
+  interface HTMLElementTagNameMap {
+    "drive-picker": DrivePickerElement;
+  }
 }
+
+customElements.define("drive-picker", DrivePickerElement);

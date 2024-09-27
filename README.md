@@ -80,30 +80,18 @@ Note: The Google Picker API does not support file organization, moving, or copyi
 
 ### Properties
 
-| Property       | Attribute        | Type                   | Default                                      | Description                                           |
-| -------------- | ---------------- | ---------------------- | -------------------------------------------- | ----------------------------------------------------- |
-| `appId`        | `app-id`         | `string`               |                                              | The Google Drive app ID.                              |
-| `clientId`     | `client-id`      | `string`               |                                              | The Google API client ID.                             |
-| `developerKey` | `developerKey`   | `string \| undefined`  |                                              | The Google API developer key.                         |
-| `height`       | `height`         | `number \| undefined`  |                                              | The height of the picker dialog.                      |
-| `hideTitleBar` | `hide-title-bar` | `boolean \| undefined` |                                              | Whether to hide the title bar of the picker dialog.   |
-| `locale`       | `locale`         | `string \| undefined`  |                                              | The locale of the picker dialog.                      |
-| `maxItems`     | `max-items`      | `number \| undefined`  |                                              | The maximum number of items that the user can select. |
-| `multiselect`  | `multiselect`    | `boolean \| undefined` |                                              | Whether the user can select multiple items.           |
-| `oauthToken`   | `oauth-token`    | `string \| undefined`  |                                              | The OAuth token to authenticate the user.             |
-| `origin`       | `origin`         | `string \| undefined`  |                                              | The origin of the picker dialog.                      |
-| `relayUrl`     | `relay-url`      | `string \| undefined`  |                                              | The relay URL to use for cross-origin communication.  |
-| `scope`        | `scope`          | `string`               | "https://www.googleapis.com/auth/drive.file" | The scope of the OAuth token.                         |
-| `title`        | `title`          | `string`               | ""                                           | The title of the picker dialog.                       |
-| `visible`      | `visible`        | `boolean`              | true                                         | Whether the picker dialog is visible.                 |
-| `width`        | `width`          | `number \| undefined`  |                                              | The width of the picker dialog.                       |
+| Property  | Type      |
+| --------- | --------- |
+| `visible` | `boolean` |
 
 ### Methods
 
-| Method                | Type                                                                                                                                                 |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `addEventListener`    | `(type: "cancel" \| "picked", listener: (ev: CustomEvent<ResponseObject>): void, options?: boolean \| AddEventListenerOptions \| undefined) => void` |
-| `removeEventListener` | `(type: "cancel" \| "picked", listener: (ev: CustomEvent<ResponseObject>): void, options?: boolean \| EventListenerOptions \| undefined) => void`    |
+| Method                | Type                                                                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `addEventListener`    | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| AddEventListenerOptions \| undefined) => void` |
+| `getBooleanAttribute` | `(name: string): boolean`                                                                                                                             |
+| `getNumberAttribute`  | `(name: string): number \| null`                                                                                                                      |
+| `removeEventListener` | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| EventListenerOptions \| undefined) => void`    |
 
 ### Events
 
@@ -132,20 +120,16 @@ The `drive-picker-docs-view` element is used to define a view for the Google Dri
 
 ### Properties
 
-| Property              | Attribute               | Modifiers | Type                                                                                                                                                                                                                       | Default | Description                                                                                                                                                                                                                                                                                              |
-| --------------------- | ----------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enableDrives`        | `enable-drives`         |           | `boolean \| undefined`                                                                                                                                                                                                     |         | Indicates whether to enable drives in the view.                                                                                                                                                                                                                                                          |
-| `includeFolders`      | `include-folders`       |           | `boolean \| undefined`                                                                                                                                                                                                     |         | Indicates whether to include folders in the view.                                                                                                                                                                                                                                                        |
-| `label`               | `label`                 |           | `string \| undefined`                                                                                                                                                                                                      |         | The label of the view.                                                                                                                                                                                                                                                                                   |
-| `mimeTypes`           | `mime-types`            |           | `string \| undefined`                                                                                                                                                                                                      |         | The MIME types to filter the view by.                                                                                                                                                                                                                                                                    |
-| `mode`                | `mode`                  |           | `"GRID" \| "LIST"`                                                                                                                                                                                                         | "GRID"  | The mode of the view. This should be one of the values of the `google.picker.DocsViewMode` enum.                                                                                                                                                                                                         |
-| `ownedByMe`           | `owned-by-me`           |           | `boolean \| undefined`                                                                                                                                                                                                     |         | Indicates whether to show only files owned by the user in the view.                                                                                                                                                                                                                                      |
-| `parent`              | `parent`                |           | `string \| undefined`                                                                                                                                                                                                      |         | The ID of the parent folder to restrict the view to.                                                                                                                                                                                                                                                     |
-| `query`               | `query`                 |           | `string \| undefined`                                                                                                                                                                                                      |         | The query string to filter the view by.                                                                                                                                                                                                                                                                  |
-| `selectFolderEnabled` | `select-folder-enabled` |           | `boolean \| undefined`                                                                                                                                                                                                     |         | Indicates whether selecting folders is enabled in the view.                                                                                                                                                                                                                                              |
-| `starred`             | `starred`               |           | `boolean \| undefined`                                                                                                                                                                                                     |         | Indicates whether to show only starred files in the view.                                                                                                                                                                                                                                                |
-| `view`                |                         | readonly  | `DocsView`                                                                                                                                                                                                                 |         | Gets the Google Drive Picker view based on the current property values.                                                                                                                                                                                                                                  |
-| `viewId`              | `view-id`               |           | `"DOCS" \| "DOCS_IMAGES" \| "DOCS_IMAGES_AND_VIDEOS" \| "DOCS_VIDEOS" \| "DOCUMENTS" \| "DRAWINGS" \| "FOLDERS" \| "FORMS" \| "IMAGE_SEARCH" \| "PDFS" \| "PHOTO_ALBUMS" \| "PHOTO_UPLOAD" \| ... 6 more ... \| "YOUTUBE"` | "DOCS"  | The ID of the view. This should be one of the values of the<br />`google.picker.ViewId` enum.<br /><br />Note: The default value is `DOCS` which corresponds to the<br />`google.picker.ViewId.DOCS` enum value in the Google Drive Picker API and<br />corresponsds to all Google Drive document types. |
+| Property | Modifiers | Type       | Description                                                             |
+| -------- | --------- | ---------- | ----------------------------------------------------------------------- |
+| `view`   | readonly  | `DocsView` | Gets the Google Drive Picker view based on the current property values. |
+
+### Methods
+
+| Method                | Type                             |
+| --------------------- | -------------------------------- |
+| `getBooleanAttribute` | `(name: string): boolean`        |
+| `getNumberAttribute`  | `(name: string): number \| null` |
 
 <!-- END docs -->
 

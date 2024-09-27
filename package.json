@@ -21,6 +21,7 @@
 		"prepare": "husky",
 		"build": "wireit",
 		"build:docs": "wireit",
+		"build:json": "wireit",
 		"serve": "wireit",
 		"check": "tsc --noEmit",
 		"lint": "biome check .",
@@ -30,7 +31,6 @@
 		"build-storybook": "storybook build"
 	},
 	"dependencies": {
-		"lit": "^3.1.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
@@ -67,14 +67,16 @@
 	"customElements": "custom-elements.json",
 	"wireit": {
 		"build": {
+			"cache": false,
 			"clean": true,
-			"command": "tsup --dts --format esm --target es2020 --splitting false --sourcemap src/**/*.ts",
+			"command": "tsc",
 			"dependencies": [
 				"build:vscode",
 				"build:docs"
 			],
 			"files": [
-				"src/**/*.ts"
+				"src/**/*.ts",
+				"tsconfig.json"
 			],
 			"output": [
 				"dist/**/*.js",
@@ -82,7 +84,7 @@
 			]
 		},
 		"build:json": {
-			"command": "cem analyze --litelement --outdir dist --exclude '**/*.test.ts'",
+			"command": "cem analyze --outdir dist --exclude '**/*.test.ts'",
 			"files": [
 				"src/**/*.ts"
 			],
