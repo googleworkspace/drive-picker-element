@@ -17,55 +17,68 @@
 const GAPI_URL = "https://apis.google.com/js/api.js";
 const GSI_URL = "https://accounts.google.com/gsi/client";
 
-export async function loadApi(api = "client:picker") {
-	if (!window.gapi) {
-		await injectScript(GAPI_URL);
-	}
+export async function loadApi(api = "client:picker"): Promise<typeof google> {
+  if (!window.gapi) {
+    await injectScript(GAPI_URL);
+  }
 
-	await new Promise<void>((r) => {
-		window.gapi.load(api, r);
-	});
+  await new Promise<void>((r) => {
+    window.gapi.load(api, r);
+  });
+
+  return window.google;
 }
 
 export async function retrieveAccessToken(
-	clientId: string,
-	scope: string,
+  clientId: string,
+  scope: string
 ): Promise<string> {
-	if (!window.google?.accounts?.oauth2) {
-		await injectScript(GSI_URL);
-	}
+  if (!window.google?.accounts?.oauth2) {
+    await injectScript(GSI_URL);
+  }
 
-	return new Promise((resolve) => {
-		const client = google.accounts.oauth2.initTokenClient({
-			client_id: clientId,
-			scope,
+  return new Promise((resolve) => {
+    const client = window.google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope,
 
-			callback: ({ access_token }) => {
-				resolve(access_token);
-			},
-			error_callback: (error) => {
-				throw error;
-			},
-		});
+      callback: ({ access_token }) => {
+        resolve(access_token);
+      },
+      error_callback: (error) => {
+        throw error;
+      },
+    });
 
-		client.requestAccessToken();
-	});
+    client.requestAccessToken();
+  });
 }
 
 export async function injectScript(src: string): Promise<void> {
-	return new Promise((resolve, reject) => {
-		if (!document.querySelector(`script[src="${src}"]`)) {
-			document.head.appendChild(
-				Object.assign(document.createElement("script"), {
-					src,
-					onload: resolve,
-					onerror: () => {
-						reject(`error loading ${src}`);
-					},
-				}),
-			);
-		} else {
-			resolve();
-		}
-	});
+  return new Promise((resolve, reject) => {
+    if (!document.querySelector(`script[src="${src}"]`)) {
+      document.head.appendChild(
+        Object.assign(document.createElement("script"), {
+          src,
+          onload: resolve,
+          onerror: () => {
+            reject(`error loading ${src}`);
+          },
+        })
+      );
+    } else {
+      resolve();
+    }
+  });
+}
+
+export class HTMLElementWithHelpers extends HTMLElement {
+  getNumberAttribute(name: string): number | null {
+    const value = this.getAttribute(name);
+    return value ? Number(value) : null;
+  }
+
+  getBooleanAttribute(name: string): boolean {
+    return this.getAttribute(name) !== null;
+  }
 }
