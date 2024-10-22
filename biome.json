@@ -1,10 +1,5 @@
 {
 	"organizeImports": { "enabled": true },
-	"formatter": {
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"ignore": ["*.json"]
-	},
 	"linter": {
 		"enabled": true,
 		"rules": {

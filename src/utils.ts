@@ -17,7 +17,7 @@
 const GAPI_URL = "https://apis.google.com/js/api.js";
 const GSI_URL = "https://accounts.google.com/gsi/client";
 
-export async function loadApi(api = "client:picker") {
+export async function loadApi(api = "client:picker"): Promise<typeof google> {
 	if (!window.gapi) {
 		await injectScript(GAPI_URL);
 	}
@@ -25,6 +25,8 @@ export async function loadApi(api = "client:picker") {
 	await new Promise<void>((r) => {
 		window.gapi.load(api, r);
 	});
+
+	return window.google;
 }
 
 export async function retrieveAccessToken(
@@ -36,7 +38,7 @@ export async function retrieveAccessToken(
 	}
 
 	return new Promise((resolve) => {
-		const client = google.accounts.oauth2.initTokenClient({
+		const client = window.google.accounts.oauth2.initTokenClient({
 			client_id: clientId,
 			scope,
 
@@ -68,4 +70,16 @@ export async function injectScript(src: string): Promise<void> {
 			resolve();
 		}
 	});
+}
+
+export function getNumberAttribute(
+	element: Element,
+	name: string,
+): number | null {
+	const value = element.getAttribute(name);
+	return value ? Number(value) : null;
+}
+
+export function getBooleanAttribute(element: Element, name: string): boolean {
+	return element.getAttribute(name) !== null;
 }
