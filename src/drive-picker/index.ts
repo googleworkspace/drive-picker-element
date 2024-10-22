@@ -15,8 +15,8 @@
  */
 
 export {
-  DrivePickerElement,
-  type DrivePickerEvent,
+	DrivePickerElement,
+	type DrivePickerEvent,
 } from "./drive-picker-element";
 
 export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";

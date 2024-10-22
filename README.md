@@ -89,8 +89,6 @@ Note: The Google Picker API does not support file organization, moving, or copyi
 | Method                | Type                                                                                                                                                  |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `addEventListener`    | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| AddEventListenerOptions \| undefined) => void` |
-| `getBooleanAttribute` | `(name: string): boolean`                                                                                                                             |
-| `getNumberAttribute`  | `(name: string): number \| null`                                                                                                                      |
 | `removeEventListener` | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| EventListenerOptions \| undefined) => void`    |
 
 ### Events
@@ -123,13 +121,6 @@ The `drive-picker-docs-view` element is used to define a view for the Google Dri
 | Property | Modifiers | Type       | Description                                                             |
 | -------- | --------- | ---------- | ----------------------------------------------------------------------- |
 | `view`   | readonly  | `DocsView` | Gets the Google Drive Picker view based on the current property values. |
-
-### Methods
-
-| Method                | Type                             |
-| --------------------- | -------------------------------- |
-| `getBooleanAttribute` | `(name: string): boolean`        |
-| `getNumberAttribute`  | `(name: string): number \| null` |
 
 <!-- END docs -->
 

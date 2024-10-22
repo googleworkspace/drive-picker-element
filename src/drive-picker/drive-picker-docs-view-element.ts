@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { HTMLElementWithHelpers } from "../utils";
+import { getBooleanAttribute } from "../utils";
 export type ViewId = keyof typeof google.picker.ViewId;
 
 /**
@@ -30,65 +30,59 @@ export type ViewId = keyof typeof google.picker.ViewId;
  * @see https://developers.google.com/drive/picker/reference#docs-view
  *
  */
-export class DrivePickerDocsViewElement extends HTMLElementWithHelpers {
-  /**
-   * Gets the Google Drive Picker view based on the current property values.
-   * @returns {google.picker.DocsView} The Google Drive picker view.
-   */
-  public get view(): google.picker.DocsView {
-    const viewId = this.getAttribute("viewId");
+export class DrivePickerDocsViewElement extends HTMLElement {
+	/**
+	 * Gets the Google Drive Picker view based on the current property values.
+	 * @returns {google.picker.DocsView} The Google Drive picker view.
+	 */
+	public get view(): google.picker.DocsView {
+		const viewId = this.getAttribute("viewId");
 
-    const view = new window.google.picker.DocsView(
-      viewId ? window.google.picker.ViewId[viewId as ViewId] : undefined
-    );
+		const view = new window.google.picker.DocsView(
+			viewId ? window.google.picker.ViewId[viewId as ViewId] : undefined,
+		);
 
-    const label = this.getAttribute("label");
-    // @ts-ignore TODO: fix typings in @types/google.picker
-    if (label !== null) view.setLabel(label);
+		const label = this.getAttribute("label");
+		// @ts-ignore TODO: fix typings in @types/google.picker
+		if (label !== null) view.setLabel(label);
 
-    const enableDrives = this.getBooleanAttribute("enable-drives");
-    if (enableDrives !== null) view.setEnableDrives(enableDrives);
+		const enableDrives = getBooleanAttribute(this, "enable-drives");
+		if (enableDrives !== null) view.setEnableDrives(enableDrives);
 
-    const includeFolders = this.getBooleanAttribute("include-folders");
-    if (includeFolders !== null) view.setIncludeFolders(includeFolders);
+		const includeFolders = getBooleanAttribute(this, "include-folders");
+		if (includeFolders !== null) view.setIncludeFolders(includeFolders);
 
-    const mimetypes = this.getAttribute("mime-types");
-    if (mimetypes !== null) view.setMimeTypes(mimetypes);
+		const mimetypes = this.getAttribute("mime-types");
+		if (mimetypes !== null) view.setMimeTypes(mimetypes);
 
-    const mode = this.getAttribute("mode");
-    if (mode)
-      view.setMode(
-        google.picker.DocsViewMode[
-          mode as keyof typeof google.picker.DocsViewMode
-        ]
-      );
+		const mode = this.getAttribute("mode");
+		if (mode)
+			view.setMode(
+				google.picker.DocsViewMode[
+					mode as keyof typeof google.picker.DocsViewMode
+				],
+			);
 
-    const ownedByMe = this.getBooleanAttribute("owned-by-me");
-    if (ownedByMe !== null) view.setOwnedByMe(ownedByMe);
+		const ownedByMe = getBooleanAttribute(this, "owned-by-me");
+		if (ownedByMe !== null) view.setOwnedByMe(ownedByMe);
 
-    const parent = this.getAttribute("parent");
-    if (parent !== null) view.setParent(parent);
+		const parent = this.getAttribute("parent");
+		if (parent !== null) view.setParent(parent);
 
-    const query = this.getAttribute("query");
-    // @ts-ignore TODO: fix typings
-    if (query !== null) view.setQuery(query);
+		const query = this.getAttribute("query");
+		// @ts-ignore TODO: fix typings
+		if (query !== null) view.setQuery(query);
 
-    const selectFolderEnabled = this.getBooleanAttribute(
-      "select-folder-enabled"
-    );
-    if (selectFolderEnabled !== null)
-      view.setSelectFolderEnabled(selectFolderEnabled);
+		const selectFolderEnabled = getBooleanAttribute(
+			this,
+			"select-folder-enabled",
+		);
+		if (selectFolderEnabled !== null)
+			view.setSelectFolderEnabled(selectFolderEnabled);
 
-    const starred = this.getBooleanAttribute("starred");
-    if (starred !== null) view.setStarred(starred);
+		const starred = getBooleanAttribute(this, "starred");
+		if (starred !== null) view.setStarred(starred);
 
-    return view;
-  }
+		return view;
+	}
 }
-
-declare global {
-  interface HTMLElementTagNameMap {
-    "drive-picker-docs-view": DrivePickerDocsViewElement;
-  }
-}
-customElements.define("drive-picker-docs-view", DrivePickerDocsViewElement);
