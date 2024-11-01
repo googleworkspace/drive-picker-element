@@ -23,13 +23,11 @@ import {
 export type View = google.picker.DocsView;
 
 export interface PickerViewElement extends HTMLElement {
-	// TODO types for google.picker.View to @types/google.picker
 	view: google.picker.DocsView;
 }
 
 export type DrivePickerEvent = CustomEvent<google.picker.ResponseObject>;
 
-// TODO fix typings for Action to include "loaded" to @types/google.picker
 export interface DrivePickerElementEventListeners {
 	addEventListener(
 		type: "cancel" | "picked" | "loaded",
@@ -57,7 +55,7 @@ export interface DrivePickerElementEventListeners {
  *
  * @fires {CustomEvent<google.picker.ResponseObject>} cancel - Triggered when the user cancels the picker dialog.
  * @fires {CustomEvent<google.picker.ResponseObject>} picked - Triggered when the user picks one or more items.
- * t@fires {CustomEvent<google.picker.ResponseObject>} loaded - Triggered when the picker is loaded.
+ * @fires {CustomEvent<google.picker.ResponseObject>} loaded - Triggered when the picker is loaded.
  *
  * @slot - The View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.
  *
@@ -83,7 +81,6 @@ export class DrivePickerElement
 			"scope",
 			"app-id",
 			"developer-key",
-			"height",
 			"hide-title-bar",
 			"locale",
 			"max-items",
@@ -93,7 +90,6 @@ export class DrivePickerElement
 			"relay-url",
 			"title",
 			"visible",
-			"width",
 		];
 	}
 	protected picker: google.picker.Picker | undefined;
@@ -137,7 +133,8 @@ export class DrivePickerElement
 		if (developerKey !== null) builder = builder.setDeveloperKey(developerKey);
 
 		const locale = this.getAttribute("locale");
-		if (locale !== null) builder = builder.setLocale(locale);
+		if (locale !== null)
+			builder = builder.setLocale(locale as google.picker.Locales);
 
 		const maxItems = getNumberAttribute(this, "max-items");
 		if (maxItems !== null) builder = builder.setMaxItems(maxItems);
@@ -150,14 +147,6 @@ export class DrivePickerElement
 
 		const title = this.getAttribute("title");
 		if (title !== null) builder = builder.setTitle(title);
-
-		const width = getNumberAttribute(this, "width");
-		// @ts-ignore TODO: fix typings
-		if (width !== null) builder = builder.setWidth(width);
-
-		const height = getNumberAttribute(this, "height");
-		// @ts-ignore TODO: fix typings
-		if (height !== null) builder = builder.setHeight(height);
 
 		const hideTitleBar = getBooleanAttribute(this, "hide-title-bar");
 		if (hideTitleBar !== null) builder = builder.hideTitleBar();
@@ -232,7 +221,7 @@ export class DrivePickerElement
 	}
 
 	private dispatch(
-		type: "cancel" | "picked",
+		type: google.picker.Action,
 		detail: google.picker.ResponseObject,
 	) {
 		this.dispatchEvent(new CustomEvent(type, { detail }));
@@ -240,11 +229,7 @@ export class DrivePickerElement
 }
 
 function isView(obj: HTMLElement): obj is PickerViewElement {
-	return (
-		"view" in obj &&
-		// @ts-ignore TODO missing types
-		obj.view instanceof window.google.picker.View
-	);
+	return "view" in obj && obj.view instanceof window.google.picker.View;
 }
 
 function filterElementsToViewOrViewGroup(

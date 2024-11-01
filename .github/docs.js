@@ -1,6 +1,6 @@
 import fs from "node:fs";
-import prettier from "prettier";
 import { customElementsManifestToMarkdown } from "@custom-elements-manifest/to-markdown";
+import prettier from "prettier";
 
 const START = "<!-- START docs -->";
 const END = "<!-- END docs -->";

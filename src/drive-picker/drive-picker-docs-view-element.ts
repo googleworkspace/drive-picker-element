@@ -42,10 +42,6 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 			viewId ? window.google.picker.ViewId[viewId as ViewId] : undefined,
 		);
 
-		const label = this.getAttribute("label");
-		// @ts-ignore TODO: fix typings in @types/google.picker
-		if (label !== null) view.setLabel(label);
-
 		const enableDrives = getBooleanAttribute(this, "enable-drives");
 		if (enableDrives !== null) view.setEnableDrives(enableDrives);
 
@@ -70,7 +66,6 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 		if (parent !== null) view.setParent(parent);
 
 		const query = this.getAttribute("query");
-		// @ts-ignore TODO: fix typings
 		if (query !== null) view.setQuery(query);
 
 		const selectFolderEnabled = getBooleanAttribute(
