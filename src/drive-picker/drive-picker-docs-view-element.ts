@@ -22,11 +22,6 @@ type DocsViewMode = keyof typeof google.picker.DocsViewMode;
 
 export interface DrivePickerDocsViewElementProps {
 	/**
-	 * The label of the view.
-	 */
-	label?: string;
-
-	/**
 	 * Indicates whether to enable drives in the view.
 	 */
 	enableDrives?: boolean;
@@ -151,11 +146,6 @@ export class DrivePickerDocsViewElement
 			this.viewId && google.picker.ViewId[this.viewId],
 		);
 
-		if (this.label) {
-			// @ts-ignore TODO: fix typings
-			view.setLabel(this.label);
-		}
-
 		if (this.enableDrives !== undefined) {
 			view.setEnableDrives(this.enableDrives);
 		}
@@ -181,7 +171,6 @@ export class DrivePickerDocsViewElement
 		}
 
 		if (this.query) {
-			// @ts-ignore TODO: fix typings
 			view.setQuery(this.query);
 		}
 

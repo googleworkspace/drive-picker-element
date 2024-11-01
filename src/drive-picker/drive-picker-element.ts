@@ -20,7 +20,6 @@ import { loadApi, retrieveAccessToken } from "../utils";
 export type View = google.picker.DocsView;
 
 export interface PickerViewElement extends HTMLElement {
-	// TODO types for google.picker.View
 	view: google.picker.DocsView;
 }
 
@@ -30,7 +29,6 @@ export interface DrivePickerElementProps {
 	clientId: string;
 	// Optional properties
 	developerKey?: string;
-	height?: number;
 	hideTitleBar?: boolean;
 	locale?: string;
 	maxItems?: number;
@@ -41,7 +39,6 @@ export interface DrivePickerElementProps {
 	scope?: string;
 	title?: string;
 	visible?: boolean;
-	width?: number;
 }
 
 export interface DrivePickerElementEventListeners {
@@ -284,7 +281,7 @@ export class DrivePickerElement
 	}
 
 	private dispatch(
-		type: "cancel" | "picked",
+		type: google.picker.Action,
 		detail: google.picker.ResponseObject,
 	) {
 		this.dispatchEvent(new CustomEvent(type, { detail }));
@@ -296,11 +293,7 @@ export class DrivePickerElement
 }
 
 function isView(obj: HTMLElement): obj is PickerViewElement {
-	return (
-		"view" in obj &&
-		// @ts-ignore TODO missing types
-		obj.view instanceof google.picker.View
-	);
+	return "view" in obj && obj.view instanceof google.picker.View;
 }
 
 function filterElementsToViewOrViewGroup(
@@ -319,14 +312,7 @@ function nestedViews(target: HTMLElement, selector = "*"): Array<View> {
 
 function setBuilderProperties(
 	_builder: google.picker.PickerBuilder,
-	{
-		appId,
-		developerKey,
-		relayUrl,
-		title,
-		height,
-		width,
-	}: DrivePickerElementProps,
+	{ appId, developerKey, relayUrl, title }: DrivePickerElementProps,
 ) {
 	let builder = _builder;
 	if (appId) {
@@ -343,16 +329,6 @@ function setBuilderProperties(
 
 	if (title) {
 		builder = builder.setTitle(title);
-	}
-
-	if (height) {
-		// @ts-ignore TODO: fix typings
-		builder = builder.setHeight(height);
-	}
-
-	if (width) {
-		// @ts-ignore TODO: fix typings
-		builder = builder.setWidth(width);
 	}
 
 	return builder;
