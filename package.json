@@ -47,7 +47,7 @@
 		"@storybook/web-components-vite": "^8.1.9",
 		"@types/gapi": "^0.0.47",
 		"@types/google.accounts": "^0.0.14",
-		"@types/google.picker": "^0.0.42",
+		"@types/google.picker": "^0.0.44",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^22.4.1",
 		"@web/dev-server": "^0.4.5",
