@@ -31,12 +31,29 @@ export type ViewId = keyof typeof google.picker.ViewId;
  *
  */
 export class DrivePickerDocsViewElement extends HTMLElement {
+	static get observedAttributes() {
+		return [
+			/** foo */
+			"enable-drives",
+			"include-folders",
+			"mime-types",
+			"mode",
+			"owned-by-me",
+			"parent",
+			"query",
+			"select-folder-enabled",
+			"starred",
+			"view-id",
+		];
+	}
+
 	/**
 	 * Gets the Google Drive Picker view based on the current property values.
+	 * @default google.picker.ViewId.DocsView
 	 * @returns {google.picker.DocsView} The Google Drive picker view.
 	 */
 	public get view(): google.picker.DocsView {
-		const viewId = this.getAttribute("viewId");
+		const viewId = this.getAttribute("view-id");
 
 		const view = new window.google.picker.DocsView(
 			viewId ? window.google.picker.ViewId[viewId as ViewId] : undefined,

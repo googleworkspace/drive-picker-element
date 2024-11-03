@@ -57,8 +57,8 @@ export interface DrivePickerElementEventListeners {
  * @fires {CustomEvent<google.picker.ResponseObject>} picked - Triggered when the user picks one or more items.
  * @fires {CustomEvent<google.picker.ResponseObject>} loaded - Triggered when the picker is loaded.
  *
- * @slot - The View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.
- *
+ * @slot - The default slot contains View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.
+ * @attr {string} app-id - The Google Drive app ID.
  * @example
  *
  * ```html
@@ -97,7 +97,7 @@ export class DrivePickerElement
 	protected google: typeof google | undefined;
 	protected loading: Promise<void> | undefined;
 
-	get visible(): boolean {
+	public get visible(): boolean {
 		// TODO this doesn't work after a cancel... need to file a bug
 		return Boolean(this.picker?.isVisible());
 	}

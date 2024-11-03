@@ -6,7 +6,15 @@
 
 ## Description
 
-A Web Component for [Google Drive Picker].
+The [Google Drive Picker] web components provides a convenient way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a "File Open" dialog for accessing and interacting with files stored on Google Drive.
+
+Features:
+
+- Provides a similar look-and-feel to the Google Drive UI.
+- Offers several views showing previews and thumbnail images of Drive files.
+- Displays as an inline, modal window, ensuring users never leave the main application.
+
+Note: The Google Picker API does not support file organization, moving, or copying. For these operations, you should use either the Google Drive API or the Drive UI.
 
 ## Install
 
@@ -49,78 +57,88 @@ See the components and the official reference documentation for more details:
 | ✅                                                                            | [\<drive-picker-docs-view/\>](#drive-picker-docs-view)        | [DocsView API Reference](https://developers.google.com/drive/picker/reference#docs-view)              |
 | ❌ - [ToDo](https://github.com/googleworkspace/drive-picker-element/issues/4) | [\<drive-picker-docs-upload-view/\>](#drive-picker-docs-view) | [DocsUploadView API Reference](https://developers.google.com/drive/picker/reference#docs-upload-view) |
 
+> Note: If you wish to register the component at a different name, `import { DrivePickerElement, DrivePickerDocsViewElement } from @googleworkspace/drive-picker-element/drive-picker` and call `customElements.define()` manually.
+
 To report issues or feature requests for the underlying Drive Picker, please use the [issue tracker](https://developers.google.com/drive/picker/support#developer_product_feedback).
+
+## Documentation
+
+For fields, attributes, and events, see the [Google Drive Picker Reference] documentation.
 
 <!-- START docs -->
 
-<a name="drive-picker"></a>
+### class: `DrivePickerDocsViewElement`, `drive-picker-docs-view`
 
-## drive-picker
+#### Fields
 
-The `drive-picker` web component provides a convenient way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a "File Open" dialog for accessing and interacting with files stored on Google Drive.
+| Name   | Privacy | Type                     | Default                         | Description                                                             |
+| ------ | ------- | ------------------------ | ------------------------------- | ----------------------------------------------------------------------- |
+| `view` | public  | `google.picker.DocsView` | `google.picker.ViewId.DocsView` | Gets the Google Drive Picker view based on the current property values. |
 
-Features:
+#### Attributes
 
-- Provides a similar look-and-feel to the Google Drive UI.
-- Offers several views showing previews and thumbnail images of Drive files.
-- Displays as an inline, modal window, ensuring users never leave the main application.
+| Name                    |
+| ----------------------- |
+| `enable-drives`         |
+| `include-folders`       |
+| `mime-types`            |
+| `mode`                  |
+| `owned-by-me`           |
+| `parent`                |
+| `query`                 |
+| `select-folder-enabled` |
+| `starred`               |
+| `view-id`               |
 
-Note: The Google Picker API does not support file organization, moving, or copying. For these operations, you should use either the Google Drive API or the Drive UI.
+<hr/>
 
-### Example
+### class: `DrivePickerElement`, `drive-picker`
 
-```html
-<drive-picker
-  app-id="675807958095"
-  client-id="675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com"
->
-  <drive-picker-docs-view></drive-picker-docs-view>
-</drive-picker>
-```
+#### Fields
 
-### Properties
+| Name       | Privacy   | Type                                | Description                                                                                  |
+| ---------- | --------- | ----------------------------------- | -------------------------------------------------------------------------------------------- |
+| `picker`   | protected | `google.picker.Picker \| undefined` |                                                                                              |
+| `observer` | protected | `MutationObserver \| undefined`     |                                                                                              |
+| `google`   | protected | `typeof google \| undefined`        |                                                                                              |
+| `loading`  | protected | `Promise<void> \| undefined`        |                                                                                              |
+| `visible`  | public    | `boolean`                           |                                                                                              |
+| `views`    | protected | `(View \| google.picker.ViewId)[]`  | The \`google.Picker.View\` objects to display in the picker as defined by the slot elements. |
 
-| Property  | Type      |
-| --------- | --------- |
-| `visible` | `boolean` |
+#### Events
 
-### Methods
-
-| Method                | Type                                                                                                                                                  |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `addEventListener`    | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| AddEventListenerOptions \| undefined) => void` |
-| `removeEventListener` | `(type: "cancel" \| "picked" \| "loaded", listener: (ev: DrivePickerEvent): void, options?: boolean \| EventListenerOptions \| undefined) => void`    |
-
-### Events
-
-| Event    | Type                                        | Description                                        |
+| Name     | Type                                        | Description                                        |
 | -------- | ------------------------------------------- | -------------------------------------------------- |
+| `type`   | `CustomEvent`                               |                                                    |
 | `cancel` | `CustomEvent<google.picker.ResponseObject>` | Triggered when the user cancels the picker dialog. |
 | `picked` | `CustomEvent<google.picker.ResponseObject>` | Triggered when the user picks one or more items.   |
+| `loaded` | `CustomEvent<google.picker.ResponseObject>` | Triggered when the picker is loaded.               |
 
-### Slots
+#### Attributes
 
-| Name | Description                                                                                                                    |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------ |
-|      | The View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`. |
+| Name             |
+| ---------------- |
+| `client-id`      |
+| `scope`          |
+| `app-id`         |
+| `developer-key`  |
+| `hide-title-bar` |
+| `locale`         |
+| `max-items`      |
+| `multiselect`    |
+| `oauth-token`    |
+| `origin`         |
+| `relay-url`      |
+| `title`          |
+| `visible`        |
 
-<a name="drive-picker-docs-view"></a>
+#### Slots
 
-## drive-picker-docs-view
+| Description                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The default slot contains View elements to display in the picker. Each View element should implement a property \`view\` of type \`google.picker.View\`. |
 
-The `drive-picker-docs-view` element is used to define a view for the Google Drive Picker.
-
-### Example
-
-```html
-<drive-picker-docs-view ownedByMe=""></drive-picker-docs-view>
-```
-
-### Properties
-
-| Property | Modifiers | Type       | Description                                                             |
-| -------- | --------- | ---------- | ----------------------------------------------------------------------- |
-| `view`   | readonly  | `DocsView` | Gets the Google Drive Picker view based on the current property values. |
+<hr/>
 
 <!-- END docs -->
 
@@ -134,3 +152,4 @@ pnpm storybook
 ```
 
 [Google Drive Picker]: https://developers.google.com/drive/picker/guides/overview
+[Google Drive Picker Reference]: https://developers.google.com/drive/picker/reference/picker

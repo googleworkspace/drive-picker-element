@@ -21,7 +21,10 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"files": ["dist", "src"],
+	"files": [
+		"dist",
+		"src"
+	],
 	"homepage": "https://github.com/googleworkspace/drive-picker-element",
 	"repository": {
 		"type": "git",
@@ -58,31 +61,55 @@
 		"lint-staged": "^15.2.9",
 		"playwright": "^1.44.0",
 		"prettier": "^3.3.3",
+		"remark": "^15.0.1",
+		"remark-behead": "^3.1.0",
+		"remark-gfm": "^4.0.0",
 		"tsup": "^8.0.2",
 		"typescript": "^5.6.3",
 		"wireit": "^0.14.4"
 	},
-	"customElements": "custom-elements.json",
+	"customElements": "dist/custom-elements.json",
 	"wireit": {
 		"build": {
-			"dependencies": ["build:components", "build:manifest"]
+			"dependencies": [
+				"build:components",
+				"build:manifest"
+			]
 		},
 		"build:components": {
 			"command": "tsup",
-			"files": ["src/**/*.ts", "tsup.config.ts"],
-			"output": ["dist/**/*.(js|ts|map)"]
+			"files": [
+				"src/**/*.ts",
+				"tsup.config.ts"
+			],
+			"output": [
+				"dist/**/*.(js|ts|map)"
+			]
 		},
 		"build:manifest": {
 			"command": "cem analyze --config cem.config.js",
-			"files": ["src/**/*.ts", "cem.config.js"],
-			"output": ["dist/custom-elements.json"]
+			"files": [
+				"src/**/*.ts",
+				"cem.config.js"
+			],
+			"output": [
+				"dist/custom-elements.json"
+			]
 		},
 		"readme": {
 			"clean": false,
 			"command": "node ./.github/docs.js",
-			"files": ["dist/custom-elements.json", ".github/docs.js", "README.md"],
-			"output": ["README.md"],
-			"dependencies": ["build:manifest"]
+			"files": [
+				"dist/custom-elements.json",
+				".github/docs.js",
+				"README.md"
+			],
+			"output": [
+				"README.md"
+			],
+			"dependencies": [
+				"build:manifest"
+			]
 		},
 		"serve": {
 			"command": "wds --node-resolve --watch --open examples/drive-picker.html",
@@ -96,7 +123,9 @@
 		},
 		"test": {
 			"command": "wtr dist/*.test.js --node-resolve --coverage --reporter spec --playwright --browsers chromium",
-			"dependencies": ["build"]
+			"dependencies": [
+				"build"
+			]
 		}
 	},
 	"husky": {
