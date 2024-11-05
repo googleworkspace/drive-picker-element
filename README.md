@@ -118,17 +118,19 @@ For fields, attributes, and events, see the [Google Drive Picker Reference] docu
 
 | Name             |
 | ---------------- |
-| `client-id`      |
-| `scope`          |
 | `app-id`         |
+| `client-id`      |
 | `developer-key`  |
 | `hide-title-bar` |
 | `locale`         |
 | `max-items`      |
+| `mine-only`      |
 | `multiselect`    |
+| `nav-hidden`     |
 | `oauth-token`    |
 | `origin`         |
 | `relay-url`      |
+| `scope`          |
 | `title`          |
 | `visible`        |
 

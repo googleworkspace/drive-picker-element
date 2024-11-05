@@ -9,7 +9,7 @@ const START = "<!-- START docs -->";
 const END = "<!-- END docs -->";
 
 const manifest = JSON.parse(
-	fs.readFileSync("dist/custom-elements.json", "utf-8"),
+	fs.readFileSync("custom-elements.json", "utf-8"),
 );
 const markdown = customElementsManifestToMarkdown(manifest, {
 	private: "hidden",
