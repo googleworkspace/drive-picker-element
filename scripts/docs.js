@@ -8,9 +8,7 @@ import remarkGfm from "remark-gfm";
 const START = "<!-- START docs -->";
 const END = "<!-- END docs -->";
 
-const manifest = JSON.parse(
-	fs.readFileSync("custom-elements.json", "utf-8"),
-);
+const manifest = JSON.parse(fs.readFileSync("custom-elements.json", "utf-8"));
 const markdown = customElementsManifestToMarkdown(manifest, {
 	private: "hidden",
 	omitDeclarations: ["mixins", "variables", "functions", "exports"],

@@ -1,9 +1,9 @@
 import {
-	setBoolAttrWithDefault,
 	getBoolAttr,
 	getNumberAttribute,
 	loadApi,
 	retrieveAccessToken,
+	setBoolAttrWithDefault,
 } from "../utils";
 /**
  * Copyright 2024 Google LLC
