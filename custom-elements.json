@@ -49,13 +49,21 @@
                 "text": "google.picker.DocsView"
               },
               "privacy": "public",
-              "description": "Gets the Google Drive Picker view based on the current property values.",
-              "default": "google.picker.ViewId.DocsView",
+              "description": "Gets the Google Drive Picker view based on the current attribute values.",
               "return": {
                 "type": {
                   "text": "google.picker.DocsView"
                 }
               },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "viewId",
+              "type": {
+                "text": "google.picker.ViewId | undefined"
+              },
+              "privacy": "private",
               "readonly": true
             }
           ],
@@ -63,14 +71,14 @@
             {
               "name": "enable-drives",
               "type": {
-                "text": "boolean"
+                "text": "\"default\"|\"true\"|\"false\""
               },
               "description": "Whether to allow the user to select files from shared drives."
             },
             {
               "name": "include-folders",
               "type": {
-                "text": "boolean"
+                "text": "\"default\"|\"true\"|\"false\""
               },
               "description": "Whether to include folders in the view."
             },
@@ -91,7 +99,7 @@
             {
               "name": "owned-by-me",
               "type": {
-                "text": "boolean"
+                "text": "\"default\"|\"true\"|\"false\""
               },
               "description": "Whether to show files owned by the user."
             },
@@ -112,14 +120,14 @@
             {
               "name": "select-folder-enabled",
               "type": {
-                "text": "boolean"
+                "text": "\"default\"|\"true\"|\"false\""
               },
               "description": "Whether to allow the user to select folders."
             },
             {
               "name": "starred",
               "type": {
-                "text": "boolean"
+                "text": "\"default\"|\"true\"|\"false\""
               },
               "description": "Whether to show starred files."
             },
@@ -261,21 +269,21 @@
             },
             {
               "type": {
-                "text": "CustomEvent<google.picker.ResponseObject>"
+                "text": "CustomEvent<DrivePickerEventDetail>"
               },
               "description": "Triggered when the user cancels the picker dialog.",
               "name": "cancel"
             },
             {
               "type": {
-                "text": "CustomEvent<google.picker.ResponseObject>"
+                "text": "CustomEvent<DrivePickerEventDetail>"
               },
               "description": "Triggered when the user picks one or more items.",
               "name": "picked"
             },
             {
               "type": {
-                "text": "CustomEvent<google.picker.ResponseObject>"
+                "text": "CustomEvent<DrivePickerEventDetail>"
               },
               "description": "Triggered when the picker is loaded.",
               "name": "loaded"
@@ -306,7 +314,7 @@
             {
               "name": "hide-title-bar",
               "type": {
-                "text": "boolean"
+                "text": "\"default\"|\"true\"|\"false\""
               },
               "description": "Hides the title bar of the picker if set to true."
             },

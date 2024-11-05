@@ -13,13 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getBooleanAttribute } from "../utils";
+import {
+	setBoolAttrWithDefault,
+} from "../utils";
 export type ViewId = keyof typeof google.picker.ViewId;
 
 /**
  * The `drive-picker-docs-view` element is used to define a view for the Google Drive Picker.
  *
  * @element drive-picker-docs-view
+ * @attr {"default"|"true"|"false"} enable-drives - Whether to allow the user to select files from shared drives.
+ * @attr {"default"|"true"|"false"} include-folders - Whether to include folders in the view.
+ * @attr {string} mime-types - A comma-separated list of MIME types to filter the view.
+ * @attr {string} mode - The mode of the view.
+ * @attr {"default"|"true"|"false"} owned-by-me - Whether to show files owned by the user.
+ * @attr {string} parent - The ID of the folder to view.
+ * @attr {string} query - The query string to filter the view.
+ * @attr {"default"|"true"|"false"} select-folder-enabled - Whether to allow the user to select folders.
+ * @attr {"default"|"true"|"false"} starred - Whether to show starred files.
+ * @attr {string} view-id - The ID of the view.
  *
  * @example
  *
@@ -48,22 +60,27 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets the Google Drive Picker view based on the current property values.
-	 * @default google.picker.ViewId.DocsView
+	 * Gets the Google Drive Picker view based on the current attribute values.
 	 * @returns {google.picker.DocsView} The Google Drive picker view.
 	 */
 	public get view(): google.picker.DocsView {
-		const viewId = this.getAttribute("view-id");
+		const view = new window.google.picker.DocsView(this.viewId);
 
-		const view = new window.google.picker.DocsView(
-			viewId ? window.google.picker.ViewId[viewId as ViewId] : undefined,
+		setBoolAttrWithDefault("enable-drives", this, view.setEnableDrives, view);
+		setBoolAttrWithDefault(
+			"include-folders",
+			this,
+			view.setIncludeFolders,
+			view,
 		);
-
-		const enableDrives = getBooleanAttribute(this, "enable-drives");
-		if (enableDrives !== null) view.setEnableDrives(enableDrives);
-
-		const includeFolders = getBooleanAttribute(this, "include-folders");
-		if (includeFolders !== null) view.setIncludeFolders(includeFolders);
+		setBoolAttrWithDefault("owned-by-me", this, view.setOwnedByMe, view);
+		setBoolAttrWithDefault(
+			"select-folder-enabled",
+			this,
+			view.setSelectFolderEnabled,
+			view,
+		);
+		setBoolAttrWithDefault("starred", this, view.setStarred, view);
 
 		const mimetypes = this.getAttribute("mime-types");
 		if (mimetypes !== null) view.setMimeTypes(mimetypes);
@@ -76,25 +93,17 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 				],
 			);
 
-		const ownedByMe = getBooleanAttribute(this, "owned-by-me");
-		if (ownedByMe !== null) view.setOwnedByMe(ownedByMe);
-
 		const parent = this.getAttribute("parent");
 		if (parent !== null) view.setParent(parent);
 
 		const query = this.getAttribute("query");
 		if (query !== null) view.setQuery(query);
 
-		const selectFolderEnabled = getBooleanAttribute(
-			this,
-			"select-folder-enabled",
-		);
-		if (selectFolderEnabled !== null)
-			view.setSelectFolderEnabled(selectFolderEnabled);
-
-		const starred = getBooleanAttribute(this, "starred");
-		if (starred !== null) view.setStarred(starred);
-
 		return view;
+	}
+
+	private get viewId(): google.picker.ViewId | undefined {
+		const viewId = this.getAttribute("view-id");
+		return viewId ? window.google.picker.ViewId[viewId as ViewId] : undefined;
 	}
 }

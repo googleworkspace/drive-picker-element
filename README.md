@@ -57,7 +57,7 @@ See the components and the official reference documentation for more details:
 | ✅                                                                            | [\<drive-picker-docs-view/\>](#drive-picker-docs-view)        | [DocsView API Reference](https://developers.google.com/drive/picker/reference#docs-view)              |
 | ❌ - [ToDo](https://github.com/googleworkspace/drive-picker-element/issues/4) | [\<drive-picker-docs-upload-view/\>](#drive-picker-docs-view) | [DocsUploadView API Reference](https://developers.google.com/drive/picker/reference#docs-upload-view) |
 
-> Note: If you wish to register the component at a different name, `import { DrivePickerElement, DrivePickerDocsViewElement } from @googleworkspace/drive-picker-element/drive-picker` and call `customElements.define()` manually.
+> Note: If you wish to register the component with a different name, `import { DrivePickerElement, DrivePickerDocsViewElement } from @googleworkspace/drive-picker-element/drive-picker` and call `customElements.define()` manually.
 
 To report issues or feature requests for the underlying Drive Picker, please use the [issue tracker](https://developers.google.com/drive/picker/support#developer_product_feedback).
 
@@ -71,9 +71,9 @@ For fields, attributes, and events, see the [Google Drive Picker Reference] docu
 
 #### Fields
 
-| Name   | Privacy | Type                     | Default                         | Description                                                             |
-| ------ | ------- | ------------------------ | ------------------------------- | ----------------------------------------------------------------------- |
-| `view` | public  | `google.picker.DocsView` | `google.picker.ViewId.DocsView` | Gets the Google Drive Picker view based on the current property values. |
+| Name   | Privacy | Type                     | Description                                                              |
+| ------ | ------- | ------------------------ | ------------------------------------------------------------------------ |
+| `view` | public  | `google.picker.DocsView` | Gets the Google Drive Picker view based on the current attribute values. |
 
 #### Attributes
 
@@ -107,12 +107,12 @@ For fields, attributes, and events, see the [Google Drive Picker Reference] docu
 
 #### Events
 
-| Name     | Type                                        | Description                                        |
-| -------- | ------------------------------------------- | -------------------------------------------------- |
-| `type`   | `CustomEvent`                               |                                                    |
-| `cancel` | `CustomEvent<google.picker.ResponseObject>` | Triggered when the user cancels the picker dialog. |
-| `picked` | `CustomEvent<google.picker.ResponseObject>` | Triggered when the user picks one or more items.   |
-| `loaded` | `CustomEvent<google.picker.ResponseObject>` | Triggered when the picker is loaded.               |
+| Name     | Type                                  | Description                                        |
+| -------- | ------------------------------------- | -------------------------------------------------- |
+| `type`   | `CustomEvent`                         |                                                    |
+| `cancel` | `CustomEvent<DrivePickerEventDetail>` | Triggered when the user cancels the picker dialog. |
+| `picked` | `CustomEvent<DrivePickerEventDetail>` | Triggered when the user picks one or more items.   |
+| `loaded` | `CustomEvent<DrivePickerEventDetail>` | Triggered when the picker is loaded.               |
 
 #### Attributes
 

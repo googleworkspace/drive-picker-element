@@ -1,5 +1,6 @@
 import {
-	getBooleanAttribute,
+	setBoolAttrWithDefault,
+	getBoolAttr,
 	getNumberAttribute,
 	loadApi,
 	retrieveAccessToken,
@@ -26,7 +27,11 @@ export interface PickerViewElement extends HTMLElement {
 	view: google.picker.DocsView;
 }
 
-export type DrivePickerEvent = CustomEvent<google.picker.ResponseObject>;
+export type DrivePickerEventDetail = google.picker.ResponseObject & {
+	picker: google.picker.Picker;
+};
+
+export type DrivePickerEvent = CustomEvent<DrivePickerEventDetail>;
 
 export interface DrivePickerElementEventListeners {
 	addEventListener(
@@ -53,12 +58,27 @@ export interface DrivePickerElementEventListeners {
  *
  * @element drive-picker
  *
- * @fires {CustomEvent<google.picker.ResponseObject>} cancel - Triggered when the user cancels the picker dialog.
- * @fires {CustomEvent<google.picker.ResponseObject>} picked - Triggered when the user picks one or more items.
- * @fires {CustomEvent<google.picker.ResponseObject>} loaded - Triggered when the picker is loaded.
+ * @fires {CustomEvent<DrivePickerEventDetail>} cancel - Triggered when the user cancels the picker dialog.
+ * @fires {CustomEvent<DrivePickerEventDetail>} picked - Triggered when the user picks one or more items.
+ * @fires {CustomEvent<DrivePickerEventDetail>} loaded - Triggered when the picker is loaded.
  *
  * @slot - The default slot contains View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.
  * @attr {string} app-id - The Google Drive app ID.
+ * @attr {string} client-id - The OAuth 2.0 client ID.
+ * @attr {string} developer-key - The API key for accessing Google Picker API.
+ * @attr {"default"|"true"|"false"} hide-title-bar - Hides the title bar of the picker if set to true.
+ * @attr {string} locale - The locale to use for the picker.
+ * @attr {number} max-items - The maximum number of items that can be selected.
+ * @attr {boolean} mine-only - If set to true, only shows files owned by the user.
+ * @attr {boolean} multiselect - Enables multiple file selection if set to true.
+ * @attr {boolean} nav-hidden - Hides the navigation pane if set to true.
+ * @attr {string} oauth-token - The OAuth 2.0 token for authentication.
+ * @attr {string} origin - The origin parameter for the picker.
+ * @attr {string} relay-url - The relay URL for the picker.
+ * @attr {string} scope - The OAuth 2.0 scope for the picker.
+ * @attr {string} title - The title of the picker.
+ * @attr {boolean} visible - Controls the visibility of the picker.
+ *
  * @example
  *
  * ```html
@@ -77,17 +97,19 @@ export class DrivePickerElement
 {
 	static get observedAttributes() {
 		return [
-			"client-id",
-			"scope",
 			"app-id",
+			"client-id",
 			"developer-key",
 			"hide-title-bar",
 			"locale",
 			"max-items",
+			"mine-only",
 			"multiselect",
+			"nav-hidden",
 			"oauth-token",
 			"origin",
 			"relay-url",
+			"scope",
 			"title",
 			"visible",
 		];
@@ -98,7 +120,6 @@ export class DrivePickerElement
 	protected loading: Promise<void> | undefined;
 
 	public get visible(): boolean {
-		// TODO this doesn't work after a cancel... need to file a bug
 		return Boolean(this.picker?.isVisible());
 	}
 
@@ -148,8 +169,12 @@ export class DrivePickerElement
 		const title = this.getAttribute("title");
 		if (title !== null) builder = builder.setTitle(title);
 
-		const hideTitleBar = getBooleanAttribute(this, "hide-title-bar");
-		if (hideTitleBar !== null) builder = builder.hideTitleBar();
+		setBoolAttrWithDefault(
+			"hide-title-bar",
+			this,
+			builder.hideTitleBar,
+			builder,
+		);
 
 		// OAuth token is required either as an attribute or from the OAuth flow using the client ID and scope
 		const oauthToken =
@@ -162,11 +187,18 @@ export class DrivePickerElement
 			));
 		builder = builder.setOAuthToken(oauthToken);
 
-		// Features
-		if (getBooleanAttribute(this, "multiselect")) {
+		if (getBoolAttr(this, "multiselect")) {
 			builder = builder.enableFeature(
 				this.google.picker.Feature.MULTISELECT_ENABLED,
 			);
+		}
+
+		if (getBoolAttr(this, "mine-only")) {
+			builder = builder.enableFeature(this.google.picker.Feature.MINE_ONLY);
+		}
+
+		if (getBoolAttr(this, "nav-hidden")) {
+			builder = builder.enableFeature(this.google.picker.Feature.NAV_HIDDEN);
 		}
 
 		for (const view of this.views) {
@@ -224,7 +256,9 @@ export class DrivePickerElement
 		type: google.picker.Action,
 		detail: google.picker.ResponseObject,
 	) {
-		this.dispatchEvent(new CustomEvent(type, { detail }));
+		this.dispatchEvent(
+			new CustomEvent(type, { detail: { ...detail, picker: this.picker } }),
+		);
 	}
 }
 

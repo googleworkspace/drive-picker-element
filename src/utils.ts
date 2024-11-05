@@ -80,6 +80,49 @@ export function getNumberAttribute(
 	return value ? Number(value) : null;
 }
 
-export function getBooleanAttribute(element: Element, name: string): boolean {
-	return element.getAttribute(name) !== null;
+export enum BoolAttrWithDefault {
+	FALSE = 0,
+	TRUE = 1,
+	DEFAULT = 2,
+}
+
+export function getBoolAttr(element: Element, name: string): boolean {
+	return element.hasAttribute(name);
+}
+
+export function getBoolAttrWithDefault(
+	element: Element,
+	name: string,
+): BoolAttrWithDefault {
+	const attributeValue = element.getAttribute(name)?.toUpperCase();
+
+	if (!attributeValue) {
+		return BoolAttrWithDefault.DEFAULT;
+	}
+
+	const value =
+		BoolAttrWithDefault[attributeValue as keyof typeof BoolAttrWithDefault];
+
+	if (value !== undefined) {
+		return value;
+	}
+
+	throw new Error(
+		`Invalid value, "${attributeValue}", for attribute ${name}. Must be one of ${Object.keys(BoolAttrWithDefault).filter(Number.isNaN).join(", ")}`,
+	);
+}
+
+export function setBoolAttrWithDefault<T>(
+	name: string,
+	element: Element,
+	setter: (value: boolean) => T,
+	instance: T,
+): T {
+	const attr = getBoolAttrWithDefault(element, name);
+
+	if (attr === BoolAttrWithDefault.DEFAULT) {
+		return instance;
+	}
+
+	return setter.call(instance, attr === BoolAttrWithDefault.TRUE);
 }
