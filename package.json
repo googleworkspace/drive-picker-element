@@ -76,7 +76,7 @@
 			"output": ["dist/**/*.(js|ts|map)"]
 		},
 		"build:manifest": {
-			"command": "cem analyze --config cem.config.js",
+			"command": "cem analyze --config cem.config.js && biome check --fix custom-elements.json",
 			"files": ["src/**/*.ts", "cem.config.js"],
 			"output": ["custom-elements.json"]
 		},
