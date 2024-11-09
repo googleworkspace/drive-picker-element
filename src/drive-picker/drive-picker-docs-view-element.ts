@@ -17,7 +17,7 @@ import { setBoolAttrWithDefault } from "../utils";
 export type ViewId = keyof typeof google.picker.ViewId;
 
 /**
- * The `drive-picker-docs-view` element is used to define a view for the Google Drive Picker.
+ * The `drive-picker-docs-view` element is used to define a [`google.picker.DocsView`](https://developers.google.com/drive/picker/reference/picker.docsview).
  *
  * @element drive-picker-docs-view
  * @attr {"default"|"true"|"false"} enable-drives - Whether to allow the user to select files from shared drives.
@@ -37,7 +37,7 @@ export type ViewId = keyof typeof google.picker.ViewId;
  * <drive-picker-docs-view ownedByMe=""></drive-picker-docs-view>
  * ```
  *
- * @see https://developers.google.com/drive/picker/reference#docs-view
+ * @see https://developers.google.com/drive/picker/reference/picker.docsview
  *
  */
 export class DrivePickerDocsViewElement extends HTMLElement {

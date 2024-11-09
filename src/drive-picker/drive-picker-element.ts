@@ -47,29 +47,33 @@ export interface DrivePickerElementEventListeners {
 }
 
 /**
- * The `drive-picker` web component provides a convenient way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a "File Open" dialog for accessing and interacting with files stored on Google Drive.
- *
- * Features:
- * - Provides a similar look-and-feel to the Google Drive UI.
- * - Offers several views showing previews and thumbnail images of Drive files.
- * - Displays as an inline, modal window, ensuring users never leave the main application.
- *
- * Note: The Google Picker API does not support file organization, moving, or copying. For these operations, you should use either the Google Drive API or the Drive UI.
+ * The `drive-picker` web component provides a convenient way to declaratively
+ * build
+ * [`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)
+ * by using the component attributes and
+ * [`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder)
+ * and load OAuth tokens.
  *
  * @element drive-picker
  *
- * @fires {CustomEvent<DrivePickerEventDetail>} cancel - Triggered when the user cancels the picker dialog.
- * @fires {CustomEvent<DrivePickerEventDetail>} picked - Triggered when the user picks one or more items.
- * @fires {CustomEvent<DrivePickerEventDetail>} loaded - Triggered when the picker is loaded.
+ * @fires {DrivePickerEvent} cancel - Triggered when the user cancels the picker
+ * dialog.
+ * @fires {DrivePickerEvent} picked - Triggered when the user picks one or more
+ * items.
+ * @fires {DrivePickerEvent} loaded - Triggered when the picker is loaded.
  *
- * @slot - The default slot contains View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.
+ * @slot - The default slot contains View elements to display in the picker.
+ * Each View element should implement a property `view` of type
+ * `google.picker.View`.
  * @attr {string} app-id - The Google Drive app ID.
  * @attr {string} client-id - The OAuth 2.0 client ID.
  * @attr {string} developer-key - The API key for accessing Google Picker API.
- * @attr {"default"|"true"|"false"} hide-title-bar - Hides the title bar of the picker if set to true.
+ * @attr {"default"|"true"|"false"} hide-title-bar - Hides the title bar of the
+ * picker if set to true.
  * @attr {string} locale - The locale to use for the picker.
  * @attr {number} max-items - The maximum number of items that can be selected.
- * @attr {boolean} mine-only - If set to true, only shows files owned by the user.
+ * @attr {boolean} mine-only - If set to true, only shows files owned by the
+ * user.
  * @attr {boolean} multiselect - Enables multiple file selection if set to true.
  * @attr {boolean} nav-hidden - Hides the navigation pane if set to true.
  * @attr {string} oauth-token - The OAuth 2.0 token for authentication.
@@ -77,18 +81,17 @@ export interface DrivePickerElementEventListeners {
  * @attr {string} relay-url - The relay URL for the picker.
  * @attr {string} scope - The OAuth 2.0 scope for the picker.
  * @attr {string} title - The title of the picker.
- * @attr {boolean} visible - Controls the visibility of the picker.
  *
  * @example
  *
- * ```html
- * <drive-picker
- *   app-id="675807958095"
- *   client-id="675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com"
- * >
- *   <drive-picker-docs-view></drive-picker-docs-view>
- * </drive-picker>
- * ```
+ *```html
+ *<drive-picker
+ *  app-id="675807958095"
+ *  client-id="675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com"
+ *>
+ *  <drive-picker-docs-view></drive-picker-docs-view>
+ *</drive-picker>
+ *```
  *
  */
 export class DrivePickerElement
@@ -111,7 +114,6 @@ export class DrivePickerElement
 			"relay-url",
 			"scope",
 			"title",
-			"visible",
 		];
 	}
 	protected picker: google.picker.Picker | undefined;
@@ -119,10 +121,16 @@ export class DrivePickerElement
 	protected google: typeof google | undefined;
 	protected loading: Promise<void> | undefined;
 
+	/**
+	 * The visibility of the picker.
+	 */
 	public get visible(): boolean {
 		return Boolean(this.picker?.isVisible());
 	}
 
+	/**
+	 * Controls the visibility of the picker.
+	 */
 	set visible(value: boolean) {
 		this.picker?.setVisible(value);
 	}
