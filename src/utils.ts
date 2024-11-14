@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import memoized from "memoizee";
 
 const GAPI_URL = "https://apis.google.com/js/api.js";
 const GSI_URL = "https://accounts.google.com/gsi/client";
@@ -36,23 +37,28 @@ export async function retrieveAccessToken(
 	if (!window.google?.accounts?.oauth2) {
 		await injectScript(GSI_URL);
 	}
-
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		const client = window.google.accounts.oauth2.initTokenClient({
 			client_id: clientId,
-			scope,
+			scope: scope.replace(/,/g, " ").replace(/\s+/g, " "),
 
 			callback: ({ access_token }) => {
 				resolve(access_token);
 			},
 			error_callback: (error) => {
-				throw error;
+				reject(error);
 			},
 		});
 
 		client.requestAccessToken();
 	});
 }
+
+export const memoizedRetrieveAccessToken = memoized(retrieveAccessToken, {
+	length: false,
+	promise: true,
+	maxAge: 1000 * 60 * 5,
+});
 
 export async function injectScript(src: string): Promise<void> {
 	return new Promise((resolve, reject) => {
