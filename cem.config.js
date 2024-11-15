@@ -14,18 +14,7 @@
  * limitations under the License.
  */
 
-export * from "./drive-picker";
-
-import { DrivePickerDocsViewElement, DrivePickerElement } from "./drive-picker";
-
-customElements.define("drive-picker", DrivePickerElement);
-customElements.define("drive-picker-docs-view", DrivePickerDocsViewElement);
-
-declare global {
-	interface HTMLElementTagNameMap {
-		"drive-picker": DrivePickerElement;
-	}
-	interface HTMLElementTagNameMap {
-		"drive-picker-docs-view": DrivePickerDocsViewElement;
-	}
-}
+export default {
+	globs: ["src/**/*.ts"],
+	exclude: ["src/utils.ts", "src/**/*.stories.ts"],
+};

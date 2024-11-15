@@ -4,120 +4,6 @@
 	"modules": [
 		{
 			"kind": "javascript-module",
-			"path": "dist/drive-picker.js",
-			"declarations": [
-				{
-					"kind": "variable",
-					"name": "DrivePickerElement",
-					"default": "class extends LitElement { constructor() { super(...arguments); this.scope = \"https://www.googleapis.com/auth/drive.file\"; this.title = \"\"; this.visible = true; } /** * The `google.Picker.View` objects to display in the picker as defined by the slot elements. */ get views() { return nestedViews(this) ?? [new google.picker.DocsView()]; } async connectedCallback() { super.connectedCallback(); await loadApi(); this.observer = new MutationObserver((mutations) => { const filteredMutations = mutations.filter( (mutation) => mutation.type === \"childList\" || mutation.type === \"attributes\" && mutation.target !== this ); if (filteredMutations.length) { this.requestUpdate(); } }); this.observer?.observe(this, { childList: true, subtree: true, attributes: true }); } update(changedProperties) { if (!(changedProperties.size === 1 && changedProperties.has(\"visible\"))) { this.picker?.dispose(); this.picker = void 0; } if (changedProperties.has(\"oauthToken\")) { this._oauthToken = this.oauthToken; } if (this.visible && changedProperties.has(\"clientId\") || changedProperties.has(\"scope\") || !this._oauthToken) { retrieveAccessToken(this.clientId, this.scope).then((oauthToken) => { this._oauthToken = oauthToken; this.requestUpdate(); }); } super.update(changedProperties); } render() { if (!this.picker) { this.build(); } this.picker?.setVisible(this.visible); return html`<slot></slot>`; } build() { if (!this._oauthToken) { return; } let builder = new google.picker.PickerBuilder().setOAuthToken(this._oauthToken).setCallback((data) => { this.callbackToDispatchEvent(data); }); for (const view of this.views) { builder = builder.addView(view); } builder = setBuilderProperties(builder, this); this.picker = builder.build(); } callbackToDispatchEvent(data) { this.visible = Boolean(this.picker?.isVisible()); this.dispatch(data.action, data); } disconnectedCallback() { this.picker?.dispose(); super.disconnectedCallback(); } dispatch(type, detail) { return this.dispatchEvent(new CustomEvent(type, { detail })); } createRenderRoot() { return this; } }"
-				}
-			],
-			"exports": [
-				{
-					"kind": "js",
-					"name": "DrivePickerElement",
-					"declaration": {
-						"name": "DrivePickerElement",
-						"module": "dist/drive-picker.js"
-					}
-				}
-			]
-		},
-		{
-			"kind": "javascript-module",
-			"path": "dist/drive-picker.stories.js",
-			"declarations": [
-				{
-					"kind": "variable",
-					"name": "drive_picker_stories_default",
-					"default": "meta"
-				},
-				{
-					"kind": "variable",
-					"name": "Primary",
-					"type": {
-						"text": "object"
-					},
-					"default": "{ args: { visible: true, clientId: \"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com\", developerKey: \"AIzaSyAdqZwr-cdocUdGbt9l0zc5s58jnrGseOY\", appId: \"675807958095\" } }"
-				},
-				{
-					"kind": "variable",
-					"name": "DocsView",
-					"type": {
-						"text": "object"
-					},
-					"default": "{ args: { visible: true, clientId: \"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com\", developerKey: \"AIzaSyAdqZwr-cdocUdGbt9l0zc5s58jnrGseOY\", appId: \"675807958095\" }, render: (props) => drivePickerTemplate( props, html2`<drive-picker-docs-view ownedByMe=\"\"></drive-picker-docs-view>` ) }"
-				}
-			],
-			"exports": [
-				{
-					"kind": "js",
-					"name": "DocsView",
-					"declaration": {
-						"name": "DocsView",
-						"module": "dist/drive-picker.stories.js"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "Primary",
-					"declaration": {
-						"name": "Primary",
-						"module": "dist/drive-picker.stories.js"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "default",
-					"declaration": {
-						"name": "drive_picker_stories_default",
-						"module": "dist/drive-picker.stories.js"
-					}
-				}
-			]
-		},
-		{
-			"kind": "javascript-module",
-			"path": "dist/index.js",
-			"declarations": [
-				{
-					"kind": "variable",
-					"name": "DrivePickerElement",
-					"default": "class extends LitElement { constructor() { super(...arguments); this.scope = \"https://www.googleapis.com/auth/drive.file\"; this.title = \"\"; this.visible = true; } /** * The `google.Picker.View` objects to display in the picker as defined by the slot elements. */ get views() { return nestedViews(this) ?? [new google.picker.DocsView()]; } async connectedCallback() { super.connectedCallback(); await loadApi(); this.observer = new MutationObserver((mutations) => { const filteredMutations = mutations.filter( (mutation) => mutation.type === \"childList\" || mutation.type === \"attributes\" && mutation.target !== this ); if (filteredMutations.length) { this.requestUpdate(); } }); this.observer?.observe(this, { childList: true, subtree: true, attributes: true }); } update(changedProperties) { if (!(changedProperties.size === 1 && changedProperties.has(\"visible\"))) { this.picker?.dispose(); this.picker = void 0; } if (changedProperties.has(\"oauthToken\")) { this._oauthToken = this.oauthToken; } if (this.visible && changedProperties.has(\"clientId\") || changedProperties.has(\"scope\") || !this._oauthToken) { retrieveAccessToken(this.clientId, this.scope).then((oauthToken) => { this._oauthToken = oauthToken; this.requestUpdate(); }); } super.update(changedProperties); } render() { if (!this.picker) { this.build(); } this.picker?.setVisible(this.visible); return html`<slot></slot>`; } build() { if (!this._oauthToken) { return; } let builder = new google.picker.PickerBuilder().setOAuthToken(this._oauthToken).setCallback((data) => { this.callbackToDispatchEvent(data); }); for (const view of this.views) { builder = builder.addView(view); } builder = setBuilderProperties(builder, this); this.picker = builder.build(); } callbackToDispatchEvent(data) { this.visible = Boolean(this.picker?.isVisible()); this.dispatch(data.action, data); } disconnectedCallback() { this.picker?.dispose(); super.disconnectedCallback(); } dispatch(type, detail) { return this.dispatchEvent(new CustomEvent(type, { detail })); } createRenderRoot() { return this; } }"
-				},
-				{
-					"kind": "variable",
-					"name": "DrivePickerDocsViewElement",
-					"default": "class extends LitElement2 { constructor() { super(...arguments); this.viewId = \"DOCS\"; this.mode = \"GRID\"; } /** * Gets the Google Drive Picker view based on the current property values. * @returns {google.picker.DocsView} The Google Drive picker view. */ get view() { const view = new google.picker.DocsView( this.viewId && google.picker.ViewId[this.viewId] ); if (this.label) { view.setLabel(this.label); } if (this.enableDrives !== void 0) { view.setEnableDrives(this.enableDrives); } if (this.includeFolders !== void 0) { view.setIncludeFolders(this.includeFolders); } if (this.mimeTypes) { view.setMimeTypes(this.mimeTypes); } if (this.mode) { view.setMode(google.picker.DocsViewMode[this.mode]); } if (this.ownedByMe !== void 0) { view.setOwnedByMe(this.ownedByMe); } if (this.parent) { view.setParent(this.parent); } if (this.query) { view.setQuery(this.query); } if (this.selectFolderEnabled !== void 0) { view.setSelectFolderEnabled(this.selectFolderEnabled); } if (this.starred !== void 0) { view.setStarred(this.starred); } return view; } }"
-				}
-			],
-			"exports": [
-				{
-					"kind": "js",
-					"name": "DrivePickerDocsViewElement",
-					"declaration": {
-						"name": "DrivePickerDocsViewElement",
-						"module": "dist/index.js"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "DrivePickerElement",
-					"declaration": {
-						"name": "DrivePickerElement",
-						"module": "dist/index.js"
-					}
-				}
-			]
-		},
-		{
-			"kind": "javascript-module",
-			"path": "dist/types.js",
-			"declarations": [],
-			"exports": []
-		},
-		{
-			"kind": "javascript-module",
 			"path": "src/index.ts",
 			"declarations": [],
 			"exports": [
@@ -126,192 +12,36 @@
 					"name": "*",
 					"declaration": {
 						"name": "*",
-						"package": "./drive-picker"
+						"package": "\"./drive-picker\""
+					}
+				},
+				{
+					"kind": "custom-element-definition",
+					"name": "drive-picker",
+					"declaration": {
+						"name": "DrivePickerElement",
+						"module": "/src/drive-picker"
+					}
+				},
+				{
+					"kind": "custom-element-definition",
+					"name": "drive-picker-docs-view",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "/src/drive-picker"
 					}
 				}
 			]
 		},
 		{
 			"kind": "javascript-module",
-			"path": "src/utils.ts",
-			"declarations": [
-				{
-					"kind": "function",
-					"name": "loadApi",
-					"parameters": [
-						{
-							"name": "api",
-							"default": "\"client:picker\""
-						}
-					]
-				},
-				{
-					"kind": "function",
-					"name": "retrieveAccessToken",
-					"return": {
-						"type": {
-							"text": "Promise<string>"
-						}
-					},
-					"parameters": [
-						{
-							"name": "clientId",
-							"type": {
-								"text": "string"
-							}
-						},
-						{
-							"name": "scope",
-							"type": {
-								"text": "string"
-							}
-						}
-					]
-				},
-				{
-					"kind": "function",
-					"name": "injectScript",
-					"return": {
-						"type": {
-							"text": "Promise<void>"
-						}
-					},
-					"parameters": [
-						{
-							"name": "src",
-							"type": {
-								"text": "string"
-							}
-						}
-					]
-				}
-			],
-			"exports": [
-				{
-					"kind": "js",
-					"name": "loadApi",
-					"declaration": {
-						"name": "loadApi",
-						"module": "src/utils.ts"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "retrieveAccessToken",
-					"declaration": {
-						"name": "retrieveAccessToken",
-						"module": "src/utils.ts"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "injectScript",
-					"declaration": {
-						"name": "injectScript",
-						"module": "src/utils.ts"
-					}
-				}
-			]
-		},
-		{
-			"kind": "javascript-module",
-			"path": "src/drive-picker/drive-picker-docs-view.ts",
+			"path": "src/drive-picker/drive-picker-docs-view-element.ts",
 			"declarations": [
 				{
 					"kind": "class",
-					"description": "The `drive-picker-docs-view` element is used to define a view for the Google Drive Picker.",
+					"description": "The `drive-picker-docs-view` element is used to define a [`google.picker.DocsView`](https://developers.google.com/drive/picker/reference/picker.docsview).",
 					"name": "DrivePickerDocsViewElement",
 					"members": [
-						{
-							"kind": "field",
-							"name": "label",
-							"type": {
-								"text": "string | undefined"
-							},
-							"attribute": "label"
-						},
-						{
-							"kind": "field",
-							"name": "viewId",
-							"type": {
-								"text": "ViewId"
-							},
-							"default": "\"DOCS\"",
-							"attribute": "view-id"
-						},
-						{
-							"kind": "field",
-							"name": "mimeTypes",
-							"type": {
-								"text": "string | undefined"
-							},
-							"attribute": "mime-types"
-						},
-						{
-							"kind": "field",
-							"name": "query",
-							"type": {
-								"text": "string | undefined"
-							},
-							"attribute": "query"
-						},
-						{
-							"kind": "field",
-							"name": "enableDrives",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"attribute": "enable-drives"
-						},
-						{
-							"kind": "field",
-							"name": "includeFolders",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"attribute": "include-folders"
-						},
-						{
-							"kind": "field",
-							"name": "selectFolderEnabled",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"attribute": "select-folder-enabled"
-						},
-						{
-							"kind": "field",
-							"name": "mode",
-							"type": {
-								"text": "DocsViewMode"
-							},
-							"default": "\"GRID\"",
-							"attribute": "mode"
-						},
-						{
-							"kind": "field",
-							"name": "ownedByMe",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"attribute": "owned-by-me"
-						},
-						{
-							"kind": "field",
-							"name": "parent",
-							"type": {
-								"text": "string | undefined"
-							},
-							"attribute": "parent"
-						},
-						{
-							"kind": "field",
-							"name": "starred",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"attribute": "starred"
-						},
 						{
 							"kind": "field",
 							"name": "view",
@@ -319,99 +49,98 @@
 								"text": "google.picker.DocsView"
 							},
 							"privacy": "public",
-							"description": "Gets the Google Drive Picker view based on the current property values.",
+							"description": "Gets the Google Drive Picker view based on the current attribute values.",
 							"return": {
 								"type": {
 									"text": "google.picker.DocsView"
 								}
 							},
 							"readonly": true
+						},
+						{
+							"kind": "field",
+							"name": "viewId",
+							"type": {
+								"text": "google.picker.ViewId | undefined"
+							},
+							"privacy": "private",
+							"readonly": true
 						}
 					],
 					"attributes": [
 						{
-							"name": "label",
-							"type": {
-								"text": "string | undefined"
-							},
-							"fieldName": "label"
-						},
-						{
-							"name": "view-id",
-							"type": {
-								"text": "ViewId"
-							},
-							"default": "\"DOCS\"",
-							"fieldName": "viewId"
-						},
-						{
-							"name": "mime-types",
-							"type": {
-								"text": "string | undefined"
-							},
-							"fieldName": "mimeTypes"
-						},
-						{
-							"name": "query",
-							"type": {
-								"text": "string | undefined"
-							},
-							"fieldName": "query"
-						},
-						{
 							"name": "enable-drives",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "\"default\"|\"true\"|\"false\""
 							},
-							"fieldName": "enableDrives"
+							"description": "Whether to allow the user to select files from shared drives."
 						},
 						{
 							"name": "include-folders",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "\"default\"|\"true\"|\"false\""
 							},
-							"fieldName": "includeFolders"
+							"description": "Whether to include folders in the view."
 						},
 						{
-							"name": "select-folder-enabled",
+							"name": "mime-types",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "string"
 							},
-							"fieldName": "selectFolderEnabled"
+							"description": "A comma-separated list of MIME types to filter the view."
 						},
 						{
 							"name": "mode",
 							"type": {
-								"text": "DocsViewMode"
+								"text": "string"
 							},
-							"default": "\"GRID\"",
-							"fieldName": "mode"
+							"description": "The mode of the view."
 						},
 						{
 							"name": "owned-by-me",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "\"default\"|\"true\"|\"false\""
 							},
-							"fieldName": "ownedByMe"
+							"description": "Whether to show files owned by the user."
 						},
 						{
 							"name": "parent",
 							"type": {
-								"text": "string | undefined"
+								"text": "string"
 							},
-							"fieldName": "parent"
+							"description": "The ID of the folder to view."
+						},
+						{
+							"name": "query",
+							"type": {
+								"text": "string"
+							},
+							"description": "The query string to filter the view."
+						},
+						{
+							"name": "select-folder-enabled",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Whether to allow the user to select folders."
 						},
 						{
 							"name": "starred",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "\"default\"|\"true\"|\"false\""
 							},
-							"fieldName": "starred"
+							"description": "Whether to show starred files."
+						},
+						{
+							"name": "view-id",
+							"type": {
+								"text": "string"
+							},
+							"description": "The `keyof typeof google.picker.ViewId`. For example, `\"DOCS\"`, which is equivalent to `google.picker.ViewId.DOCS`."
 						}
 					],
 					"superclass": {
-						"name": "LitElement",
-						"package": "lit"
+						"name": "HTMLElement"
 					},
 					"tagName": "drive-picker-docs-view",
 					"customElement": true
@@ -423,86 +152,22 @@
 					"name": "DrivePickerDocsViewElement",
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
-						"module": "src/drive-picker/drive-picker-docs-view.ts"
-					}
-				},
-				{
-					"kind": "custom-element-definition",
-					"name": "drive-picker-docs-view",
-					"declaration": {
-						"name": "DrivePickerDocsViewElement",
-						"module": "src/drive-picker/drive-picker-docs-view.ts"
+						"module": "src/drive-picker/drive-picker-docs-view-element.ts"
 					}
 				}
 			]
 		},
 		{
 			"kind": "javascript-module",
-			"path": "src/drive-picker/drive-picker.stories.ts",
-			"declarations": [
-				{
-					"kind": "variable",
-					"name": "meta",
-					"type": {
-						"text": "Meta<DrivePickerElementProps>"
-					},
-					"default": "{ title: \"Drive Picker\", tags: [\"autodocs\"], decorators: [withActions], parameters: { actions: { handles: [\"picked\", \"cancel\"] }, }, render: (props: DrivePickerElementProps) => drivePickerTemplate(props), argTypes: { appId: { control: \"text\" }, clientId: { control: \"text\" }, oauthToken: { control: \"text\" }, visible: { control: \"boolean\" }, }, args: { visible: true, }, }"
-				},
-				{
-					"kind": "variable",
-					"name": "Primary",
-					"type": {
-						"text": "Story"
-					},
-					"default": "{ args: { visible: true, clientId: \"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com\", developerKey: \"AIzaSyAdqZwr-cdocUdGbt9l0zc5s58jnrGseOY\", appId: \"675807958095\", }, }"
-				},
-				{
-					"kind": "variable",
-					"name": "DocsView",
-					"type": {
-						"text": "Story"
-					},
-					"default": "{ args: { visible: true, clientId: \"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com\", developerKey: \"AIzaSyAdqZwr-cdocUdGbt9l0zc5s58jnrGseOY\", appId: \"675807958095\", }, render: (props: DrivePickerElementProps) => drivePickerTemplate( props, html`<drive-picker-docs-view ownedByMe=\"\"></drive-picker-docs-view>` ), }"
-				}
-			],
-			"exports": [
-				{
-					"kind": "js",
-					"name": "default",
-					"declaration": {
-						"name": "meta",
-						"module": "src/drive-picker/drive-picker.stories.ts"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "Primary",
-					"declaration": {
-						"name": "Primary",
-						"module": "src/drive-picker/drive-picker.stories.ts"
-					}
-				},
-				{
-					"kind": "js",
-					"name": "DocsView",
-					"declaration": {
-						"name": "DocsView",
-						"module": "src/drive-picker/drive-picker.stories.ts"
-					}
-				}
-			]
-		},
-		{
-			"kind": "javascript-module",
-			"path": "src/drive-picker/drive-picker.ts",
+			"path": "src/drive-picker/drive-picker-element.ts",
 			"declarations": [
 				{
 					"kind": "class",
-					"description": "The `drive-picker` web component provides a convenient way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a \"File Open\" dialog for accessing and interacting with files stored on Google Drive.\n\nFeatures:\n- Provides a similar look-and-feel to the Google Drive UI.\n- Offers several views showing previews and thumbnail images of Drive files.\n- Displays as an inline, modal window, ensuring users never leave the main application.\n\nNote: The Google Picker API does not support file organization, moving, or copying. For these operations, you should use either the Google Drive API or the Drive UI.",
+					"description": "The `drive-picker` web component provides a convenient way to declaratively\nbuild\n[`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)\nby using the component attributes and\n[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder)\nand load OAuth tokens.",
 					"name": "DrivePickerElement",
 					"slots": [
 						{
-							"description": "The View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.",
+							"description": "The default slot contains View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.",
 							"name": ""
 						}
 					],
@@ -513,7 +178,7 @@
 							"type": {
 								"text": "google.picker.Picker | undefined"
 							},
-							"privacy": "private"
+							"privacy": "protected"
 						},
 						{
 							"kind": "field",
@@ -525,130 +190,19 @@
 						},
 						{
 							"kind": "field",
-							"name": "_oauthToken",
+							"name": "google",
 							"type": {
-								"text": "string | undefined"
+								"text": "typeof google | undefined"
 							},
-							"privacy": "private"
+							"privacy": "protected"
 						},
 						{
 							"kind": "field",
-							"name": "appId",
+							"name": "loading",
 							"type": {
-								"text": "string"
+								"text": "Promise<void> | undefined"
 							},
-							"description": "The Google Drive app ID.",
-							"attribute": "app-id"
-						},
-						{
-							"kind": "field",
-							"name": "clientId",
-							"type": {
-								"text": "string"
-							},
-							"description": "The Google API client ID.",
-							"attribute": "client-id"
-						},
-						{
-							"kind": "field",
-							"name": "developerKey",
-							"type": {
-								"text": "string | undefined"
-							},
-							"description": "The Google API developer key.",
-							"attribute": "developerKey"
-						},
-						{
-							"kind": "field",
-							"name": "height",
-							"type": {
-								"text": "number | undefined"
-							},
-							"description": "The height of the picker dialog.",
-							"attribute": "height"
-						},
-						{
-							"kind": "field",
-							"name": "hideTitleBar",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"description": "Whether to hide the title bar of the picker dialog.",
-							"attribute": "hide-title-bar"
-						},
-						{
-							"kind": "field",
-							"name": "locale",
-							"type": {
-								"text": "string | undefined"
-							},
-							"description": "The locale of the picker dialog.",
-							"attribute": "locale"
-						},
-						{
-							"kind": "field",
-							"name": "maxItems",
-							"type": {
-								"text": "number | undefined"
-							},
-							"description": "The maximum number of items that the user can select.",
-							"attribute": "max-items"
-						},
-						{
-							"kind": "field",
-							"name": "multiselect",
-							"type": {
-								"text": "boolean | undefined"
-							},
-							"description": "Whether the user can select multiple items.",
-							"attribute": "multiselect"
-						},
-						{
-							"kind": "field",
-							"name": "oauthToken",
-							"type": {
-								"text": "string | undefined"
-							},
-							"description": "The OAuth token to authenticate the user.",
-							"attribute": "oauth-token"
-						},
-						{
-							"kind": "field",
-							"name": "origin",
-							"type": {
-								"text": "string | undefined"
-							},
-							"description": "The origin of the picker dialog.",
-							"attribute": "origin"
-						},
-						{
-							"kind": "field",
-							"name": "relayUrl",
-							"type": {
-								"text": "string | undefined"
-							},
-							"description": "The relay URL to use for cross-origin communication.",
-							"attribute": "relay-url"
-						},
-						{
-							"kind": "field",
-							"name": "scope",
-							"type": {
-								"text": "string"
-							},
-							"default": "\"https://www.googleapis.com/auth/drive.file\"",
-							"description": "The scope of the OAuth token.",
-							"attribute": "scope"
-						},
-						{
-							"kind": "field",
-							"name": "title",
-							"type": {
-								"text": "string"
-							},
-							"default": "\"\"",
-							"description": "The title of the picker dialog.",
-							"attribute": "title"
+							"privacy": "protected"
 						},
 						{
 							"kind": "field",
@@ -656,33 +210,23 @@
 							"type": {
 								"text": "boolean"
 							},
-							"default": "true",
-							"description": "Whether the picker dialog is visible.",
-							"attribute": "visible",
-							"reflects": true
-						},
-						{
-							"kind": "field",
-							"name": "width",
-							"type": {
-								"text": "number | undefined"
-							},
-							"description": "The width of the picker dialog.",
-							"attribute": "width"
-						},
-						{
-							"kind": "field",
-							"name": "views",
-							"type": {
-								"text": "View[]"
-							},
-							"description": "The `google.Picker.View` objects to display in the picker as defined by the slot elements.",
-							"readonly": true
+							"privacy": "public",
+							"description": "Controls the visibility of the picker after the picker dialog has been\nclosed. If any of the attributes change, the picker will be rebuilt and\nthe visibility will be reset."
 						},
 						{
 							"kind": "method",
 							"name": "build",
 							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "views",
+							"type": {
+								"text": "(View | google.picker.ViewId)[]"
+							},
+							"privacy": "protected",
+							"description": "The `google.Picker.View` objects to display in the picker as defined by the slot elements.",
+							"readonly": true
 						},
 						{
 							"kind": "method",
@@ -705,7 +249,7 @@
 								{
 									"name": "type",
 									"type": {
-										"text": "\"cancel\" | \"picked\""
+										"text": "google.picker.Action"
 									}
 								},
 								{
@@ -725,12 +269,25 @@
 							}
 						},
 						{
+							"type": {
+								"text": "DrivePickerEvent"
+							},
 							"description": "Triggered when the user cancels the picker dialog.",
 							"name": "cancel"
 						},
 						{
+							"type": {
+								"text": "DrivePickerEvent"
+							},
 							"description": "Triggered when the user picks one or more items.",
 							"name": "picked"
+						},
+						{
+							"type": {
+								"text": "DrivePickerEvent"
+							},
+							"description": "Triggered when the picker is loaded.",
+							"name": "loaded"
 						}
 					],
 					"attributes": [
@@ -739,128 +296,102 @@
 							"type": {
 								"text": "string"
 							},
-							"description": "The Google Drive app ID.",
-							"fieldName": "appId"
+							"description": "The Google Drive app ID."
 						},
 						{
 							"name": "client-id",
 							"type": {
 								"text": "string"
 							},
-							"description": "The Google API client ID.",
-							"fieldName": "clientId"
+							"description": "The OAuth 2.0 client ID."
 						},
 						{
-							"name": "developerKey",
+							"name": "developer-key",
 							"type": {
-								"text": "string | undefined"
+								"text": "string"
 							},
-							"description": "The Google API developer key.",
-							"fieldName": "developerKey"
-						},
-						{
-							"name": "height",
-							"type": {
-								"text": "number | undefined"
-							},
-							"description": "The height of the picker dialog.",
-							"fieldName": "height"
+							"description": "The API key for accessing Google Picker API."
 						},
 						{
 							"name": "hide-title-bar",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "\"default\"|\"true\"|\"false\""
 							},
-							"description": "Whether to hide the title bar of the picker dialog.",
-							"fieldName": "hideTitleBar"
+							"description": "Hides the title bar of the picker if set to true."
 						},
 						{
 							"name": "locale",
 							"type": {
-								"text": "string | undefined"
+								"text": "string"
 							},
-							"description": "The locale of the picker dialog.",
-							"fieldName": "locale"
+							"description": "The locale to use for the picker."
 						},
 						{
 							"name": "max-items",
 							"type": {
-								"text": "number | undefined"
+								"text": "number"
 							},
-							"description": "The maximum number of items that the user can select.",
-							"fieldName": "maxItems"
+							"description": "The maximum number of items that can be selected."
+						},
+						{
+							"name": "mine-only",
+							"type": {
+								"text": "boolean"
+							},
+							"description": "If set to true, only shows files owned by the user."
 						},
 						{
 							"name": "multiselect",
 							"type": {
-								"text": "boolean | undefined"
+								"text": "boolean"
 							},
-							"description": "Whether the user can select multiple items.",
-							"fieldName": "multiselect"
+							"description": "Enables multiple file selection if set to true."
+						},
+						{
+							"name": "nav-hidden",
+							"type": {
+								"text": "boolean"
+							},
+							"description": "Hides the navigation pane if set to true."
 						},
 						{
 							"name": "oauth-token",
 							"type": {
-								"text": "string | undefined"
+								"text": "string"
 							},
-							"description": "The OAuth token to authenticate the user.",
-							"fieldName": "oauthToken"
+							"description": "The OAuth 2.0 token for authentication."
 						},
 						{
 							"name": "origin",
 							"type": {
-								"text": "string | undefined"
+								"text": "string"
 							},
-							"description": "The origin of the picker dialog.",
-							"fieldName": "origin"
+							"description": "The origin parameter for the picker."
 						},
 						{
 							"name": "relay-url",
 							"type": {
-								"text": "string | undefined"
+								"text": "string"
 							},
-							"description": "The relay URL to use for cross-origin communication.",
-							"fieldName": "relayUrl"
+							"description": "The relay URL for the picker."
 						},
 						{
 							"name": "scope",
 							"type": {
 								"text": "string"
 							},
-							"default": "\"https://www.googleapis.com/auth/drive.file\"",
-							"description": "The scope of the OAuth token.",
-							"fieldName": "scope"
+							"description": "The OAuth 2.0 scope for the picker."
 						},
 						{
 							"name": "title",
 							"type": {
 								"text": "string"
 							},
-							"default": "\"\"",
-							"description": "The title of the picker dialog.",
-							"fieldName": "title"
-						},
-						{
-							"name": "visible",
-							"type": {
-								"text": "boolean"
-							},
-							"default": "true",
-							"description": "Whether the picker dialog is visible.",
-							"fieldName": "visible"
-						},
-						{
-							"name": "width",
-							"type": {
-								"text": "number | undefined"
-							},
-							"description": "The width of the picker dialog.",
-							"fieldName": "width"
+							"description": "The title of the picker."
 						}
 					],
 					"superclass": {
-						"name": "LitElement",
-						"package": "lit"
+						"name": "HTMLElement"
 					},
 					"tagName": "drive-picker",
 					"customElement": true
@@ -872,15 +403,7 @@
 					"name": "DrivePickerElement",
 					"declaration": {
 						"name": "DrivePickerElement",
-						"module": "src/drive-picker/drive-picker.ts"
-					}
-				},
-				{
-					"kind": "custom-element-definition",
-					"name": "drive-picker",
-					"declaration": {
-						"name": "DrivePickerElement",
-						"module": "src/drive-picker/drive-picker.ts"
+						"module": "src/drive-picker/drive-picker-element.ts"
 					}
 				}
 			]
@@ -895,7 +418,7 @@
 					"name": "DrivePickerElement",
 					"declaration": {
 						"name": "DrivePickerElement",
-						"module": "\"./drive-picker\""
+						"module": "\"./drive-picker-element\""
 					}
 				},
 				{
@@ -903,7 +426,15 @@
 					"name": "DrivePickerElementProps",
 					"declaration": {
 						"name": "DrivePickerElementProps",
-						"module": "\"./drive-picker\""
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerEvent",
+					"declaration": {
+						"name": "DrivePickerEvent",
+						"module": "\"./drive-picker-element\""
 					}
 				},
 				{
@@ -911,7 +442,7 @@
 					"name": "DrivePickerDocsViewElement",
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
-						"module": "\"./drive-picker-docs-view\""
+						"module": "\"./drive-picker-docs-view-element\""
 					}
 				},
 				{
@@ -919,7 +450,7 @@
 					"name": "DrivePickerDocsViewElementProps",
 					"declaration": {
 						"name": "DrivePickerDocsViewElementProps",
-						"module": "\"./drive-picker-docs-view\""
+						"module": "\"./drive-picker-docs-view-element\""
 					}
 				}
 			]
@@ -932,21 +463,202 @@
 		},
 		{
 			"kind": "javascript-module",
-			"path": "coverage/lcov-report/block-navigation.js",
-			"declarations": [],
-			"exports": []
+			"path": "src/stories/utils/attribute-helpers.ts",
+			"declarations": [
+				{
+					"kind": "function",
+					"name": "setAttributes",
+					"parameters": [
+						{
+							"name": "element",
+							"type": {
+								"text": "HTMLElement"
+							}
+						},
+						{
+							"name": "attributes",
+							"type": {
+								"text": "{ [key: string]: string | boolean | number }"
+							}
+						}
+					]
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "setAttributes",
+					"declaration": {
+						"name": "setAttributes",
+						"module": "src/stories/utils/attribute-helpers.ts"
+					}
+				}
+			]
 		},
 		{
 			"kind": "javascript-module",
-			"path": "coverage/lcov-report/prettify.js",
-			"declarations": [],
-			"exports": []
+			"path": "src/stories/utils/common.ts",
+			"declarations": [
+				{
+					"kind": "variable",
+					"name": "META_PARAMETERS",
+					"type": {
+						"text": "object"
+					},
+					"default": "{ controls: { matchers: { color: /(background|color)$/i, date: /Date$/, }, }, docs: { canvas: { withToolbar: false, sourceState: \"shown\", }, source: { format: \"html\", language: \"html\", dark: true, // extract the template part of the source code transform: (src: string) => (src.match(/<template>(.*?)<\\/template>/) ?? [])[1], }, }, }"
+				},
+				{
+					"kind": "variable",
+					"name": "APP_ID",
+					"type": {
+						"text": "string"
+					},
+					"default": "\"675807958095\""
+				},
+				{
+					"kind": "variable",
+					"name": "CLIENT_ID",
+					"type": {
+						"text": "string"
+					},
+					"default": "\"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com\""
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "META_PARAMETERS",
+					"declaration": {
+						"name": "META_PARAMETERS",
+						"module": "src/stories/utils/common.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "APP_ID",
+					"declaration": {
+						"name": "APP_ID",
+						"module": "src/stories/utils/common.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "CLIENT_ID",
+					"declaration": {
+						"name": "CLIENT_ID",
+						"module": "src/stories/utils/common.ts"
+					}
+				}
+			]
 		},
 		{
 			"kind": "javascript-module",
-			"path": "coverage/lcov-report/sorter.js",
-			"declarations": [],
-			"exports": []
+			"path": "src/stories/utils/lazy-preview-element.ts",
+			"declarations": [
+				{
+					"kind": "class",
+					"description": "",
+					"name": "LazyPreviewElement",
+					"members": [
+						{
+							"kind": "field",
+							"name": "element",
+							"type": {
+								"text": "T | null"
+							},
+							"default": "null"
+						},
+						{
+							"kind": "method",
+							"name": "preview"
+						}
+					],
+					"superclass": {
+						"name": "HTMLElement"
+					},
+					"tagName": "lazy-preview",
+					"customElement": true
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "LazyPreviewElement",
+					"declaration": {
+						"name": "LazyPreviewElement",
+						"module": "src/stories/utils/lazy-preview-element.ts"
+					}
+				},
+				{
+					"kind": "custom-element-definition",
+					"name": "lazy-preview",
+					"declaration": {
+						"name": "LazyPreviewElement",
+						"module": "src/stories/utils/lazy-preview-element.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/stories/utils/manifest-helpers.ts",
+			"declarations": [
+				{
+					"kind": "variable",
+					"name": "manifestElements",
+					"default": "Object.fromEntries( pkg.modules.flatMap((module) => (module.declarations ?? []) .filter(isCustomElementDeclaration) .map((declaration) => [declaration.tagName, declaration]), ), )"
+				},
+				{
+					"kind": "function",
+					"name": "getElementEvents",
+					"return": {
+						"type": {
+							"text": "Event[]"
+						}
+					},
+					"parameters": [
+						{
+							"name": "tagName",
+							"type": {
+								"text": "string"
+							}
+						}
+					]
+				},
+				{
+					"kind": "variable",
+					"name": "elementArgTypes",
+					"type": {
+						"text": "{\n\t[k: string]: { [k: string]: StrictInputType };\n}"
+					}
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "manifestElements",
+					"declaration": {
+						"name": "manifestElements",
+						"module": "src/stories/utils/manifest-helpers.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "getElementEvents",
+					"declaration": {
+						"name": "getElementEvents",
+						"module": "src/stories/utils/manifest-helpers.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "elementArgTypes",
+					"declaration": {
+						"name": "elementArgTypes",
+						"module": "src/stories/utils/manifest-helpers.ts"
+					}
+				}
+			]
 		}
 	]
 }

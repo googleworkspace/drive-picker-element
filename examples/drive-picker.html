@@ -17,24 +17,24 @@
 
 <html>
   <body>
-    <script type="module" src="../dist/index.js"></script>
+    <script type="module" src="../dist/index.iife.min.js"></script>
 
     <drive-picker
       client-id="675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com"
       app-id="675807958095"
     >
-      <drive-picker-docs-view
-        mime-types="application/json"
-        label="JSON"
-      ></drive-picker-docs-view>
-      <drive-picker-docs-view
-        owned-by-me=""
-        label="Mine"
-      ></drive-picker-docs-view>
-      <drive-picker-docs-view
-        starred=""
-        label="Starred"
-      ></drive-picker-docs-view>
+      <drive-picker-docs-view query="'Test'"></drive-picker-docs-view>
     </drive-picker>
+
+    <script>
+      const drivePicker = document.querySelector("drive-picker");
+
+      ["loaded", "picked", "cancel"].forEach((eventName) => {
+        drivePicker.addEventListener(eventName, (e) => {
+          console.log(eventName, e.detail);
+          console.log(`visible: ${drivePicker.visible}`);
+        });
+      });
+    </script>
   </body>
 </html>

@@ -9,117 +9,135 @@
 		"url": "https://justin.poehnelt.com"
 	},
 	"type": "module",
-	"main": "dist/index.js",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"browser": "./dist/index.iife.min.js",
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./drive-picker": {
+			"types": "./dist/drive-picker/index.d.ts",
+			"import": "./dist/drive-picker/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"src",
+		"custom-elements.json"
+	],
 	"homepage": "https://github.com/googleworkspace/drive-picker-element",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/googleworkspace/drive-picker-element.git"
 	},
 	"scripts": {
-		"prepare": "husky",
 		"build": "wireit",
-		"build:docs": "wireit",
-		"serve": "wireit",
 		"check": "tsc --noEmit",
+		"format": "biome check --fix .",
 		"lint": "biome check .",
-		"format": "biome check --write .",
+		"prepack": "pnpm build",
+		"prepare": "husky",
+		"serve": "wireit",
 		"test": "wireit",
-		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
-	},
-	"dependencies": {
-		"lit": "^3.1.2"
+		"dev": "storybook dev -p 6006"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
-		"@chromatic-com/storybook": "^1.5.0",
 		"@custom-elements-manifest/analyzer": "^0.10.2",
 		"@open-wc/lit-helpers": "^0.7.0",
 		"@open-wc/testing": "^4.0.0",
-		"@storybook/addon-actions": "^8.1.9",
-		"@storybook/addon-essentials": "^8.1.9",
-		"@storybook/addon-links": "^8.1.9",
-		"@storybook/blocks": "^8.1.9",
-		"@storybook/test": "^8.1.9",
-		"@storybook/web-components": "^8.1.9",
-		"@storybook/web-components-vite": "^8.1.9",
+		"@storybook/addon-essentials": "^8.4.4",
+		"@storybook/blocks": "^8.4.4",
+		"@storybook/csf": "^0.1.11",
+		"@storybook/test": "^8.4.4",
+		"@storybook/types": "^8.4.4",
+		"@storybook/web-components": "^8.4.4",
+		"@storybook/web-components-vite": "^8.4.4",
 		"@types/gapi": "^0.0.47",
 		"@types/google.accounts": "^0.0.14",
 		"@types/google.picker": "^0.0.44",
+		"@types/mdast": "^4.0.4",
+		"@types/memoizee": "^0.4.11",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^22.4.1",
+		"@types/unist": "^3.0.3",
 		"@web/dev-server": "^0.4.5",
 		"@web/test-runner": "^0.18.2",
 		"@web/test-runner-playwright": "^0.11.0",
+		"browserslist": "^4.24.0",
+		"browserslist-to-esbuild": "^2.1.1",
 		"chai": "^5.1.1",
+		"custom-elements-manifest": "^2.1.0",
 		"husky": "^9.1.4",
 		"lint-staged": "^15.2.9",
+		"mdast-util-from-markdown": "^2.0.2",
 		"playwright": "^1.44.0",
 		"prettier": "^3.3.3",
-		"storybook": "^8.1.9",
+		"remark": "^15.0.1",
+		"remark-behead": "^3.1.0",
+		"remark-gfm": "^4.0.0",
+		"remark-github": "^12.0.0",
+		"remark-toc": "^9.0.0",
+		"storybook": "^8.4.4",
 		"tsup": "^8.0.2",
-		"typescript": "^5.2.2",
-		"web-component-analyzer": "^2.0.0",
+		"tsx": "^4.19.2",
+		"typescript": "^5.6.3",
 		"wireit": "^0.14.4"
 	},
-	"customElements": "custom-elements.json",
+	"customElements": "dist/custom-elements.json",
 	"wireit": {
 		"build": {
-			"clean": true,
-			"command": "tsup --dts --format esm --target es2020 --splitting false --sourcemap src/**/*.ts",
 			"dependencies": [
-				"build:vscode",
-				"build:docs"
-			],
-			"files": [
-				"src/**/*.ts"
-			],
-			"output": [
-				"dist/**/*.js",
-				"dist/**/*.d.ts"
+				"build:components",
+				"build:manifest",
+				"build:readme",
+				"build:storybook"
 			]
 		},
-		"build:json": {
-			"command": "cem analyze --litelement --outdir dist --exclude '**/*.test.ts'",
+		"build:components": {
+			"command": "tsup",
 			"files": [
-				"src/**/*.ts"
+				"src/**/*.ts",
+				"tsup.config.ts"
 			],
 			"output": [
-				"dist/custom-elements.json"
+				"dist/**/*.(js|ts|map)"
 			]
 		},
-		"build:vscode": {
-			"command": "wca src --outFile dist/custom-data-vscode.json --format vscode",
+		"build:manifest": {
+			"command": "cem analyze --config cem.config.js && biome check --fix custom-elements.json",
 			"files": [
-				"src/**/*.ts"
+				"src/**/*.ts",
+				"cem.config.js"
 			],
 			"output": [
-				"dist/custom-data-vscode.json"
+				"custom-elements.json"
 			]
 		},
-		"build:docs": {
+		"build:readme": {
 			"clean": false,
-			"command": "wca src --outDir docs --format 'md' --visibility 'public' --inlineTypes && node ./.github/docs.js",
-			"dependencies": [
-				"build:docs-wca"
-			],
+			"command": "tsx ./scripts/docs.ts",
 			"files": [
-				"docs/**/*.md",
+				"custom-elements.json",
+				"scripts/**/*.ts",
 				"README.md"
 			],
 			"output": [
 				"README.md"
+			],
+			"dependencies": [
+				"build:manifest"
 			]
 		},
-		"build:docs-wca": {
-			"command": "wca src --outDir docs --format 'md' --visibility 'public' --inlineTypes",
+		"build:storybook": {
+			"command": "storybook build",
 			"files": [
-				"src/**/*.ts"
+				"src/**/*.ts",
+				"stories/**/*.ts"
 			],
 			"output": [
-				"docs/*.md"
+				"dist/storybook"
 			]
 		},
 		"serve": {
@@ -145,11 +163,14 @@
 		}
 	},
 	"lint-staged": {
-		"*": "pnpm build:docs && pnpm format && pnpm lint && pnpm check"
+		"*": "pnpm build && pnpm format && pnpm lint && pnpm check"
 	},
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://wombat-dressing-room.appspot.com"
 	},
-	"packageManager": "pnpm@9.3.0"
+	"packageManager": "pnpm@9.3.0",
+	"dependencies": {
+		"memoizee": "^0.4.17"
+	}
 }

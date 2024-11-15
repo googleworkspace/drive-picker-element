@@ -13,8 +13,8 @@ coverage
 dist
 dist-ssr
 *.local
-
-# Editor directories and files
+*storybook.log
+storybook-static
 !.vscode/extensions.json
 .idea
 .DS_Store
@@ -24,6 +24,5 @@ dist-ssr
 *.sln
 *.sw?
 *.tgz
-*storybook.log
 
 docs/**/*.md

@@ -1,20 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "ES2020",
-		"experimentalDecorators": true,
-		"useDefineForClassFields": false,
+		"target": "ESNext",
 		"module": "ESNext",
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"noEmit": true,
 		"strict": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true
+		"outDir": "dist"
 	},
-	"include": ["src"]
+	"include": ["src", "stories"]
 }
