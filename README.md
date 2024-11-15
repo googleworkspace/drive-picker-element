@@ -16,6 +16,7 @@ The [Google Drive Picker] web components provides a convenient way to integrate 
 - [Reference](#reference)
   - [`<drive-picker/>`](#drive-picker)
   - [`<drive-picker-docs-view/>`](#drive-picker-docs-view)
+  - [`<lazy-preview/>`](#lazy-preview)
 
 ## Install
 
@@ -104,9 +105,9 @@ and load OAuth tokens.
 
 #### Properties
 
-| Name      | Type      | Description                            |
-| --------- | --------- | -------------------------------------- |
-| `visible` | `boolean` | Controls the visibility of the picker. |
+| Name      | Type      | Description                                                                                                                                                                          |
+| --------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `visible` | `boolean` | Controls the visibility of the picker after the picker dialog has been&#xA;closed. If any of the attributes change, the picker will be rebuilt and&#xA;the visibility will be reset. |
 
 ### `<drive-picker-docs-view/>`
 
@@ -114,24 +115,31 @@ The `drive-picker-docs-view` element is used to define a [`google.picker.DocsVie
 
 #### Attributes
 
-| Name                    | Type                         | Description                                                   |
-| ----------------------- | ---------------------------- | ------------------------------------------------------------- |
-| `enable-drives`         | `"default"\|"true"\|"false"` | Whether to allow the user to select files from shared drives. |
-| `include-folders`       | `"default"\|"true"\|"false"` | Whether to include folders in the view.                       |
-| `mime-types`            | `string`                     | A comma-separated list of MIME types to filter the view.      |
-| `mode`                  | `string`                     | The mode of the view.                                         |
-| `owned-by-me`           | `"default"\|"true"\|"false"` | Whether to show files owned by the user.                      |
-| `parent`                | `string`                     | The ID of the folder to view.                                 |
-| `query`                 | `string`                     | The query string to filter the view.                          |
-| `select-folder-enabled` | `"default"\|"true"\|"false"` | Whether to allow the user to select folders.                  |
-| `starred`               | `"default"\|"true"\|"false"` | Whether to show starred files.                                |
-| `view-id`               | `string`                     | The ID of the view.                                           |
+| Name                    | Type                         | Description                                                                                                         |
+| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `enable-drives`         | `"default"\|"true"\|"false"` | Whether to allow the user to select files from shared drives.                                                       |
+| `include-folders`       | `"default"\|"true"\|"false"` | Whether to include folders in the view.                                                                             |
+| `mime-types`            | `string`                     | A comma-separated list of MIME types to filter the view.                                                            |
+| `mode`                  | `string`                     | The mode of the view.                                                                                               |
+| `owned-by-me`           | `"default"\|"true"\|"false"` | Whether to show files owned by the user.                                                                            |
+| `parent`                | `string`                     | The ID of the folder to view.                                                                                       |
+| `query`                 | `string`                     | The query string to filter the view.                                                                                |
+| `select-folder-enabled` | `"default"\|"true"\|"false"` | Whether to allow the user to select folders.                                                                        |
+| `starred`               | `"default"\|"true"\|"false"` | Whether to show starred files.                                                                                      |
+| `view-id`               | `string`                     | The `keyof typeof google.picker.ViewId`. For example, `"DOCS"`, which is equivalent to `google.picker.ViewId.DOCS`. |
 
 #### Properties
 
 | Name   | Type                     | Description                                                              |
 | ------ | ------------------------ | ------------------------------------------------------------------------ |
 | `view` | `google.picker.DocsView` | Gets the Google Drive Picker view based on the current attribute values. |
+
+### `<lazy-preview/>`
+
+#### Attributes
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
 
 <!-- END docs -->
 

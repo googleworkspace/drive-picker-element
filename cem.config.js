@@ -16,5 +16,5 @@
 
 export default {
 	globs: ["src/**/*.ts"],
-	exclude: ["src/utils.ts"],
+	exclude: ["src/utils.ts", "src/**/*.stories.ts"],
 };

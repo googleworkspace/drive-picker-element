@@ -35,18 +35,29 @@
 		"prepack": "pnpm build",
 		"prepare": "husky",
 		"serve": "wireit",
-		"test": "wireit"
+		"test": "wireit",
+		"dev": "storybook dev -p 6006"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
 		"@custom-elements-manifest/analyzer": "^0.10.2",
+		"@open-wc/lit-helpers": "^0.7.0",
 		"@open-wc/testing": "^4.0.0",
+		"@storybook/addon-essentials": "^8.4.2",
+		"@storybook/blocks": "^8.4.2",
+		"@storybook/csf": "^0.1.11",
+		"@storybook/test": "^8.4.3",
+		"@storybook/types": "^8.4.2",
+		"@storybook/web-components": "^8.4.2",
+		"@storybook/web-components-vite": "^8.4.2",
 		"@types/gapi": "^0.0.47",
 		"@types/google.accounts": "^0.0.14",
 		"@types/google.picker": "^0.0.44",
 		"@types/mdast": "^4.0.4",
+		"@types/memoizee": "^0.4.11",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^22.4.1",
+		"@types/unist": "^3.0.3",
 		"@web/dev-server": "^0.4.5",
 		"@web/test-runner": "^0.18.2",
 		"@web/test-runner-playwright": "^0.11.0",
@@ -64,6 +75,7 @@
 		"remark-gfm": "^4.0.0",
 		"remark-github": "^12.0.0",
 		"remark-toc": "^9.0.0",
+		"storybook": "^8.4.2",
 		"tsup": "^8.0.2",
 		"tsx": "^4.19.2",
 		"typescript": "^5.6.3",
@@ -72,7 +84,12 @@
 	"customElements": "dist/custom-elements.json",
 	"wireit": {
 		"build": {
-			"dependencies": ["build:components", "build:manifest", "build:readme"]
+			"dependencies": [
+				"build:components",
+				"build:manifest",
+				"build:readme",
+				"build:storybook"
+			]
 		},
 		"build:components": {
 			"command": "tsup",
@@ -90,6 +107,11 @@
 			"files": ["custom-elements.json", "scripts/**/*.ts", "README.md"],
 			"output": ["README.md"],
 			"dependencies": ["build:manifest"]
+		},
+		"build:storybook": {
+			"command": "storybook build",
+			"files": ["src/**/*.ts", "stories/**/*.ts"],
+			"output": ["dist/storybook"]
 		},
 		"serve": {
 			"command": "wds --node-resolve --watch --open examples/drive-picker.html",
@@ -118,5 +140,8 @@
 		"access": "public",
 		"registry": "https://wombat-dressing-room.appspot.com"
 	},
-	"packageManager": "pnpm@9.3.0"
+	"packageManager": "pnpm@9.3.0",
+	"dependencies": {
+		"memoizee": "^0.4.17"
+	}
 }

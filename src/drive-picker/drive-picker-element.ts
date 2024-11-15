@@ -1,10 +1,3 @@
-import {
-	getBoolAttr,
-	getNumberAttribute,
-	loadApi,
-	retrieveAccessToken,
-	setBoolAttrWithDefault,
-} from "../utils";
 /**
  * Copyright 2024 Google LLC
  *
@@ -20,6 +13,14 @@ import {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import {
+	getBoolAttr,
+	getNumberAttribute,
+	loadApi,
+	memoizedRetrieveAccessToken,
+	setBoolAttrWithDefault,
+} from "../utils";
 
 export type View = google.picker.DocsView;
 
@@ -44,6 +45,23 @@ export interface DrivePickerElementEventListeners {
 		listener: (ev: DrivePickerEvent) => void,
 		options?: boolean | EventListenerOptions,
 	): void;
+}
+
+export interface DrivePickerElementProps {
+	"app-id"?: string;
+	"client-id"?: string;
+	"developer-key"?: string;
+	"hide-title-bar"?: "default" | "true" | "false";
+	locale?: string;
+	"max-items"?: number;
+	"mine-only"?: boolean;
+	multiselect?: boolean;
+	"nav-hidden"?: boolean;
+	"oauth-token"?: string;
+	origin?: string;
+	"relay-url"?: string;
+	scope?: string;
+	title?: string;
 }
 
 /**
@@ -129,7 +147,9 @@ export class DrivePickerElement
 	}
 
 	/**
-	 * Controls the visibility of the picker.
+	 * Controls the visibility of the picker after the picker dialog has been
+	 * closed. If any of the attributes change, the picker will be rebuilt and
+	 * the visibility will be reset.
 	 */
 	set visible(value: boolean) {
 		this.picker?.setVisible(value);
@@ -187,13 +207,15 @@ export class DrivePickerElement
 		// OAuth token is required either as an attribute or from the OAuth flow using the client ID and scope
 		const oauthToken =
 			this.getAttribute("oauth-token") ??
-			(await retrieveAccessToken(
+			(await memoizedRetrieveAccessToken(
 				// biome-ignore lint/style/noNonNullAssertion: just let the error bubble up when null
 				this.getAttribute("client-id")!,
 				this.getAttribute("scope") ??
 					"https://www.googleapis.com/auth/drive.file",
 			));
-		builder = builder.setOAuthToken(oauthToken);
+
+		// biome-ignore lint/style/noNonNullAssertion: <explanation>
+		builder = builder.setOAuthToken(oauthToken!);
 
 		if (getBoolAttr(this, "multiselect")) {
 			builder = builder.enableFeature(

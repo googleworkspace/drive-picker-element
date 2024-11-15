@@ -23,7 +23,6 @@ import type {
 	Text,
 } from "mdast";
 import type { Table, TableCell, TableRow } from "mdast";
-import { fromMarkdown } from "mdast-util-from-markdown";
 
 export const inlineCode = (value: string): InlineCode => ({
 	type: "inlineCode",

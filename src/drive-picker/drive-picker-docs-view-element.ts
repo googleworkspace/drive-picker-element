@@ -16,6 +16,19 @@
 import { setBoolAttrWithDefault } from "../utils";
 export type ViewId = keyof typeof google.picker.ViewId;
 
+export interface DrivePickerDocsViewElementProps {
+	"enable-drives"?: "default" | "true" | "false";
+	"include-folders"?: "default" | "true" | "false";
+	"mime-types"?: string;
+	mode?: string;
+	"owned-by-me"?: "default" | "true" | "false";
+	parent?: string;
+	query?: string;
+	"select-folder-enabled"?: "default" | "true" | "false";
+	starred?: "default" | "true" | "false";
+	"view-id"?: ViewId;
+}
+
 /**
  * The `drive-picker-docs-view` element is used to define a [`google.picker.DocsView`](https://developers.google.com/drive/picker/reference/picker.docsview).
  *
@@ -29,7 +42,7 @@ export type ViewId = keyof typeof google.picker.ViewId;
  * @attr {string} query - The query string to filter the view.
  * @attr {"default"|"true"|"false"} select-folder-enabled - Whether to allow the user to select folders.
  * @attr {"default"|"true"|"false"} starred - Whether to show starred files.
- * @attr {string} view-id - The ID of the view.
+ * @attr {string} view-id - The `keyof typeof google.picker.ViewId`. For example, `"DOCS"`, which is equivalent to `google.picker.ViewId.DOCS`.
  *
  * @example
  *
@@ -43,7 +56,6 @@ export type ViewId = keyof typeof google.picker.ViewId;
 export class DrivePickerDocsViewElement extends HTMLElement {
 	static get observedAttributes() {
 		return [
-			/** foo */
 			"enable-drives",
 			"include-folders",
 			"mime-types",

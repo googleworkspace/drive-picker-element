@@ -136,7 +136,7 @@
 							"type": {
 								"text": "string"
 							},
-							"description": "The ID of the view."
+							"description": "The `keyof typeof google.picker.ViewId`. For example, `\"DOCS\"`, which is equivalent to `google.picker.ViewId.DOCS`."
 						}
 					],
 					"superclass": {
@@ -211,7 +211,7 @@
 								"text": "boolean"
 							},
 							"privacy": "public",
-							"description": "Controls the visibility of the picker."
+							"description": "Controls the visibility of the picker after the picker dialog has been\nclosed. If any of the attributes change, the picker will be rebuilt and\nthe visibility will be reset."
 						},
 						{
 							"kind": "method",
@@ -423,6 +423,14 @@
 				},
 				{
 					"kind": "js",
+					"name": "DrivePickerElementProps",
+					"declaration": {
+						"name": "DrivePickerElementProps",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
 					"name": "DrivePickerEvent",
 					"declaration": {
 						"name": "DrivePickerEvent",
@@ -436,6 +444,14 @@
 						"name": "DrivePickerDocsViewElement",
 						"module": "\"./drive-picker-docs-view-element\""
 					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElementProps",
+					"declaration": {
+						"name": "DrivePickerDocsViewElementProps",
+						"module": "\"./drive-picker-docs-view-element\""
+					}
 				}
 			]
 		},
@@ -444,6 +460,205 @@
 			"path": "src/drive-picker/types.ts",
 			"declarations": [],
 			"exports": []
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/stories/utils/attribute-helpers.ts",
+			"declarations": [
+				{
+					"kind": "function",
+					"name": "setAttributes",
+					"parameters": [
+						{
+							"name": "element",
+							"type": {
+								"text": "HTMLElement"
+							}
+						},
+						{
+							"name": "attributes",
+							"type": {
+								"text": "{ [key: string]: string | boolean | number }"
+							}
+						}
+					]
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "setAttributes",
+					"declaration": {
+						"name": "setAttributes",
+						"module": "src/stories/utils/attribute-helpers.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/stories/utils/common.ts",
+			"declarations": [
+				{
+					"kind": "variable",
+					"name": "META_PARAMETERS",
+					"type": {
+						"text": "object"
+					},
+					"default": "{ controls: { matchers: { color: /(background|color)$/i, date: /Date$/, }, }, docs: { canvas: { withToolbar: false, sourceState: \"shown\", }, source: { format: \"html\", language: \"html\", dark: true, // extract the template part of the source code transform: (src: string) => (src.match(/<template>(.*?)<\\/template>/) ?? [])[1], }, }, }"
+				},
+				{
+					"kind": "variable",
+					"name": "APP_ID",
+					"type": {
+						"text": "string"
+					},
+					"default": "\"675807958095\""
+				},
+				{
+					"kind": "variable",
+					"name": "CLIENT_ID",
+					"type": {
+						"text": "string"
+					},
+					"default": "\"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com\""
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "META_PARAMETERS",
+					"declaration": {
+						"name": "META_PARAMETERS",
+						"module": "src/stories/utils/common.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "APP_ID",
+					"declaration": {
+						"name": "APP_ID",
+						"module": "src/stories/utils/common.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "CLIENT_ID",
+					"declaration": {
+						"name": "CLIENT_ID",
+						"module": "src/stories/utils/common.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/stories/utils/lazy-preview-element.ts",
+			"declarations": [
+				{
+					"kind": "class",
+					"description": "",
+					"name": "LazyPreviewElement",
+					"members": [
+						{
+							"kind": "field",
+							"name": "element",
+							"type": {
+								"text": "T | null"
+							},
+							"default": "null"
+						},
+						{
+							"kind": "method",
+							"name": "preview"
+						}
+					],
+					"superclass": {
+						"name": "HTMLElement"
+					},
+					"tagName": "lazy-preview",
+					"customElement": true
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "LazyPreviewElement",
+					"declaration": {
+						"name": "LazyPreviewElement",
+						"module": "src/stories/utils/lazy-preview-element.ts"
+					}
+				},
+				{
+					"kind": "custom-element-definition",
+					"name": "lazy-preview",
+					"declaration": {
+						"name": "LazyPreviewElement",
+						"module": "src/stories/utils/lazy-preview-element.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/stories/utils/manifest-helpers.ts",
+			"declarations": [
+				{
+					"kind": "variable",
+					"name": "manifestElements",
+					"default": "Object.fromEntries( pkg.modules.flatMap((module) => (module.declarations ?? []) .filter(isCustomElementDeclaration) .map((declaration) => [declaration.tagName, declaration]), ), )"
+				},
+				{
+					"kind": "function",
+					"name": "getElementEvents",
+					"return": {
+						"type": {
+							"text": "Event[]"
+						}
+					},
+					"parameters": [
+						{
+							"name": "tagName",
+							"type": {
+								"text": "string"
+							}
+						}
+					]
+				},
+				{
+					"kind": "variable",
+					"name": "elementArgTypes",
+					"type": {
+						"text": "{\n\t[k: string]: { [k: string]: StrictInputType };\n}"
+					}
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "manifestElements",
+					"declaration": {
+						"name": "manifestElements",
+						"module": "src/stories/utils/manifest-helpers.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "getElementEvents",
+					"declaration": {
+						"name": "getElementEvents",
+						"module": "src/stories/utils/manifest-helpers.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "elementArgTypes",
+					"declaration": {
+						"name": "elementArgTypes",
+						"module": "src/stories/utils/manifest-helpers.ts"
+					}
+				}
+			]
 		}
 	]
 }
