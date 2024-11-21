@@ -16,7 +16,6 @@ The [Google Drive Picker] web components provides a convenient way to integrate 
 - [Reference](#reference)
   - [`<drive-picker/>`](#drive-picker)
   - [`<drive-picker-docs-view/>`](#drive-picker-docs-view)
-  - [`<lazy-preview/>`](#lazy-preview)
 
 ## Install
 
@@ -42,12 +41,7 @@ import "@googleworkspace/drive-picker-element";
 
 ```html
 <drive-picker client-id="YOUR_CLIENT_ID" app-id="YOUR_APP_ID">
-  <drive-picker-docs-view
-    mime-types="application/json"
-    label="JSON"
-  ></drive-picker-docs-view>
-  <drive-picker-docs-view owned-by-me="" label="Mine"></drive-picker-docs-view>
-  <drive-picker-docs-view starred="" label="Starred"></drive-picker-docs-view>
+  <drive-picker-docs-view starred="true"></drive-picker-docs-view>
 </drive-picker>
 ```
 
@@ -133,13 +127,6 @@ The `drive-picker-docs-view` element is used to define a [`google.picker.DocsVie
 | Name   | Type                     | Description                                                              |
 | ------ | ------------------------ | ------------------------------------------------------------------------ |
 | `view` | `google.picker.DocsView` | Gets the Google Drive Picker view based on the current attribute values. |
-
-### `<lazy-preview/>`
-
-#### Attributes
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
 
 <!-- END docs -->
 

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import memoized from "memoizee";
 
 const GAPI_URL = "https://apis.google.com/js/api.js";
 const GSI_URL = "https://accounts.google.com/gsi/client";
@@ -53,12 +52,6 @@ export async function retrieveAccessToken(
 		client.requestAccessToken();
 	});
 }
-
-export const memoizedRetrieveAccessToken = memoized(retrieveAccessToken, {
-	length: false,
-	promise: true,
-	maxAge: 1000 * 60 * 5,
-});
 
 export async function injectScript(src: string): Promise<void> {
 	return new Promise((resolve, reject) => {

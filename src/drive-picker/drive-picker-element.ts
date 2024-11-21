@@ -18,7 +18,7 @@ import {
 	getBoolAttr,
 	getNumberAttribute,
 	loadApi,
-	memoizedRetrieveAccessToken,
+	retrieveAccessToken,
 	setBoolAttrWithDefault,
 } from "../utils";
 
@@ -207,7 +207,7 @@ export class DrivePickerElement
 		// OAuth token is required either as an attribute or from the OAuth flow using the client ID and scope
 		const oauthToken =
 			this.getAttribute("oauth-token") ??
-			(await memoizedRetrieveAccessToken(
+			(await retrieveAccessToken(
 				// biome-ignore lint/style/noNonNullAssertion: just let the error bubble up when null
 				this.getAttribute("client-id")!,
 				this.getAttribute("scope") ??

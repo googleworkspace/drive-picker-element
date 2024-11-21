@@ -21,11 +21,7 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"files": [
-		"dist",
-		"src",
-		"custom-elements.json"
-	],
+	"files": ["dist", "src", "custom-elements.json"],
 	"homepage": "https://github.com/googleworkspace/drive-picker-element",
 	"repository": {
 		"type": "git",
@@ -39,18 +35,14 @@
 		"prepack": "pnpm build",
 		"prepare": "husky",
 		"serve": "wireit",
-		"test": "wireit",
 		"dev": "storybook dev -p 6006"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
 		"@custom-elements-manifest/analyzer": "^0.10.2",
-		"@open-wc/lit-helpers": "^0.7.0",
-		"@open-wc/testing": "^4.0.0",
 		"@storybook/addon-essentials": "^8.4.4",
 		"@storybook/blocks": "^8.4.4",
 		"@storybook/csf": "^0.1.11",
-		"@storybook/test": "^8.4.4",
 		"@storybook/types": "^8.4.4",
 		"@storybook/web-components": "^8.4.4",
 		"@storybook/web-components-vite": "^8.4.4",
@@ -62,17 +54,12 @@
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^22.4.1",
 		"@types/unist": "^3.0.3",
-		"@web/dev-server": "^0.4.5",
-		"@web/test-runner": "^0.18.2",
-		"@web/test-runner-playwright": "^0.11.0",
 		"browserslist": "^4.24.0",
 		"browserslist-to-esbuild": "^2.1.1",
-		"chai": "^5.1.1",
 		"custom-elements-manifest": "^2.1.0",
 		"husky": "^9.1.4",
 		"lint-staged": "^15.2.9",
 		"mdast-util-from-markdown": "^2.0.2",
-		"playwright": "^1.44.0",
 		"prettier": "^3.3.3",
 		"remark": "^15.0.1",
 		"remark-behead": "^3.1.0",
@@ -97,48 +84,25 @@
 		},
 		"build:components": {
 			"command": "tsup",
-			"files": [
-				"src/**/*.ts",
-				"tsup.config.ts"
-			],
-			"output": [
-				"dist/**/*.(js|ts|map)"
-			]
+			"files": ["src/**/*.ts", "tsup.config.ts"],
+			"output": ["dist/**/*.(js|ts|map)"]
 		},
 		"build:manifest": {
 			"command": "cem analyze --config cem.config.js && biome check --fix custom-elements.json",
-			"files": [
-				"src/**/*.ts",
-				"cem.config.js"
-			],
-			"output": [
-				"custom-elements.json"
-			]
+			"files": ["src/**/*.ts", "cem.config.js"],
+			"output": ["custom-elements.json"]
 		},
 		"build:readme": {
 			"clean": false,
 			"command": "tsx ./scripts/docs.ts",
-			"files": [
-				"custom-elements.json",
-				"scripts/**/*.ts",
-				"README.md"
-			],
-			"output": [
-				"README.md"
-			],
-			"dependencies": [
-				"build:manifest"
-			]
+			"files": ["custom-elements.json", "scripts/**/*.ts", "README.md"],
+			"output": ["README.md"],
+			"dependencies": ["build:manifest"]
 		},
 		"build:storybook": {
 			"command": "storybook build",
-			"files": [
-				"src/**/*.ts",
-				"stories/**/*.ts"
-			],
-			"output": [
-				"dist/storybook"
-			]
+			"files": ["src/**/*.ts", "stories/**/*.ts"],
+			"output": ["dist/storybook"]
 		},
 		"serve": {
 			"command": "wds --node-resolve --watch --open examples/drive-picker.html",
@@ -149,12 +113,6 @@
 				}
 			],
 			"service": true
-		},
-		"test": {
-			"command": "wtr dist/*.test.js --node-resolve --coverage --reporter spec --playwright --browsers chromium",
-			"dependencies": [
-				"build"
-			]
 		}
 	},
 	"husky": {
@@ -171,6 +129,5 @@
 	},
 	"packageManager": "pnpm@9.3.0",
 	"dependencies": {
-		"memoizee": "^0.4.17"
 	}
 }
