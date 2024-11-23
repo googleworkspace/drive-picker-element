@@ -34,7 +34,8 @@
 		"lint": "biome check .",
 		"prepack": "pnpm build",
 		"prepare": "husky",
-		"storybook": "wireit"
+		"storybook": "wireit",
+		"test": "echo \"No tests yet.\""
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
