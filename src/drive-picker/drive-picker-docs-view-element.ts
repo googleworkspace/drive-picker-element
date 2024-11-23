@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 import { setBoolAttrWithDefault } from "../utils";
-export type ViewId = keyof typeof google.picker.ViewId;
 
-export interface DrivePickerDocsViewElementProps {
-	"enable-drives"?: "default" | "true" | "false";
-	"include-folders"?: "default" | "true" | "false";
-	"mime-types"?: string;
-	mode?: string;
-	"owned-by-me"?: "default" | "true" | "false";
-	parent?: string;
-	query?: string;
-	"select-folder-enabled"?: "default" | "true" | "false";
-	starred?: "default" | "true" | "false";
-	"view-id"?: ViewId;
-}
+type ViewId = keyof typeof google.picker.ViewId;
 
 /**
  * The `drive-picker-docs-view` element is used to define a [`google.picker.DocsView`](https://developers.google.com/drive/picker/reference/picker.docsview).

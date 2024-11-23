@@ -8,14 +8,6 @@
 			"declarations": [],
 			"exports": [
 				{
-					"kind": "js",
-					"name": "*",
-					"declaration": {
-						"name": "*",
-						"package": "\"./drive-picker\""
-					}
-				},
-				{
 					"kind": "custom-element-definition",
 					"name": "drive-picker",
 					"declaration": {
@@ -29,6 +21,22 @@
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
 						"module": "/src/drive-picker"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElement",
+					"declaration": {
+						"name": "DrivePickerElement",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElement",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "src/index.ts"
 					}
 				}
 			]
@@ -178,7 +186,7 @@
 							"type": {
 								"text": "google.picker.Picker | undefined"
 							},
-							"privacy": "protected"
+							"privacy": "private"
 						},
 						{
 							"kind": "field",
@@ -186,7 +194,7 @@
 							"type": {
 								"text": "MutationObserver | undefined"
 							},
-							"privacy": "protected"
+							"privacy": "private"
 						},
 						{
 							"kind": "field",
@@ -194,7 +202,7 @@
 							"type": {
 								"text": "typeof google | undefined"
 							},
-							"privacy": "protected"
+							"privacy": "private"
 						},
 						{
 							"kind": "field",
@@ -202,7 +210,7 @@
 							"type": {
 								"text": "Promise<void> | undefined"
 							},
-							"privacy": "protected"
+							"privacy": "private"
 						},
 						{
 							"kind": "field",
@@ -224,7 +232,7 @@
 							"type": {
 								"text": "(View | google.picker.ViewId)[]"
 							},
-							"privacy": "protected",
+							"privacy": "private",
 							"description": "The `google.Picker.View` objects to display in the picker as defined by the slot elements.",
 							"readonly": true
 						},
@@ -240,54 +248,33 @@
 									}
 								}
 							]
-						},
-						{
-							"kind": "method",
-							"name": "dispatch",
-							"privacy": "private",
-							"parameters": [
-								{
-									"name": "type",
-									"type": {
-										"text": "google.picker.Action"
-									}
-								},
-								{
-									"name": "detail",
-									"type": {
-										"text": "google.picker.ResponseObject"
-									}
-								}
-							]
 						}
 					],
 					"events": [
 						{
-							"name": "type",
+							"name": "picker:authenticated",
+							"type": {
+								"text": "CustomEvent"
+							},
+							"description": "Triggered when the user authenticates with the provided OAuth client ID and scope."
+						},
+						{
+							"name": "eventType",
 							"type": {
 								"text": "CustomEvent"
 							}
 						},
 						{
-							"type": {
-								"text": "DrivePickerEvent"
-							},
 							"description": "Triggered when the user cancels the picker dialog.",
-							"name": "cancel"
+							"name": "picker:canceled"
 						},
 						{
-							"type": {
-								"text": "DrivePickerEvent"
-							},
 							"description": "Triggered when the user picks one or more items.",
-							"name": "picked"
+							"name": "picker:picked"
 						},
 						{
-							"type": {
-								"text": "DrivePickerEvent"
-							},
 							"description": "Triggered when the picker is loaded.",
-							"name": "loaded"
+							"name": "picker:loaded"
 						}
 					],
 					"attributes": [
@@ -423,33 +410,9 @@
 				},
 				{
 					"kind": "js",
-					"name": "DrivePickerElementProps",
-					"declaration": {
-						"name": "DrivePickerElementProps",
-						"module": "\"./drive-picker-element\""
-					}
-				},
-				{
-					"kind": "js",
-					"name": "DrivePickerEvent",
-					"declaration": {
-						"name": "DrivePickerEvent",
-						"module": "\"./drive-picker-element\""
-					}
-				},
-				{
-					"kind": "js",
 					"name": "DrivePickerDocsViewElement",
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
-						"module": "\"./drive-picker-docs-view-element\""
-					}
-				},
-				{
-					"kind": "js",
-					"name": "DrivePickerDocsViewElementProps",
-					"declaration": {
-						"name": "DrivePickerDocsViewElementProps",
 						"module": "\"./drive-picker-docs-view-element\""
 					}
 				}

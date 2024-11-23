@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 
-export {
-	DrivePickerElement,
-	type DrivePickerElementProps,
-	type DrivePickerEvent,
-} from "./drive-picker-element";
+export { DrivePickerElement } from "./drive-picker-element";
 
-export {
-	DrivePickerDocsViewElement,
-	type DrivePickerDocsViewElementProps,
-} from "./drive-picker-docs-view-element";
+export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";

@@ -34,8 +34,7 @@
 		"lint": "biome check .",
 		"prepack": "pnpm build",
 		"prepare": "husky",
-		"serve": "wireit",
-		"dev": "storybook dev -p 6006"
+		"storybook": "wireit"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
@@ -104,15 +103,10 @@
 			"files": ["src/**/*.ts", "stories/**/*.ts"],
 			"output": ["dist/storybook"]
 		},
-		"serve": {
-			"command": "wds --node-resolve --watch --open examples/drive-picker.html",
-			"dependencies": [
-				{
-					"cascade": true,
-					"script": "build"
-				}
-			],
-			"service": true
+		"storybook": {
+			"service": true,
+			"command": "storybook dev -p 6006",
+			"dependencies": ["build:manifest"]
 		}
 	},
 	"husky": {
@@ -127,7 +121,5 @@
 		"access": "public",
 		"registry": "https://wombat-dressing-room.appspot.com"
 	},
-	"packageManager": "pnpm@9.3.0",
-	"dependencies": {
-	}
+	"packageManager": "pnpm@9.3.0"
 }

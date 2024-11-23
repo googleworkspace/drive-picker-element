@@ -22,46 +22,23 @@ import {
 	setBoolAttrWithDefault,
 } from "../utils";
 
-export type View = google.picker.DocsView;
+type View = google.picker.DocsView;
 
-export interface PickerViewElement extends HTMLElement {
+interface DrivePickerDocsViewElement extends HTMLElement {
 	view: google.picker.DocsView;
 }
 
-export type DrivePickerEventDetail = google.picker.ResponseObject & {
+type DrivePickerEventDetail = google.picker.ResponseObject & {
 	picker: google.picker.Picker;
 };
 
-export type DrivePickerEvent = CustomEvent<DrivePickerEventDetail>;
-
-export interface DrivePickerElementEventListeners {
-	addEventListener(
-		type: "cancel" | "picked" | "loaded",
-		listener: (ev: DrivePickerEvent) => void,
-		options?: boolean | AddEventListenerOptions,
-	): void;
-	removeEventListener(
-		type: "cancel" | "picked" | "loaded",
-		listener: (ev: DrivePickerEvent) => void,
-		options?: boolean | EventListenerOptions,
-	): void;
-}
-
-export interface DrivePickerElementProps {
-	"app-id"?: string;
-	"client-id"?: string;
-	"developer-key"?: string;
-	"hide-title-bar"?: "default" | "true" | "false";
-	locale?: string;
-	"max-items"?: number;
-	"mine-only"?: boolean;
-	multiselect?: boolean;
-	"nav-hidden"?: boolean;
-	"oauth-token"?: string;
-	origin?: string;
-	"relay-url"?: string;
-	scope?: string;
-	title?: string;
+declare global {
+	interface GlobalEventHandlersEventMap {
+		"picker:authenticated": CustomEvent<string>;
+		"picker:canceled": CustomEvent<DrivePickerEventDetail>;
+		"picker:picked": CustomEvent<DrivePickerEventDetail>;
+		"picker:loaded": CustomEvent<DrivePickerEventDetail>;
+	}
 }
 
 /**
@@ -74,11 +51,11 @@ export interface DrivePickerElementProps {
  *
  * @element drive-picker
  *
- * @fires {DrivePickerEvent} cancel - Triggered when the user cancels the picker
- * dialog.
- * @fires {DrivePickerEvent} picked - Triggered when the user picks one or more
- * items.
- * @fires {DrivePickerEvent} loaded - Triggered when the picker is loaded.
+ * @fires picker:authenticated - Triggered when the user authenticates with the
+ * provided OAuth client ID and scope.
+ * @fires picker:canceled - Triggered when the user cancels the picker dialog.
+ * @fires picker:picked - Triggered when the user picks one or more items.
+ * @fires picker:loaded - Triggered when the picker is loaded.
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
@@ -112,10 +89,7 @@ export interface DrivePickerElementProps {
  *```
  *
  */
-export class DrivePickerElement
-	extends HTMLElement
-	implements DrivePickerElementEventListeners
-{
+export class DrivePickerElement extends HTMLElement {
 	static get observedAttributes() {
 		return [
 			"app-id",
@@ -134,10 +108,10 @@ export class DrivePickerElement
 			"title",
 		];
 	}
-	protected picker: google.picker.Picker | undefined;
-	protected observer: MutationObserver | undefined;
-	protected google: typeof google | undefined;
-	protected loading: Promise<void> | undefined;
+	private picker: google.picker.Picker | undefined;
+	private observer: MutationObserver | undefined;
+	private google: typeof google | undefined;
+	private loading: Promise<void> | undefined;
 
 	/**
 	 * The visibility of the picker.
@@ -212,7 +186,12 @@ export class DrivePickerElement
 				this.getAttribute("client-id")!,
 				this.getAttribute("scope") ??
 					"https://www.googleapis.com/auth/drive.file",
-			));
+			).then((token) => {
+				this.dispatchEvent(
+					new CustomEvent("picker:authenticated", { detail: token }),
+				);
+				return token;
+			}));
 
 		// biome-ignore lint/style/noNonNullAssertion: <explanation>
 		builder = builder.setOAuthToken(oauthToken!);
@@ -243,7 +222,7 @@ export class DrivePickerElement
 	/**
 	 * The `google.Picker.View` objects to display in the picker as defined by the slot elements.
 	 */
-	protected get views(): (View | google.picker.ViewId)[] {
+	private get views(): (View | google.picker.ViewId)[] {
 		const views = nestedViews(this);
 		return views.length ? views : ["all" as google.picker.ViewId];
 	}
@@ -275,24 +254,36 @@ export class DrivePickerElement
 	}
 
 	private callbackToDispatchEvent(data: google.picker.ResponseObject) {
-		this.dispatch(data.action, data);
+		let eventType: keyof GlobalEventHandlersEventMap;
+
+		switch (data.action) {
+			case google.picker.Action.CANCEL:
+				eventType = "picker:canceled";
+				break;
+			case google.picker.Action.PICKED:
+				eventType = "picker:picked";
+				break;
+			case google.picker.Action.LOADED:
+				eventType = "picker:loaded";
+				break;
+			default:
+				console.warn(`Unknown action: ${data.action}`);
+				return;
+		}
+
+		this.dispatchEvent(
+			new CustomEvent(eventType, {
+				detail: { ...data, picker: this.picker },
+			}),
+		);
 	}
 
 	disconnectedCallback(): void {
 		this.picker?.dispose();
 	}
-
-	private dispatch(
-		type: google.picker.Action,
-		detail: google.picker.ResponseObject,
-	) {
-		this.dispatchEvent(
-			new CustomEvent(type, { detail: { ...detail, picker: this.picker } }),
-		);
-	}
 }
 
-function isView(obj: HTMLElement): obj is PickerViewElement {
+function isView(obj: HTMLElement): obj is DrivePickerDocsViewElement {
 	return "view" in obj && obj.view instanceof window.google.picker.View;
 }
 

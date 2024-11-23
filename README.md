@@ -85,11 +85,12 @@ and load OAuth tokens.
 
 #### Events
 
-| Name     | Type               | Description                                        |
-| -------- | ------------------ | -------------------------------------------------- |
-| `cancel` | `DrivePickerEvent` | Triggered when the user cancels the picker dialog. |
-| `picked` | `DrivePickerEvent` | Triggered when the user picks one or more items.   |
-| `loaded` | `DrivePickerEvent` | Triggered when the picker is loaded.               |
+| Name                   | Type          | Description                                                                        |
+| ---------------------- | ------------- | ---------------------------------------------------------------------------------- |
+| `picker:authenticated` | `CustomEvent` | Triggered when the user authenticates with the provided OAuth client ID and scope. |
+| `picker:canceled`      | \`\`          | Triggered when the user cancels the picker dialog.                                 |
+| `picker:picked`        | \`\`          | Triggered when the user picks one or more items.                                   |
+| `picker:loaded`        | \`\`          | Triggered when the picker is loaded.                                               |
 
 #### Slots
 

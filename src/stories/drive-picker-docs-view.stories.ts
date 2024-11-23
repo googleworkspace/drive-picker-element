@@ -15,7 +15,6 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/web-components";
-import type { DrivePickerDocsViewElementProps } from "..";
 import type { LazyPreviewElement } from "./utils/lazy-preview-element";
 import { elementArgTypes, getElementEvents } from "./utils/manifest-helpers";
 
@@ -26,7 +25,6 @@ import "./utils/lazy-preview-element";
 import "..";
 
 const argTypes = elementArgTypes["drive-picker-docs-view"];
-type Args = Required<DrivePickerDocsViewElementProps>;
 
 const elementEventNames = getElementEvents("drive-picker").map(
 	(event) => event.name,
@@ -71,7 +69,7 @@ const render = ({ ...args }) => {
 	return lazyPreviewElement;
 };
 
-type Story = StoryObj<Args>;
+type Story = StoryObj;
 
 export const Default: Story = {
 	render,

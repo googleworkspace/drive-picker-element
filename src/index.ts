@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-export * from "./drive-picker";
-
 import { DrivePickerDocsViewElement, DrivePickerElement } from "./drive-picker";
 
 customElements.define("drive-picker", DrivePickerElement);
@@ -29,3 +27,5 @@ declare global {
 		"drive-picker-docs-view": DrivePickerDocsViewElement;
 	}
 }
+
+export type { DrivePickerElement, DrivePickerDocsViewElement };
