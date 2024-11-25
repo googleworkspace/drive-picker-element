@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-import { expect } from "@open-wc/testing";
-import "./drive-picker-element";
-
-it("skeleton", () => {
-	expect(1 + 2).equal(3);
-});
+export default {
+	globs: ["src/**/*.ts"],
+	exclude: ["src/**/utils.ts", "src/stories/**/*"],
+};

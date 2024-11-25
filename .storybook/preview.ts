@@ -15,8 +15,7 @@
  */
 
 import type { Preview } from "@storybook/web-components";
-// @ts-ignore
-import DocumentationTemplate from "./DocumentationTemplate.mdx";
+import Page from "./page.mdx";
 
 const preview: Preview = {
 	parameters: {
@@ -27,12 +26,10 @@ const preview: Preview = {
 			},
 		},
 		docs: {
-			stories: {
-				inline: false,
-			},
-			page: DocumentationTemplate,
+			page: Page,
 		},
 	},
+	tags: ["autodocs"],
 };
 
 export default preview;
