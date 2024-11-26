@@ -1,6 +1,6 @@
 {
 	"name": "@googleworkspace/drive-picker-element",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "A web component for Google Drive Picker",
 	"license": "Apache-2.0",
 	"author": {
@@ -21,7 +21,11 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"files": ["dist", "src", "custom-elements.json"],
+	"files": [
+		"dist",
+		"src",
+		"custom-elements.json"
+	],
 	"homepage": "https://github.com/googleworkspace/drive-picker-element",
 	"repository": {
 		"type": "git",
@@ -84,30 +88,55 @@
 		},
 		"build:components": {
 			"command": "tsup",
-			"files": ["src/**/*.ts", "tsup.config.ts"],
-			"output": ["dist/**/*.(js|ts|map)"]
+			"files": [
+				"src/**/*.ts",
+				"tsup.config.ts"
+			],
+			"output": [
+				"dist/**/*.(js|ts|map)"
+			]
 		},
 		"build:manifest": {
 			"command": "cem analyze --config cem.config.js && biome check --fix custom-elements.json",
-			"files": ["src/**/*.ts", "cem.config.js"],
-			"output": ["custom-elements.json"]
+			"files": [
+				"src/**/*.ts",
+				"cem.config.js"
+			],
+			"output": [
+				"custom-elements.json"
+			]
 		},
 		"build:readme": {
 			"clean": false,
 			"command": "tsx ./scripts/docs.ts",
-			"files": ["custom-elements.json", "scripts/**/*.ts", "README.md"],
-			"output": ["README.md"],
-			"dependencies": ["build:manifest"]
+			"files": [
+				"custom-elements.json",
+				"scripts/**/*.ts",
+				"README.md"
+			],
+			"output": [
+				"README.md"
+			],
+			"dependencies": [
+				"build:manifest"
+			]
 		},
 		"build:storybook": {
 			"command": "storybook build",
-			"files": ["src/**/*.ts", "stories/**/*.ts"],
-			"output": ["dist/storybook"]
+			"files": [
+				"src/**/*.ts",
+				"stories/**/*.ts"
+			],
+			"output": [
+				"dist/storybook"
+			]
 		},
 		"storybook": {
 			"service": true,
 			"command": "storybook dev -p 6006",
-			"dependencies": ["build:manifest"]
+			"dependencies": [
+				"build:manifest"
+			]
 		}
 	},
 	"husky": {
