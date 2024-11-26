@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.1.2...v0.2.0) (2024-11-26)
+
+
+### Features
+
+* rewrite without lit and cleanup public interface ([#16](https://github.com/googleworkspace/drive-picker-element/issues/16)) ([e01327f](https://github.com/googleworkspace/drive-picker-element/commit/e01327f938d648e97c468e9ff3dcc81968283dd6))
+
+
+### Bug Fixes
+
+* remove todos and use latest @types/google.picker ([#10](https://github.com/googleworkspace/drive-picker-element/issues/10)) ([fea7bbc](https://github.com/googleworkspace/drive-picker-element/commit/fea7bbcc118f1f1fe3a890243778609521860142))
+
 ## [0.1.2](https://github.com/googleworkspace/drive-picker-element/compare/v0.1.1...v0.1.2) (2024-08-30)
 
 
