@@ -53,7 +53,7 @@ export const elementArgTypes: {
 				const inputType: StrictInputType = {
 					name: attr.name,
 					description: attr.description,
-					table: { type: { summary: attr.type?.text }, category: "Attributes" },
+					table: { type: { summary: attr.type?.text }, category: tagName },
 					control: {},
 				};
 

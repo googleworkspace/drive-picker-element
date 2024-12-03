@@ -32,7 +32,10 @@ const elementEventNames = getElementEvents("drive-picker").map(
 
 const meta: Meta = {
 	component: "drive-picker",
-	argTypes,
+	argTypes: {
+		...elementArgTypes["drive-picker"],
+		...elementArgTypes["drive-picker-docs-view"],
+	},
 	args: {
 		"app-id": APP_ID,
 		"client-id": CLIENT_ID,
@@ -45,8 +48,27 @@ export default meta;
 
 const render = ({ ...args }) => {
 	const drivePicker = document.createElement("drive-picker");
+	const drivePickerDocsView = document.createElement("drive-picker-docs-view");
 
-	setAttributes(drivePicker, args);
+	setAttributes(
+		drivePicker,
+		Object.fromEntries(
+			Object.entries(args).filter(
+				([key]) => elementArgTypes["drive-picker"][key],
+			),
+		),
+	);
+
+	setAttributes(
+		drivePickerDocsView,
+		Object.fromEntries(
+			Object.entries(args).filter(
+				([key]) => elementArgTypes["drive-picker-docs-view"][key],
+			),
+		),
+	);
+
+	drivePicker.appendChild(drivePickerDocsView);
 
 	for (const eventName of elementEventNames) {
 		drivePicker.addEventListener(eventName, (e) => {
@@ -73,13 +95,4 @@ type Story = StoryObj;
 export const Default: Story = {
 	render,
 	args: {},
-};
-
-export const ExplicitScope: Story = {
-	name: "With explicit scope",
-	render,
-	args: {
-		scope:
-			"https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file",
-	},
 };

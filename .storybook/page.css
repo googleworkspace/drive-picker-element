@@ -1,0 +1,4 @@
+.docblock-argstable-head th:nth-child(3),
+.docblock-argstable-body td:nth-child(3) {
+    display: none;
+}
