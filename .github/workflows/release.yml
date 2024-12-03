@@ -18,16 +18,17 @@ on:
     branches:
       - main
   workflow_dispatch:
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 jobs:
   release:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+      pages: write
+      id-token: write
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
