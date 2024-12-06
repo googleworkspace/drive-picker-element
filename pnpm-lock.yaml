@@ -39,14 +39,11 @@ importers:
         specifier: ^0.0.14
         version: 0.0.14
       '@types/google.picker':
-        specifier: ^0.0.44
-        version: 0.0.44
+        specifier: ^0.0.46
+        version: 0.0.46
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
-      '@types/memoizee':
-        specifier: ^0.4.11
-        version: 0.4.11
       '@types/mocha':
         specifier: ^10.0.6
         version: 10.0.6
@@ -1035,17 +1032,14 @@ packages:
   '@types/google.accounts@0.0.14':
     resolution: {integrity: sha512-HqIVkVzpiLWhlajhQQd4rIV7czanFvXblJI2J1fSrL+VKQuQwwZ63m35D/mI0flsqKE6p/hNrAG0Yn4FD6JvNA==}
 
-  '@types/google.picker@0.0.44':
-    resolution: {integrity: sha512-/YbgUisLlNH3boqxKWPNHFZnp1u53mPpe2OgkZlyG+obYKpuziToVlONR8btlY7spzLkbR428xoO447n7rS+JA==}
+  '@types/google.picker@0.0.46':
+    resolution: {integrity: sha512-Y+dQW1kBDBtd0E8/NgKELt59zVAYmyf3wnnk2lzCJmebf5AAssyPH7svJHYYtkXbQMoRoUzmDkxDBsG/ggCH6Q==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
   '@types/mdx@2.0.13':
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
-
-  '@types/memoizee@0.4.11':
-    resolution: {integrity: sha512-2gyorIBZu8GoDr9pYjROkxWWcFtHCquF7TVbN2I+/OvgZhnIGQS0vX5KJz4lXNKb8XOSfxFOSG5OLru1ESqLUg==}
 
   '@types/mocha@10.0.6':
     resolution: {integrity: sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==}
@@ -2993,15 +2987,13 @@ snapshots:
 
   '@types/google.accounts@0.0.14': {}
 
-  '@types/google.picker@0.0.44': {}
+  '@types/google.picker@0.0.46': {}
 
   '@types/mdast@4.0.4':
     dependencies:
       '@types/unist': 3.0.3
 
   '@types/mdx@2.0.13': {}
-
-  '@types/memoizee@0.4.11': {}
 
   '@types/mocha@10.0.6': {}
 
