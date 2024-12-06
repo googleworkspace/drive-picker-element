@@ -275,6 +275,10 @@
 						{
 							"description": "Triggered when the picker is loaded.",
 							"name": "picker:loaded"
+						},
+						{
+							"description": "Triggered when an error occurs.",
+							"name": "picker:error"
 						}
 					],
 					"attributes": [

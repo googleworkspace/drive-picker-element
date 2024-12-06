@@ -38,6 +38,7 @@ declare global {
 		"picker:canceled": CustomEvent<DrivePickerEventDetail>;
 		"picker:picked": CustomEvent<DrivePickerEventDetail>;
 		"picker:loaded": CustomEvent<DrivePickerEventDetail>;
+		"picker:error": CustomEvent<unknown>;
 	}
 }
 
@@ -56,6 +57,7 @@ declare global {
  * @fires picker:canceled - Triggered when the user cancels the picker dialog.
  * @fires picker:picked - Triggered when the user picks one or more items.
  * @fires picker:loaded - Triggered when the picker is loaded.
+ * @fires picker:error - Triggered when an error occurs.
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
@@ -138,7 +140,7 @@ export class DrivePickerElement extends HTMLElement {
 		this.picker?.dispose();
 
 		// this await is necessary as an attribute may have changed
-		// prior to the API initialy being loaded
+		// prior to the API initially being loaded
 		await this.loading;
 
 		if (!this.google) return;
@@ -263,11 +265,13 @@ export class DrivePickerElement extends HTMLElement {
 			case google.picker.Action.PICKED:
 				eventType = "picker:picked";
 				break;
-			case google.picker.Action.LOADED:
+			case google.picker.Action.ERROR:
+				eventType = "picker:error";
+				break;
+			case "loaded":
 				eventType = "picker:loaded";
 				break;
 			default:
-				console.warn(`Unknown action: ${data.action}`);
 				return;
 		}
 
