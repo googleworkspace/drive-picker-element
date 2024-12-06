@@ -93,6 +93,7 @@ and load OAuth tokens.
 | `picker:canceled`      | \`\`          | Triggered when the user cancels the picker dialog.                                 |
 | `picker:picked`        | \`\`          | Triggered when the user picks one or more items.                                   |
 | `picker:loaded`        | \`\`          | Triggered when the picker is loaded.                                               |
+| `picker:error`         | \`\`          | Triggered when an error occurs.                                                    |
 
 #### Slots
 
