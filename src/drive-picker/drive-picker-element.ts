@@ -34,7 +34,7 @@ type DrivePickerEventDetail = google.picker.ResponseObject & {
 
 declare global {
 	interface GlobalEventHandlersEventMap {
-		"picker:authenticated": CustomEvent<string>;
+		"picker:authenticated": CustomEvent<{token: string}>;
 		"picker:canceled": CustomEvent<DrivePickerEventDetail>;
 		"picker:picked": CustomEvent<DrivePickerEventDetail>;
 		"picker:loaded": CustomEvent<DrivePickerEventDetail>;
@@ -188,7 +188,7 @@ export class DrivePickerElement extends HTMLElement {
 					"https://www.googleapis.com/auth/drive.file",
 			).then((token) => {
 				this.dispatchEvent(
-					new CustomEvent("picker:authenticated", { detail: token }),
+					new CustomEvent("picker:authenticated", { detail: {token} }),
 				);
 				return token;
 			}));
