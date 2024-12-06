@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.2.0...v0.2.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* custom event detail for picker:authenticated ([#21](https://github.com/googleworkspace/drive-picker-element/issues/21)) ([4dca64f](https://github.com/googleworkspace/drive-picker-element/commit/4dca64f3e5355d498ac43408225ec88b4e645d9a))
+* **README:** update link ([bffbb86](https://github.com/googleworkspace/drive-picker-element/commit/bffbb867615d6a4ecef70dffc916d80e5319b0aa))
+
 ## [0.2.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.1.2...v0.2.0) (2024-11-26)
 
 
