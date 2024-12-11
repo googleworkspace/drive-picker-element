@@ -6,9 +6,11 @@
 
 ## Description
 
-The [Google Drive Picker] web component provides an easy way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component functions as a "File Open" dialog, enabling access to and interaction with files stored on Google Drive.
+The [Google Drive Picker] web component offers a seamless way to integrate the Google Picker API into your web applications. This component is framework-agnostic, meaning it works effortlessly with React, Svelte, Vue, Angular, and more.
 
-Try the [Demo](https://googleworkspace.github.io/drive-picker-element/?path=/docs/stories-drive-picker--docs).
+The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a "File Open" dialog, providing access to and interaction with files stored on Google Drive.
+
+Explore the [storybook demo](https://googleworkspace.github.io/drive-picker-element/?path=/docs/stories-drive-picker--docs) to see the component in action.
 
 ## Index
 
