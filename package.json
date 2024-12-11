@@ -14,9 +14,14 @@
 		"google-drive",
 		"picker",
 		"drive-picker",
-		"webcomponent",
 		"googleworkspace",
-		"workspace"
+		"workspace",
+		"react",
+		"angular",
+		"vue",
+		"svelte",
+		"webcomponent",
+		"web-components"
 	],
 	"type": "module",
 	"exports": {
