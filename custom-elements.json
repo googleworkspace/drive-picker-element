@@ -171,7 +171,7 @@
 			"declarations": [
 				{
 					"kind": "class",
-					"description": "The `drive-picker` web component provides a convenient way to declaratively\nbuild\n[`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)\nby using the component attributes and\n[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder)\nand load OAuth tokens.",
+					"description": "The `drive-picker` web component provides a convenient way to declaratively\nbuild\n[`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)\nby using the component attributes mapped to the corresponding methods of\n[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder).",
 					"name": "DrivePickerElement",
 					"slots": [
 						{
@@ -242,7 +242,7 @@
 							"privacy": "private",
 							"parameters": [
 								{
-									"name": "data",
+									"name": "detail",
 									"type": {
 										"text": "google.picker.ResponseObject"
 									}
@@ -254,7 +254,7 @@
 						{
 							"name": "picker:authenticated",
 							"type": {
-								"text": "CustomEvent"
+								"text": "{ token: string }"
 							},
 							"description": "Triggered when the user authenticates with the provided OAuth client ID and scope."
 						},
@@ -265,18 +265,23 @@
 							}
 						},
 						{
+							"type": {
+								"text": "google.picker.ResponseObject"
+							},
 							"description": "Triggered when the user cancels the picker dialog.",
 							"name": "picker:canceled"
 						},
 						{
+							"type": {
+								"text": "google.picker.ResponseObject"
+							},
 							"description": "Triggered when the user picks one or more items.",
 							"name": "picker:picked"
 						},
 						{
-							"description": "Triggered when the picker is loaded.",
-							"name": "picker:loaded"
-						},
-						{
+							"type": {
+								"text": "google.picker.ResponseObject"
+							},
 							"description": "Triggered when an error occurs.",
 							"name": "picker:error"
 						}
