@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.1...v0.3.2) (2024-12-11)
+
+
+### Bug Fixes
+
+* add keywords to npm package ([240b600](https://github.com/googleworkspace/drive-picker-element/commit/240b60035f2996bd4097f723566812a0a77f6fe7))
+
 ## [0.3.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.0...v0.3.1) (2024-12-11)
 
 
