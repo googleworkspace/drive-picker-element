@@ -6,7 +6,7 @@
 
 ## Description
 
-The [Google Drive Picker] web components provides a convenient way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component acts as a "File Open" dialog for accessing and interacting with files stored on Google Drive.
+The [Google Drive Picker] web component provides an easy way to integrate the Google Picker API into your web applications. The Google Picker API is a JavaScript API that allows users to select or upload Google Drive files. This component functions as a "File Open" dialog, enabling access to and interaction with files stored on Google Drive.
 
 Try the [Demo](https://googleworkspace.github.io/drive-picker-element/?path=/docs/stories-drive-picker--docs).
 
@@ -14,6 +14,12 @@ Try the [Demo](https://googleworkspace.github.io/drive-picker-element/?path=/doc
 
 - [Install](#install)
 - [Usage](#usage)
+  - [Import the Component](#import-the-component)
+  - [Add the Component to Your HTML](#add-the-component-to-your-html)
+  - [Use the `oauth-token` attribute](#use-the-oauth-token-attribute)
+  - [Listening to Events](#listening-to-events)
+  - [Event Details](#event-details)
+  - [Controlling Visibility](#controlling-visibility)
 - [Support](#support)
 - [Reference](#reference)
   - [`<drive-picker/>`](#drive-picker)
@@ -27,19 +33,31 @@ Install using NPM or similar.
 npm i @googleworkspace/drive-picker-element
 ```
 
-```sh
-yarn add @googleworkspace/drive-picker-element
-```
+A CDN version is also available. See the [unpkg](https://unpkg.com/browse/@googleworkspace/drive-picker-element/dist/).
 
-```sh
-pnpm i @googleworkspace/drive-picker-element
+```html
+<script src="https://unpkg.com/@googleworkspace/drive-picker-element@0/dist/index.iife.min.js"></script>
 ```
 
 ## Usage
 
+To use the `drive-picker` component in your project, follow these steps:
+
+### Import the Component
+
+First, import the `drive-picker` component in your JavaScript file:
+
 ```js
 import "@googleworkspace/drive-picker-element";
 ```
+
+This isn't necessary if you're using the CDN version.
+
+### Add the Component to Your HTML
+
+Next, add the `drive-picker` component to your HTML file. Replace `YOUR_CLIENT_ID` and `YOUR_APP_ID` with your actual client ID and app ID.
+
+> Note: You can find these values in the [Google Cloud Console](https://console.cloud.google.com/) under "APIs & Services" > "Credentials". You can also follow this guide to [create a new OAuth 2.0 client ID](https://developers.google.com/identity/oauth2/web/guides/get-google-api-clientid).
 
 ```html
 <drive-picker client-id="YOUR_CLIENT_ID" app-id="YOUR_APP_ID">
@@ -47,7 +65,96 @@ import "@googleworkspace/drive-picker-element";
 </drive-picker>
 ```
 
-> Note: If you wish to register the component with a different name, `import { DrivePickerElement, DrivePickerDocsViewElement } from @googleworkspace/drive-picker-element/drive-picker` and call `customElements.define()` manually.
+> Note: If you wish to register the component with a different name, you can import the components individually and call `customElements.define()` manually:
+
+```js
+import {
+  DrivePickerElement,
+  DrivePickerDocsViewElement,
+} from "@googleworkspace/drive-picker-element/drive-picker";
+customElements.define("custom-drive-picker", DrivePickerElement);
+customElements.define(
+  "custom-drive-picker-docs-view",
+  DrivePickerDocsViewElement,
+);
+```
+
+### Use the `oauth-token` attribute
+
+If you already have an OAuth token, you can pass it to the `drive-picker` component using the `oauth-token` attribute. This will authenticate the user without requiring them to sign in again.
+
+```html
+<drive-picker app-id="YOUR_APP_ID" oauth="OAUTH_TOKEN"></drive-picker>
+```
+
+If you don't have an OAuth token, you can listen for the `"picker:authenticated"` event to get the token after the user has authenticated. This library wraps the [Google Identity Servies library](https://developers.google.com/identity/oauth2/web/guides/overview) to make it easier to authenticate users.
+
+### Listening to Events
+
+The `drive-picker` component emits several events that you can listen to. Here is an example of how to listen to these events:
+
+```html
+<drive-picker client-id="YOUR_CLIENT_ID" app-id="YOUR_APP_ID">
+  <drive-picker-docs-view starred="true"></drive-picker-docs-view>
+</drive-picker>
+
+<script>
+  const element = document.querySelector("drive-picker");
+  element.addEventListener("picker:authenticated", console.log);
+  element.addEventListener("picker:loaded", console.log);
+  element.addEventListener("picker:picked", console.log);
+  element.addEventListener("picker:canceled", console.log);
+</script>
+```
+
+### Event Details
+
+Most of these events return the [`Picker ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject) as the event detail. For example, the `"picker:picked"` `CustomEvent` contains details about the selected files:
+
+```js
+{
+  "type": "picker:picked",
+  "detail": {
+    "action": "picked",
+    "docs": [
+      {
+        "id": "OMITTED",
+        "mimeType": "application/pdf",
+        "name": "OMITTED",
+        "url": "https://drive.google.com/file/d/OMITTED/view?usp=drive_web",
+        "sizeBytes": 12345
+        // ... other properties omitted
+      }
+    ]
+  }
+}
+```
+
+The `"picker:authenticated"` event returns the `token` as the event detail:
+
+```js
+{
+  "type": "picker:authenticated",
+  "detail": {
+    "token": "OMITTED"
+  }
+}
+```
+
+### Controlling Visibility
+
+To make the picker visible, set the `visible` property of the `drive-picker` element to `true`:
+
+```html
+<drive-picker client-id="YOUR_CLIENT_ID" app-id="YOUR_APP_ID"></drive-picker>
+
+<script>
+  const element = document.querySelector("drive-picker");
+  element.visible = true;
+</script>
+```
+
+After the picker dialog has been closed, the `visible` property will be reset to `false`.
 
 ## Support
 
@@ -62,9 +169,8 @@ To report issues or feature requests for the underlying Drive Picker, please use
 The `drive-picker` web component provides a convenient way to declaratively
 build
 [`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)
-by using the component attributes and
-[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder)
-and load OAuth tokens.
+by using the component attributes mapped to the corresponding methods of
+[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder).
 
 #### Attributes
 
@@ -87,13 +193,12 @@ and load OAuth tokens.
 
 #### Events
 
-| Name                   | Type          | Description                                                                        |
-| ---------------------- | ------------- | ---------------------------------------------------------------------------------- |
-| `picker:authenticated` | `CustomEvent` | Triggered when the user authenticates with the provided OAuth client ID and scope. |
-| `picker:canceled`      | \`\`          | Triggered when the user cancels the picker dialog.                                 |
-| `picker:picked`        | \`\`          | Triggered when the user picks one or more items.                                   |
-| `picker:loaded`        | \`\`          | Triggered when the picker is loaded.                                               |
-| `picker:error`         | \`\`          | Triggered when an error occurs.                                                    |
+| Name                   | Type                           | Description                                                                        |
+| ---------------------- | ------------------------------ | ---------------------------------------------------------------------------------- |
+| `picker:authenticated` | `{ token: string }`            | Triggered when the user authenticates with the provided OAuth client ID and scope. |
+| `picker:canceled`      | `google.picker.ResponseObject` | Triggered when the user cancels the picker dialog.                                 |
+| `picker:picked`        | `google.picker.ResponseObject` | Triggered when the user picks one or more items.                                   |
+| `picker:error`         | `google.picker.ResponseObject` | Triggered when an error occurs.                                                    |
 
 #### Slots
 

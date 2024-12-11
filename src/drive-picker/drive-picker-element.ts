@@ -28,16 +28,11 @@ interface DrivePickerDocsViewElement extends HTMLElement {
 	view: google.picker.DocsView;
 }
 
-type DrivePickerEventDetail = google.picker.ResponseObject & {
-	picker: google.picker.Picker;
-};
-
 declare global {
 	interface GlobalEventHandlersEventMap {
 		"picker:authenticated": CustomEvent<{ token: string }>;
-		"picker:canceled": CustomEvent<DrivePickerEventDetail>;
-		"picker:picked": CustomEvent<DrivePickerEventDetail>;
-		"picker:loaded": CustomEvent<DrivePickerEventDetail>;
+		"picker:canceled": CustomEvent<google.picker.ResponseObject>;
+		"picker:picked": CustomEvent<google.picker.ResponseObject>;
 		"picker:error": CustomEvent<unknown>;
 	}
 }
@@ -46,18 +41,16 @@ declare global {
  * The `drive-picker` web component provides a convenient way to declaratively
  * build
  * [`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)
- * by using the component attributes and
- * [`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder)
- * and load OAuth tokens.
+ * by using the component attributes mapped to the corresponding methods of
+ * [`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder).
  *
  * @element drive-picker
  *
- * @fires picker:authenticated - Triggered when the user authenticates with the
+ * @fires {{ token: string }} picker:authenticated - Triggered when the user authenticates with the
  * provided OAuth client ID and scope.
- * @fires picker:canceled - Triggered when the user cancels the picker dialog.
- * @fires picker:picked - Triggered when the user picks one or more items.
- * @fires picker:loaded - Triggered when the picker is loaded.
- * @fires picker:error - Triggered when an error occurs.
+ * @fires {google.picker.ResponseObject} picker:canceled - Triggered when the user cancels the picker dialog.
+ * @fires {google.picker.ResponseObject} picker:picked - Triggered when the user picks one or more items.
+ * @fires {google.picker.ResponseObject} picker:error - Triggered when an error occurs.
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
@@ -255,10 +248,10 @@ export class DrivePickerElement extends HTMLElement {
 		});
 	}
 
-	private callbackToDispatchEvent(data: google.picker.ResponseObject) {
+	private callbackToDispatchEvent(detail: google.picker.ResponseObject) {
 		let eventType: keyof GlobalEventHandlersEventMap;
 
-		switch (data.action) {
+		switch (detail.action) {
 			case google.picker.Action.CANCEL:
 				eventType = "picker:canceled";
 				break;
@@ -268,16 +261,13 @@ export class DrivePickerElement extends HTMLElement {
 			case google.picker.Action.ERROR:
 				eventType = "picker:error";
 				break;
-			case "loaded":
-				eventType = "picker:loaded";
-				break;
 			default:
 				return;
 		}
 
 		this.dispatchEvent(
 			new CustomEvent(eventType, {
-				detail: { ...data, picker: this.picker },
+				detail,
 			}),
 		);
 	}

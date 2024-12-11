@@ -24,8 +24,6 @@ import { APP_ID, CLIENT_ID, META_PARAMETERS } from "./utils/common";
 import "./utils/lazy-preview-element";
 import "..";
 
-const argTypes = elementArgTypes["drive-picker"];
-
 const elementEventNames = getElementEvents("drive-picker").map(
 	(event) => event.name,
 );
