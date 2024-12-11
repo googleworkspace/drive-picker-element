@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.0...v0.3.1) (2024-12-11)
+
+
+### Bug Fixes
+
+* simplify events ([#24](https://github.com/googleworkspace/drive-picker-element/issues/24)) ([9ea9a5e](https://github.com/googleworkspace/drive-picker-element/commit/9ea9a5e1d7387e763ebd98e17c2383ace9827eca))
+
 ## [0.3.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.2.1...v0.3.0) (2024-12-06)
 
 
