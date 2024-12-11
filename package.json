@@ -8,6 +8,16 @@
 		"email": "jpoehnelt@google.com",
 		"url": "https://justin.poehnelt.com"
 	},
+	"keywords": [
+		"google",
+		"drive",
+		"google-drive",
+		"picker",
+		"drive-picker",
+		"webcomponent",
+		"googleworkspace",
+		"workspace"
+	],
 	"type": "module",
 	"exports": {
 		".": {
