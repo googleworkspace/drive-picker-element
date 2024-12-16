@@ -103,7 +103,6 @@ The `drive-picker` component emits several events that you can listen to. Here i
 <script>
   const element = document.querySelector("drive-picker");
   element.addEventListener("picker:authenticated", console.log);
-  element.addEventListener("picker:loaded", console.log);
   element.addEventListener("picker:picked", console.log);
   element.addEventListener("picker:canceled", console.log);
 </script>
