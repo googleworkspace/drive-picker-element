@@ -44,7 +44,7 @@ lazy-preview button:hover {
 		this.appendChild(style);
 
 		const button = document.createElement("button");
-		button.textContent = "Preview";
+		button.textContent = "Open Drive Picker";
 		this.appendChild(button);
 
 		button.addEventListener("click", () => {
