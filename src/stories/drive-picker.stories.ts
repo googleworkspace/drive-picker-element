@@ -28,6 +28,15 @@ const elementEventNames = getElementEvents("drive-picker").map(
 	(event) => event.name,
 );
 
+const searchParams = new URL(location.href).searchParams;
+const argsAllowedFromParams = [
+	...Object.keys(elementArgTypes["drive-picker"]),
+	...Object.keys(elementArgTypes["drive-picker-docs-view"]),
+];
+const argValuesFromParams = Object.fromEntries(
+	argsAllowedFromParams.map((arg) => [arg, searchParams.get(arg) || undefined]),
+);
+
 const meta: Meta = {
 	component: "drive-picker",
 	argTypes: {
@@ -35,6 +44,7 @@ const meta: Meta = {
 		...elementArgTypes["drive-picker-docs-view"],
 	},
 	args: {
+		...argValuesFromParams,
 		"app-id": APP_ID,
 		"client-id": CLIENT_ID,
 	},

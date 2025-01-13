@@ -5,6 +5,6 @@ import "./page.css";
 
 <Canvas/>
 
-<Controls/>
+{ new URL(window.location.href).searchParams.has("hideControls") ? null :<Controls/> }
 
 <Stories includePrimary={false}/>
