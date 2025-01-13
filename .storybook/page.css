@@ -2,3 +2,11 @@
 .docblock-argstable-body td:nth-child(3) {
     display: none;
 }
+
+body {
+    height: 100vh;
+}
+
+#storybook-root {
+    height: 100%;
+}

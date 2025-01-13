@@ -23,8 +23,10 @@ export class LazyPreviewElement<
 		const style = document.createElement("style");
 		style.textContent = `
 lazy-preview {
+    height: 100%;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
 lazy-preview button {
