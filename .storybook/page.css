@@ -2,11 +2,7 @@
 .docblock-argstable-body td:nth-child(3) {
     display: none;
 }
-
-body {
-    height: 100vh;
-}
-
-#storybook-root {
-    height: 100%;
+.sbdocs-wrapper {
+    min-height: fit-content !important;
+    padding: 1rem !important;
 }

@@ -37,6 +37,40 @@ const argValuesFromParams = Object.fromEntries(
 	argsAllowedFromParams.map((arg) => [arg, searchParams.get(arg) || undefined]),
 );
 
+const postHeightToParent = () => {
+	let height = document.body.getBoundingClientRect().height;
+
+	const pickerDialog = document.querySelector("div.picker-dialog");
+
+	if (pickerDialog) {
+		const pickerDialogHeight = pickerDialog.getBoundingClientRect().height;
+		if (pickerDialogHeight > 0) {
+			height = Math.min(523, pickerDialogHeight);
+		}
+	}
+
+	const data = {
+		type: "resizeMessage",
+		height,
+	};
+	parent.postMessage(data, "*");
+};
+
+const resizeObserver = new ResizeObserver(() => {
+	postHeightToParent();
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+	resizeObserver.observe(document.body);
+	const observedElements = new Set<Element>();
+
+	setInterval(() => {
+		const pickerDialog = document.querySelector("div.picker-dialog");
+		if (pickerDialog && !observedElements.has(pickerDialog)) {
+			resizeObserver.observe(pickerDialog);
+		}
+	}, 50);
+});
 const meta: Meta = {
 	component: "drive-picker",
 	argTypes: {
@@ -92,7 +126,20 @@ const render = ({ ...args }) => {
 
 	// Use a template to show the drive-picker element only when the user clicks the preview button
 	const template = document.createElement("template");
-	template.innerHTML = drivePicker.outerHTML;
+	const withBundlers = document.createElement("script");
+	withBundlers.textContent = `
+import "@googleworkspace/drive-picker-element";
+`;
+	const withoutBundlers = document.createElement("script");
+	withoutBundlers.src =
+		"https://unpkg.com/@googleworkspace/drive-picker-element@0/dist/index.iife.min.js";
+	template.innerHTML = [
+		"<!-- Using JavaScript bundler or CDN -->",
+		withBundlers.outerHTML,
+		`<!-- ${withoutBundlers.outerHTML} -->`,
+		"", // Add a newline for better readability
+		drivePicker.outerHTML,
+	].join("\n");
 	lazyPreviewElement.appendChild(template);
 
 	return lazyPreviewElement;

@@ -31,8 +31,11 @@ export const META_PARAMETERS = {
 			language: "html",
 			dark: true,
 			// extract the template part of the source code
-			transform: (src: string) =>
-				(src.match(/<template>(.*?)<\/template>/) ?? [])[1],
+			transform: (src: string) => {
+				const element = document.createElement("div");
+				element.innerHTML = src;
+				return element.querySelector("template")?.innerHTML;
+			},
 		},
 	},
 };
