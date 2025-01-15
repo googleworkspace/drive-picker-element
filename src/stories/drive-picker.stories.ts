@@ -33,8 +33,9 @@ const argsAllowedFromParams = [
 	...Object.keys(elementArgTypes["drive-picker"]),
 	...Object.keys(elementArgTypes["drive-picker-docs-view"]),
 ];
+const searchParamsArgs = JSON.parse(searchParams.get("args") || "{}");
 const argValuesFromParams = Object.fromEntries(
-	argsAllowedFromParams.map((arg) => [arg, searchParams.get(arg) || undefined]),
+	argsAllowedFromParams.map((arg) => [arg, searchParamsArgs[arg] || undefined]),
 );
 
 const postHeightToParent = () => {
@@ -126,20 +127,7 @@ const render = ({ ...args }) => {
 
 	// Use a template to show the drive-picker element only when the user clicks the preview button
 	const template = document.createElement("template");
-	const withBundlers = document.createElement("script");
-	withBundlers.textContent = `
-import "@googleworkspace/drive-picker-element";
-`;
-	const withoutBundlers = document.createElement("script");
-	withoutBundlers.src =
-		"https://unpkg.com/@googleworkspace/drive-picker-element@0/dist/index.iife.min.js";
-	template.innerHTML = [
-		"<!-- Using JavaScript bundler or CDN -->",
-		withBundlers.outerHTML,
-		`<!-- ${withoutBundlers.outerHTML} -->`,
-		"", // Add a newline for better readability
-		drivePicker.outerHTML,
-	].join("\n");
+	template.innerHTML = drivePicker.outerHTML;
 	lazyPreviewElement.appendChild(template);
 
 	return lazyPreviewElement;
