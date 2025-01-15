@@ -34,7 +34,11 @@ export const META_PARAMETERS = {
 			transform: (src: string) => {
 				const element = document.createElement("div");
 				element.innerHTML = src;
-				return element.querySelector("template")?.innerHTML;
+				const html = element
+					.querySelector("template")
+					?.innerHTML.replace(APP_ID, "YOUR_APP_ID")
+					.replace(CLIENT_ID, "YOUR_CLIENT_ID");
+				return html || src;
 			},
 		},
 	},
