@@ -39,7 +39,7 @@ lazy-preview button {
 }
 
 lazy-preview button:hover {
-	background-color: #4285f4;
+	background-color: #1765cc;
 }
 		`;
 
