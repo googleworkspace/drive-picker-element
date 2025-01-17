@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			a.target = "_blank";
 		}
 	}
-}); 
+});
 const meta: Meta = {
 	component: "drive-picker",
 	argTypes: {
