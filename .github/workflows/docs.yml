@@ -31,7 +31,7 @@ jobs:
             exit 1
           fi
       # only main
-      - uses: s0/git-publish-subdir-action@v2.6.0
+      - uses: s0/git-publish-subdir-action@61eb9e6420447e7cbf010f7cce37103665c46bfa
         if: github.ref == 'refs/heads/main'
         with:
           REPO: self
@@ -40,7 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLEAR_GLOBS_FILE: .github/.clear_pages_glob
       # only tags
-      - uses: s0/git-publish-subdir-action@v2.6.0
+      - uses: s0/git-publish-subdir-action@61eb9e6420447e7cbf010f7cce37103665c46bfa
         if: github.ref == 'refs/tags/*'
         with:
           REPO: self
