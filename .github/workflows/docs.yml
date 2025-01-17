@@ -33,7 +33,7 @@ jobs:
       # only main
       - uses: s0/git-publish-subdir-action@61eb9e6420447e7cbf010f7cce37103665c46bfa
         if: github.ref == 'refs/heads/main'
-        with:
+        env:
           REPO: self
           BRANCH: gh-pages
           FOLDER: storybook-static
@@ -42,7 +42,7 @@ jobs:
       # only tags
       - uses: s0/git-publish-subdir-action@61eb9e6420447e7cbf010f7cce37103665c46bfa
         if: github.ref == 'refs/tags/*'
-        with:
+        env:
           REPO: self
           BRANCH: gh-pages
           FOLDER: storybook-static
