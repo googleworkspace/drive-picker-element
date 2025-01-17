@@ -71,7 +71,13 @@ window.addEventListener("DOMContentLoaded", () => {
 			resizeObserver.observe(pickerDialog);
 		}
 	}, 50);
-});
+
+	for (const a of document.querySelectorAll("a")) {
+		if (a.href.startsWith("https://")) {
+			a.target = "_blank";
+		}
+	}
+}); 
 const meta: Meta = {
 	component: "drive-picker",
 	argTypes: {
