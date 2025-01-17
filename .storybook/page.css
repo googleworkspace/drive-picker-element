@@ -7,6 +7,7 @@
     padding: 1rem !important;
 }
 
+a, 
 a > code {
     color: #1a73e8 !important;
     font-weight: 600;
