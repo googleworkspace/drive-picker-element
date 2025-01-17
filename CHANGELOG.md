@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.2...v0.3.3) (2025-01-17)
+
+
+### Bug Fixes
+
+* use provenance ([a271c8a](https://github.com/googleworkspace/drive-picker-element/commit/a271c8aa519db3f11659c8172faf6650a81d271b))
+
 ## [0.3.2](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.1...v0.3.2) (2024-12-11)
 
 
