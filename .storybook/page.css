@@ -6,3 +6,9 @@
     min-height: fit-content !important;
     padding: 1rem !important;
 }
+
+a > code {
+    color: #1a73e8 !important;
+    font-weight: 600;
+    text-decoration: none;
+}

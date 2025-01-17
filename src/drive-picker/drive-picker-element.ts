@@ -48,29 +48,29 @@ declare global {
  *
  * @fires {{ token: string }} picker:authenticated - Triggered when the user authenticates with the
  * provided OAuth client ID and scope.
- * @fires {google.picker.ResponseObject} picker:canceled - Triggered when the user cancels the picker dialog.
- * @fires {google.picker.ResponseObject} picker:picked - Triggered when the user picks one or more items.
- * @fires {google.picker.ResponseObject} picker:error - Triggered when an error occurs.
+ * @fires {google.picker.ResponseObject} picker:canceled - Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+ * @fires {google.picker.ResponseObject} picker:picked - Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+ * @fires {google.picker.ResponseObject} picker:error - Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
  * `google.picker.View`.
- * @attr {string} app-id - The Google Drive app ID.
- * @attr {string} client-id - The OAuth 2.0 client ID.
- * @attr {string} developer-key - The API key for accessing Google Picker API.
+ * @attr {string} app-id - The Google Drive app ID. See [`PickerBuilder.setAppId`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setappid).
+ * @attr {string} client-id - The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2).
+ * @attr {string} developer-key - The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey).
  * @attr {"default"|"true"|"false"} hide-title-bar - Hides the title bar of the
- * picker if set to true.
- * @attr {string} locale - The locale to use for the picker.
- * @attr {number} max-items - The maximum number of items that can be selected.
+ * picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar).
+ * @attr {string} locale - The locale to use for the picker. See [`PickerBuilder.setLocale`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setlocale).
+ * @attr {number} max-items - The maximum number of items that can be selected. See [`PickerBuilder.setMaxItems`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setmaxitems).
  * @attr {boolean} mine-only - If set to true, only shows files owned by the
- * user.
- * @attr {boolean} multiselect - Enables multiple file selection if set to true.
- * @attr {boolean} nav-hidden - Hides the navigation pane if set to true.
- * @attr {string} oauth-token - The OAuth 2.0 token for authentication.
- * @attr {string} origin - The origin parameter for the picker.
- * @attr {string} relay-url - The relay URL for the picker.
- * @attr {string} scope - The OAuth 2.0 scope for the picker.
- * @attr {string} title - The title of the picker.
+ * user. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).
+ * @attr {boolean} multiselect - Enables multiple file selection if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).
+ * @attr {boolean} nav-hidden - Hides the navigation pane if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).
+ * @attr {string} oauth-token - The OAuth 2.0 token for authentication. See [`PickerBuilder.setOAuthToken`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setoauthtoken).
+ * @attr {string} origin - The origin parameter for the picker. See [`PickerBuilder.setOrigin`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setorigin).
+ * @attr {string} relay-url - The relay URL for the picker. See [`PickerBuilder.setRelayUrl`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setrelayurl).
+ * @attr {string} scope - The OAuth 2.0 scope for the picker. The default is `https://www.googleapis.com/auth/drive.file`. See [Drive API scopes](https://developers.google.com/drive/api/guides/api-specific-auth#drive-scopes).
+ * @attr {string} title - The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle).
  *
  * @example
  *

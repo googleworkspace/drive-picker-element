@@ -180,31 +180,31 @@ by using the component attributes mapped to the corresponding methods of
 
 #### Attributes
 
-| Name             | Type                         | Description                                         |
-| ---------------- | ---------------------------- | --------------------------------------------------- |
-| `app-id`         | `string`                     | The Google Drive app ID.                            |
-| `client-id`      | `string`                     | The OAuth 2.0 client ID.                            |
-| `developer-key`  | `string`                     | The API key for accessing Google Picker API.        |
-| `hide-title-bar` | `"default"\|"true"\|"false"` | Hides the title bar of the picker if set to true.   |
-| `locale`         | `string`                     | The locale to use for the picker.                   |
-| `max-items`      | `number`                     | The maximum number of items that can be selected.   |
-| `mine-only`      | `boolean`                    | If set to true, only shows files owned by the user. |
-| `multiselect`    | `boolean`                    | Enables multiple file selection if set to true.     |
-| `nav-hidden`     | `boolean`                    | Hides the navigation pane if set to true.           |
-| `oauth-token`    | `string`                     | The OAuth 2.0 token for authentication.             |
-| `origin`         | `string`                     | The origin parameter for the picker.                |
-| `relay-url`      | `string`                     | The relay URL for the picker.                       |
-| `scope`          | `string`                     | The OAuth 2.0 scope for the picker.                 |
-| `title`          | `string`                     | The title of the picker.                            |
+| Name             | Type                         | Description                                                                                                                                                                                             |
+| ---------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app-id`         | `string`                     | The Google Drive app ID. See [`PickerBuilder.setAppId`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setappid).                                                            |
+| `client-id`      | `string`                     | The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2).                                                                          |
+| `developer-key`  | `string`                     | The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey).                          |
+| `hide-title-bar` | `"default"\|"true"\|"false"` | Hides the title bar of the picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar).                           |
+| `locale`         | `string`                     | The locale to use for the picker. See [`PickerBuilder.setLocale`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setlocale).                                                 |
+| `max-items`      | `number`                     | The maximum number of items that can be selected. See [`PickerBuilder.setMaxItems`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setmaxitems).                             |
+| `mine-only`      | `boolean`                    | If set to true, only shows files owned by the user. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                       |
+| `multiselect`    | `boolean`                    | Enables multiple file selection if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                           |
+| `nav-hidden`     | `boolean`                    | Hides the navigation pane if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                                 |
+| `oauth-token`    | `string`                     | The OAuth 2.0 token for authentication. See [`PickerBuilder.setOAuthToken`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setoauthtoken).                                   |
+| `origin`         | `string`                     | The origin parameter for the picker. See [`PickerBuilder.setOrigin`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setorigin).                                              |
+| `relay-url`      | `string`                     | The relay URL for the picker. See [`PickerBuilder.setRelayUrl`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setrelayurl).                                                 |
+| `scope`          | `string`                     | The OAuth 2.0 scope for the picker. The default is `https://www.googleapis.com/auth/drive.file`. See [Drive API scopes](https://developers.google.com/drive/api/guides/api-specific-auth#drive-scopes). |
+| `title`          | `string`                     | The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle).                                                            |
 
 #### Events
 
-| Name                   | Type                           | Description                                                                        |
-| ---------------------- | ------------------------------ | ---------------------------------------------------------------------------------- |
-| `picker:authenticated` | `{ token: string }`            | Triggered when the user authenticates with the provided OAuth client ID and scope. |
-| `picker:canceled`      | `google.picker.ResponseObject` | Triggered when the user cancels the picker dialog.                                 |
-| `picker:picked`        | `google.picker.ResponseObject` | Triggered when the user picks one or more items.                                   |
-| `picker:error`         | `google.picker.ResponseObject` | Triggered when an error occurs.                                                    |
+| Name                   | Type                           | Description                                                                                                                                            |
+| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `picker:authenticated` | `{ token: string }`            | Triggered when the user authenticates with the provided OAuth client ID and scope.                                                                     |
+| `picker:canceled`      | `google.picker.ResponseObject` | Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject). |
+| `picker:picked`        | `google.picker.ResponseObject` | Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).   |
+| `picker:error`         | `google.picker.ResponseObject` | Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).                    |
 
 #### Slots
 
@@ -224,18 +224,18 @@ The `drive-picker-docs-view` element is used to define a [`google.picker.DocsVie
 
 #### Attributes
 
-| Name                    | Type                         | Description                                                                                                         |
-| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `enable-drives`         | `"default"\|"true"\|"false"` | Whether to allow the user to select files from shared drives.                                                       |
-| `include-folders`       | `"default"\|"true"\|"false"` | Whether to include folders in the view.                                                                             |
-| `mime-types`            | `string`                     | A comma-separated list of MIME types to filter the view.                                                            |
-| `mode`                  | `string`                     | The mode of the view.                                                                                               |
-| `owned-by-me`           | `"default"\|"true"\|"false"` | Whether to show files owned by the user.                                                                            |
-| `parent`                | `string`                     | The ID of the folder to view.                                                                                       |
-| `query`                 | `string`                     | The query string to filter the view.                                                                                |
-| `select-folder-enabled` | `"default"\|"true"\|"false"` | Whether to allow the user to select folders.                                                                        |
-| `starred`               | `"default"\|"true"\|"false"` | Whether to show starred files.                                                                                      |
-| `view-id`               | `string`                     | The `keyof typeof google.picker.ViewId`. For example, `"DOCS"`, which is equivalent to `google.picker.ViewId.DOCS`. |
+| Name                    | Type                         | Description                                                                                                                                                                                             |
+| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enable-drives`         | `"default"\|"true"\|"false"` | Whether to allow the user to select files from shared drives. See [`DocsView.enableDrives`](https://developers.google.com/drive/picker/reference/picker.docsview.setenabledrives).                      |
+| `include-folders`       | `"default"\|"true"\|"false"` | Whether to include folders in the view. See [`DocsView.includeFolders`](https://developers.google.com/drive/picker/reference/picker.docsview.setincludefolders).                                        |
+| `mime-types`            | `string`                     | A comma-separated list of MIME types to filter the view. See [`View.setMimeTypes`](https://developers.google.com/drive/picker/reference/picker.view.setmimetypes).                                      |
+| `mode`                  | `string`                     | The mode of the view. See [`DocsViewMode`](https://developers.google.com/drive/picker/reference/picker.docsviewmode).                                                                                   |
+| `owned-by-me`           | `"default"\|"true"\|"false"` | Whether to show files owned by the user. See [`DocsView.ownedByMe`](https://developers.google.com/drive/picker/reference/picker.docsview.setownedbyme).                                                 |
+| `parent`                | `string`                     | The ID of the folder to view. See [`DocsView.setParent`](https://developers.google.com/drive/picker/reference/picker.docsview.setparent).                                                               |
+| `query`                 | `string`                     | The query string to filter the view. See [`View.setQuery`](https://developers.google.com/drive/picker/reference/picker.view.setquery).                                                                  |
+| `select-folder-enabled` | `"default"\|"true"\|"false"` | Whether to allow the user to select folders. See [`DocsView.selectFolderEnabled`](https://developers.google.com/drive/picker/reference/picker.docsview.setselectfolderenabled).                         |
+| `starred`               | `"default"\|"true"\|"false"` | Whether to show starred files. See [`DocsView.starred`](https://developers.google.com/drive/picker/reference/picker.docsview.setstarred).                                                               |
+| `view-id`               | `string`                     | The `keyof typeof google.picker.ViewId`. For example, `"DOCS"`, which is equivalent to `google.picker.ViewId.DOCS`. See [`ViewId`](https://developers.google.com/drive/picker/reference/picker.viewid). |
 
 #### Properties
 
