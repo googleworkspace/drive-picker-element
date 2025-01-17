@@ -24,7 +24,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:
+    permissions:    
       contents: write
       pull-requests: write
       pages: write
@@ -45,7 +45,7 @@ jobs:
       - run: git status
       - run: |
           pnpm config set '//wombat-dressing-room.appspot.com/:_authToken' "${NPM_WOMBAT_TOKEN}"
-          pnpm publish --no-git-checks
+          pnpm publish --no-git-checks --provenance
         env:
           NPM_WOMBAT_TOKEN: ${{ secrets.NPM_WOMBAT_TOKEN }}
         if: ${{ steps.release.outputs.release_created }}
