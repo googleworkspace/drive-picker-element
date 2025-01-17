@@ -28,3 +28,7 @@ jobs:
       - run: pnpm check
       - run: npx playwright install --with-deps
       - run: pnpm test
+      - run: pnpm bundlewatch
+        env:
+          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
+          CI_BRANCH_BASE: main

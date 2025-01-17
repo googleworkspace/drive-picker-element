@@ -43,6 +43,7 @@
 	},
 	"scripts": {
 		"build": "wireit",
+		"bundlewatch": "wireit",
 		"check": "tsc --noEmit",
 		"format": "biome check --fix .",
 		"lint": "biome check .",
@@ -69,6 +70,7 @@
 		"@types/unist": "^3.0.3",
 		"browserslist": "^4.24.0",
 		"browserslist-to-esbuild": "^2.1.1",
+		"bundlewatch": "^0.4.0",
 		"custom-elements-manifest": "^2.1.0",
 		"husky": "^9.1.4",
 		"lint-staged": "^15.2.9",
@@ -140,6 +142,12 @@
 				"dist/storybook"
 			]
 		},
+		"bundlewatch": {
+			"command": "bundlewatch",
+			"dependencies": [
+				"build:components"
+			]
+		},
 		"storybook": {
 			"service": true,
 			"command": "storybook dev -p 6006",
@@ -160,5 +168,13 @@
 		"access": "public",
 		"registry": "https://wombat-dressing-room.appspot.com"
 	},
-	"packageManager": "pnpm@9.3.0"
+	"packageManager": "pnpm@9.3.0",
+	"bundlewatch" : {
+        "files": [
+			{
+                "path": "dist/index.iife.min.js",
+                "maxSize": "2.25kB"
+            }
+        ]
+    }
 }
