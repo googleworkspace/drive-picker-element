@@ -21,16 +21,16 @@ type ViewId = keyof typeof google.picker.ViewId;
  * The `drive-picker-docs-view` element is used to define a [`google.picker.DocsView`](https://developers.google.com/drive/picker/reference/picker.docsview).
  *
  * @element drive-picker-docs-view
- * @attr {"default"|"true"|"false"} enable-drives - Whether to allow the user to select files from shared drives.
- * @attr {"default"|"true"|"false"} include-folders - Whether to include folders in the view.
- * @attr {string} mime-types - A comma-separated list of MIME types to filter the view.
- * @attr {string} mode - The mode of the view.
- * @attr {"default"|"true"|"false"} owned-by-me - Whether to show files owned by the user.
- * @attr {string} parent - The ID of the folder to view.
- * @attr {string} query - The query string to filter the view.
- * @attr {"default"|"true"|"false"} select-folder-enabled - Whether to allow the user to select folders.
- * @attr {"default"|"true"|"false"} starred - Whether to show starred files.
- * @attr {string} view-id - The `keyof typeof google.picker.ViewId`. For example, `"DOCS"`, which is equivalent to `google.picker.ViewId.DOCS`.
+ * @attr {"default"|"true"|"false"} enable-drives - Whether to allow the user to select files from shared drives. See [`DocsView.enableDrives`](https://developers.google.com/drive/picker/reference/picker.docsview.setenabledrives).
+ * @attr {"default"|"true"|"false"} include-folders - Whether to include folders in the view. See [`DocsView.includeFolders`](https://developers.google.com/drive/picker/reference/picker.docsview.setincludefolders).
+ * @attr {string} mime-types - A comma-separated list of MIME types to filter the view. See [`View.setMimeTypes`](https://developers.google.com/drive/picker/reference/picker.view.setmimetypes).
+ * @attr {string} mode - The mode of the view. See [`DocsViewMode`](https://developers.google.com/drive/picker/reference/picker.docsviewmode).
+ * @attr {"default"|"true"|"false"} owned-by-me - Whether to show files owned by the user. See [`DocsView.ownedByMe`](https://developers.google.com/drive/picker/reference/picker.docsview.setownedbyme).
+ * @attr {string} parent - The ID of the folder to view. See [`DocsView.setParent`](https://developers.google.com/drive/picker/reference/picker.docsview.setparent).
+ * @attr {string} query - The query string to filter the view. See [`View.setQuery`](https://developers.google.com/drive/picker/reference/picker.view.setquery).
+ * @attr {"default"|"true"|"false"} select-folder-enabled - Whether to allow the user to select folders. See [`DocsView.selectFolderEnabled`](https://developers.google.com/drive/picker/reference/picker.docsview.setselectfolderenabled).
+ * @attr {"default"|"true"|"false"} starred - Whether to show starred files. See [`DocsView.starred`](https://developers.google.com/drive/picker/reference/picker.docsview.setstarred).
+ * @attr {string} view-id - The `keyof typeof google.picker.ViewId`. For example, `"DOCS"`, which is equivalent to `google.picker.ViewId.DOCS`. See [`ViewId`](https://developers.google.com/drive/picker/reference/picker.viewid).
  *
  * @example
  *
