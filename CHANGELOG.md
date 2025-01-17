@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.3...v0.3.4) (2025-01-17)
+
+
+### Bug Fixes
+
+* use npmignore instead of files list to limit size ([824866f](https://github.com/googleworkspace/drive-picker-element/commit/824866f19e1c56f056fa58e5cfe3a76488573696))
+
 ## [0.3.3](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.2...v0.3.3) (2025-01-17)
 
 
