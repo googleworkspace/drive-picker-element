@@ -175,6 +175,10 @@
                 "path": "dist/index.iife.min.js",
                 "maxSize": "2.25kB"
             }
-        ]
+        ],
+		"ci": {
+			"repoBranchBase": "main",
+			"trackBranches": ["main", "next"]
+		}
     }
 }
