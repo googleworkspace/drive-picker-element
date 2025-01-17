@@ -30,3 +30,21 @@ jobs:
             echo "README.md is out of date. Please run 'pnpm build' and commit the changes."
             exit 1
           fi
+      # only main
+      - uses: s0/git-publish-subdir-action@v2.6.0
+        if: github.ref == 'refs/heads/main'
+        with:
+          BRANCH: gh-pages
+          FOLDER: storybook-static
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLEAR_GLOBS_FILE: .github/.clear_pages_glob
+      # only tags
+      - uses: s0/git-publish-subdir-action@v2.6.0
+        if: github.ref == 'refs/tags/*'
+        with:
+          BRANCH: gh-pages
+          FOLDER: storybook-static
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET: versions/tags/${{ github.ref_name }}
+          CLEAR_GLOBS_FILE: .github/.clear_pages_glob
+          
