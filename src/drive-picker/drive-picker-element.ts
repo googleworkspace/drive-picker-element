@@ -76,8 +76,8 @@ declare global {
  *
  *```html
  *<drive-picker
- *  app-id="675807958095"
- *  client-id="675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com"
+ *  app-id="246724281745"
+ *  client-id="246724281745-v9ouai8ood5o69r3ug29aaqeqflomijd.apps.googleusercontent.com"
  *>
  *  <drive-picker-docs-view></drive-picker-docs-view>
  *</drive-picker>

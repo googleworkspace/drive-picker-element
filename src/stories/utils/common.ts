@@ -44,6 +44,6 @@ export const META_PARAMETERS = {
 	},
 };
 
-export const APP_ID = "675807958095";
+export const APP_ID = "246724281745";
 export const CLIENT_ID =
-	"675807958095-nsptdcn5qdb6pl44cge1c6ghact9t5q0.apps.googleusercontent.com";
+	"246724281745-v9ouai8ood5o69r3ug29aaqeqflomijd.apps.googleusercontent.com";
