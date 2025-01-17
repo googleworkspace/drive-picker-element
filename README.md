@@ -15,6 +15,7 @@ Explore the [storybook demo](https://googleworkspace.github.io/drive-picker-elem
 See the framework specific demos:
 
 - [React](https://codesandbox.io/p/sandbox/xenodochial-leaf-j2xtdq)
+- [Svelte](https://codesandbox.io/p/sandbox/svelte-drive-picker-kd9swx)
 
 ## Index
 
