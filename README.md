@@ -91,7 +91,7 @@ customElements.define(
 If you already have an OAuth token, you can pass it to the `drive-picker` component using the `oauth-token` attribute. This will authenticate the user without requiring them to sign in again.
 
 ```html
-<drive-picker app-id="YOUR_APP_ID" oauth="OAUTH_TOKEN"></drive-picker>
+<drive-picker app-id="YOUR_APP_ID" oauth-token="OAUTH_TOKEN"></drive-picker>
 ```
 
 If you don't have an OAuth token, you can listen for the `"picker:authenticated"` event to get the token after the user has authenticated. This library wraps the [Google Identity Servies library](https://developers.google.com/identity/oauth2/web/guides/overview) to make it easier to authenticate users.
