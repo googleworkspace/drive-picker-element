@@ -67,12 +67,32 @@ export const elementArgTypes: {
 					case "number":
 						inputType.control = "number";
 						break;
-					case '"default"|"true"|"false"':
-						inputType.control = "select";
-						inputType.options = ["default", "true", "false"];
-						break;
 					default:
-						throw new Error(`Unsupported type: ${attr.type?.text}`);
+						// check if string literal union such as "default"|"true"|"false"
+						if (
+							attr.type?.text.match(/"[a-zA-Z-0-9-_"]*"/) &&
+							attr.type?.text.includes("|")
+						) {
+							inputType.control = "select";
+							inputType.options = attr.type?.text.replace(/"/g, "").split("|");
+						} else {
+							throw new Error(`Unsupported type: ${attr.type?.text}`);
+						}
+				}
+
+				if (
+					tagName === "drive-picker" &&
+					[
+						"client-id",
+						"scope",
+						"hd",
+						"prompt",
+						"login-hint",
+						"include-granted-scopes",
+					].includes(attr.name)
+				) {
+					// biome-ignore lint/style/noNonNullAssertion: <explanation>
+					inputType!.table!.category = "OAuth";
 				}
 
 				return [attr.name, inputType];

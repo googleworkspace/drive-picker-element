@@ -222,6 +222,15 @@
 							"description": "Controls the visibility of the picker after the picker dialog has been\nclosed. If any of the attributes change, the picker will be rebuilt and\nthe visibility will be reset."
 						},
 						{
+							"kind": "field",
+							"name": "tokenClientConfig",
+							"type": {
+								"text": "Omit<\n\t\tgoogle.accounts.oauth2.TokenClientConfig,\n\t\t\"callback\" | \"error_callback\"\n\t>"
+							},
+							"privacy": "public",
+							"readonly": true
+						},
+						{
 							"kind": "method",
 							"name": "build",
 							"privacy": "private"
@@ -251,7 +260,7 @@
 						},
 						{
 							"kind": "method",
-							"name": "retrieveAccessToken",
+							"name": "requestAccessToken",
 							"privacy": "private",
 							"return": {
 								"type": {
@@ -407,6 +416,34 @@
 								"text": "string"
 							},
 							"description": "The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle)."
+						},
+						{
+							"type": {
+								"text": "string"
+							},
+							"description": "The hosted domain to restrict sign-in to.  (Optional)  See the `hd` field in the OpenID Connect docs.",
+							"name": "hd"
+						},
+						{
+							"type": {
+								"text": "boolean"
+							},
+							"description": "Enables applications to use incremental authorization. See [`TokenClientConfig.include_granted_scopes`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig).",
+							"name": "include-granted-scopes"
+						},
+						{
+							"type": {
+								"text": "string"
+							},
+							"description": "An email address or an ID token 'sub' value. Google will use the value as a hint of which user to sign in. See the `login_hint` field in the OpenID Connect docs.",
+							"name": "login-hint"
+						},
+						{
+							"type": {
+								"text": "\"\"|\"none\"|\"consent\"|\"select_account\""
+							},
+							"description": "A space-delimited, case-sensitive list of prompts to present the user.  See [`TokenClientConfig.prompt`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig)",
+							"name": "prompt"
 						}
 					],
 					"superclass": {

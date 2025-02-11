@@ -180,22 +180,26 @@ by using the component attributes mapped to the corresponding methods of
 
 #### Attributes
 
-| Name             | Type                         | Description                                                                                                                                                                                             |
-| ---------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app-id`         | `string`                     | The Google Drive app ID. See [`PickerBuilder.setAppId`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setappid).                                                            |
-| `client-id`      | `string`                     | The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2).                                                                          |
-| `developer-key`  | `string`                     | The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey).                          |
-| `hide-title-bar` | `"default"\|"true"\|"false"` | Hides the title bar of the picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar).                           |
-| `locale`         | `string`                     | The locale to use for the picker. See [`PickerBuilder.setLocale`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setlocale).                                                 |
-| `max-items`      | `number`                     | The maximum number of items that can be selected. See [`PickerBuilder.setMaxItems`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setmaxitems).                             |
-| `mine-only`      | `boolean`                    | If set to true, only shows files owned by the user. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                       |
-| `multiselect`    | `boolean`                    | Enables multiple file selection if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                           |
-| `nav-hidden`     | `boolean`                    | Hides the navigation pane if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                                 |
-| `oauth-token`    | `string`                     | The OAuth 2.0 token for authentication. See [`PickerBuilder.setOAuthToken`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setoauthtoken).                                   |
-| `origin`         | `string`                     | The origin parameter for the picker. See [`PickerBuilder.setOrigin`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setorigin).                                              |
-| `relay-url`      | `string`                     | The relay URL for the picker. See [`PickerBuilder.setRelayUrl`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setrelayurl).                                                 |
-| `scope`          | `string`                     | The OAuth 2.0 scope for the picker. The default is `https://www.googleapis.com/auth/drive.file`. See [Drive API scopes](https://developers.google.com/drive/api/guides/api-specific-auth#drive-scopes). |
-| `title`          | `string`                     | The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle).                                                            |
+| Name                     | Type                                      | Description                                                                                                                                                                                             |
+| ------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app-id`                 | `string`                                  | The Google Drive app ID. See [`PickerBuilder.setAppId`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setappid).                                                            |
+| `client-id`              | `string`                                  | The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2).                                                                          |
+| `developer-key`          | `string`                                  | The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey).                          |
+| `hide-title-bar`         | `"default"\|"true"\|"false"`              | Hides the title bar of the picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar).                           |
+| `locale`                 | `string`                                  | The locale to use for the picker. See [`PickerBuilder.setLocale`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setlocale).                                                 |
+| `max-items`              | `number`                                  | The maximum number of items that can be selected. See [`PickerBuilder.setMaxItems`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setmaxitems).                             |
+| `mine-only`              | `boolean`                                 | If set to true, only shows files owned by the user. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                       |
+| `multiselect`            | `boolean`                                 | Enables multiple file selection if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                           |
+| `nav-hidden`             | `boolean`                                 | Hides the navigation pane if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature).                                 |
+| `oauth-token`            | `string`                                  | The OAuth 2.0 token for authentication. See [`PickerBuilder.setOAuthToken`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setoauthtoken).                                   |
+| `origin`                 | `string`                                  | The origin parameter for the picker. See [`PickerBuilder.setOrigin`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setorigin).                                              |
+| `relay-url`              | `string`                                  | The relay URL for the picker. See [`PickerBuilder.setRelayUrl`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setrelayurl).                                                 |
+| `scope`                  | `string`                                  | The OAuth 2.0 scope for the picker. The default is `https://www.googleapis.com/auth/drive.file`. See [Drive API scopes](https://developers.google.com/drive/api/guides/api-specific-auth#drive-scopes). |
+| `title`                  | `string`                                  | The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle).                                                            |
+| `hd`                     | `string`                                  | The hosted domain to restrict sign-in to. (Optional) See the `hd` field in the OpenID Connect docs.                                                                                                     |
+| `include-granted-scopes` | `boolean`                                 | Enables applications to use incremental authorization. See [`TokenClientConfig.include_granted_scopes`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig).    |
+| `login-hint`             | `string`                                  | An email address or an ID token 'sub' value. Google will use the value as a hint of which user to sign in. See the `login_hint` field in the OpenID Connect docs.                                       |
+| `prompt`                 | `""\|"none"\|"consent"\|"select_account"` | A space-delimited, case-sensitive list of prompts to present the user. See [`TokenClientConfig.prompt`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig)     |
 
 #### Events
 
@@ -215,9 +219,15 @@ by using the component attributes mapped to the corresponding methods of
 
 #### Properties
 
-| Name      | Type      | Description                                                                                                                                                                          |
-| --------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `visible` | `boolean` | Controls the visibility of the picker after the picker dialog has been&#xA;closed. If any of the attributes change, the picker will be rebuilt and&#xA;the visibility will be reset. |
+| Name                | Type      | Description                                                                                                                                                                          |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `visible`           | `boolean` | Controls the visibility of the picker after the picker dialog has been&#xA;closed. If any of the attributes change, the picker will be rebuilt and&#xA;the visibility will be reset. |
+| `tokenClientConfig` | \`Omit<   |                                                                                                                                                                                      |
+
+```
+	google.accounts.oauth2.TokenClientConfig,
+	"callback" \| "error_callback" 	>` |                                                                                                                                                                                      |
+```
 
 ### `<drive-picker-docs-view/>`
 
