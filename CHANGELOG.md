@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.4...v0.4.0) (2025-02-11)
+
+
+### Features
+
+* add additional oauth attributes including prompt, login-hint, etc ([#41](https://github.com/googleworkspace/drive-picker-element/issues/41)) ([c133936](https://github.com/googleworkspace/drive-picker-element/commit/c133936b5b0de9bc9ebaebb9a945d1513b767690))
+
+
+### Bug Fixes
+
+* error handling for oauth errors ([#39](https://github.com/googleworkspace/drive-picker-element/issues/39)) ([5b641de](https://github.com/googleworkspace/drive-picker-element/commit/5b641dea41e5dd788c7205237c7b1cc3d233e905))
+
 ## [0.3.4](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.3...v0.3.4) (2025-01-17)
 
 
