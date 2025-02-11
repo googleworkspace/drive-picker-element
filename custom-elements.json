@@ -248,21 +248,44 @@
 									}
 								}
 							]
+						},
+						{
+							"kind": "method",
+							"name": "retrieveAccessToken",
+							"privacy": "private",
+							"return": {
+								"type": {
+									"text": "Promise<string | undefined>"
+								}
+							}
 						}
 					],
 					"events": [
-						{
-							"name": "picker:authenticated",
-							"type": {
-								"text": "{ token: string }"
-							},
-							"description": "Triggered when the user authenticates with the provided OAuth client ID and scope."
-						},
 						{
 							"name": "eventType",
 							"type": {
 								"text": "CustomEvent"
 							}
+						},
+						{
+							"name": "picker:oauth:error",
+							"type": {
+								"text": "google.accounts.oauth2.ClientConfigError"
+							},
+							"description": "Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error)."
+						},
+						{
+							"name": "picker:authenticated",
+							"type": {
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"name": "picker:oauth:response",
+							"type": {
+								"text": "google.accounts.oauth2.ClientConfigError"
+							},
+							"description": "Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model)."
 						},
 						{
 							"type": {

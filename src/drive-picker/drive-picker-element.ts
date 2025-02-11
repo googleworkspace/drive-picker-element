@@ -30,7 +30,13 @@ interface DrivePickerDocsViewElement extends HTMLElement {
 
 declare global {
 	interface GlobalEventHandlersEventMap {
+		/** @deprecated - Use "picker:oauth:response" */
 		"picker:authenticated": CustomEvent<{ token: string }>;
+		"picker:oauth:error": CustomEvent<
+			| google.accounts.oauth2.ClientConfigError
+			| google.accounts.oauth2.TokenResponse
+		>;
+		"picker:oauth:response": CustomEvent<google.accounts.oauth2.TokenResponse>;
 		"picker:canceled": CustomEvent<google.picker.ResponseObject>;
 		"picker:picked": CustomEvent<google.picker.ResponseObject>;
 		"picker:error": CustomEvent<unknown>;
@@ -46,11 +52,11 @@ declare global {
  *
  * @element drive-picker
  *
- * @fires {{ token: string }} picker:authenticated - Triggered when the user authenticates with the
- * provided OAuth client ID and scope.
  * @fires {google.picker.ResponseObject} picker:canceled - Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
  * @fires {google.picker.ResponseObject} picker:picked - Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
  * @fires {google.picker.ResponseObject} picker:error - Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+ * @fires {google.accounts.oauth2.ClientConfigError} picker:oauth:error - Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error).
+ * @fires {google.accounts.oauth2.ClientConfigError} picker:oauth:response - Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model).
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
@@ -175,18 +181,9 @@ export class DrivePickerElement extends HTMLElement {
 
 		// OAuth token is required either as an attribute or from the OAuth flow using the client ID and scope
 		const oauthToken =
-			this.getAttribute("oauth-token") ??
-			(await retrieveAccessToken(
-				// biome-ignore lint/style/noNonNullAssertion: just let the error bubble up when null
-				this.getAttribute("client-id")!,
-				this.getAttribute("scope") ??
-					"https://www.googleapis.com/auth/drive.file",
-			).then((token) => {
-				this.dispatchEvent(
-					new CustomEvent("picker:authenticated", { detail: { token } }),
-				);
-				return token;
-			}));
+			this.getAttribute("oauth-token") ?? (await this.retrieveAccessToken());
+
+		if (!oauthToken) return;
 
 		// biome-ignore lint/style/noNonNullAssertion: <explanation>
 		builder = builder.setOAuthToken(oauthToken!);
@@ -270,6 +267,42 @@ export class DrivePickerElement extends HTMLElement {
 				detail,
 			}),
 		);
+	}
+
+	private retrieveAccessToken(): Promise<string | undefined> {
+		return retrieveAccessToken(
+			// biome-ignore lint/style/noNonNullAssertion: just let the error bubble up when null
+			this.getAttribute("client-id")!,
+			this.getAttribute("scope") ??
+				"https://www.googleapis.com/auth/drive.file",
+		)
+			.then((response) => {
+				const { access_token: token } = response;
+				if (!token) {
+					this.dispatchEvent(
+						new CustomEvent("picker:oauth:error", {
+							detail: response,
+						}),
+					);
+					return undefined;
+				}
+				// TODO - remove deprecated event
+				this.dispatchEvent(
+					new CustomEvent("picker:authenticated", { detail: { token } }),
+				);
+				this.dispatchEvent(
+					new CustomEvent("picker:oauth:response", { detail:  response  }),
+				);
+				return token;
+			})
+			.catch((error) => {
+				this.dispatchEvent(
+					new CustomEvent("picker:oauth:error", {
+						detail: error,
+					}),
+				);
+				return undefined;
+			});
 	}
 
 	disconnectedCallback(): void {

@@ -15,7 +15,7 @@
  */
 
 const GAPI_URL = "https://apis.google.com/js/api.js";
-const GSI_URL = "https://accounts.google.com/gsi/client";
+export const GSI_URL = "https://accounts.google.com/gsi/client";
 
 export async function loadApi(api = "client:picker"): Promise<typeof google> {
 	if (!window.gapi) {
@@ -29,10 +29,18 @@ export async function loadApi(api = "client:picker"): Promise<typeof google> {
 	return window.google;
 }
 
+export class ClientConfigError extends Error {
+	constructor(
+		public readonly configError: google.accounts.oauth2.ClientConfigError,
+	) {
+		super(configError.message);
+	}
+}
+
 export async function retrieveAccessToken(
 	clientId: string,
 	scope: string,
-): Promise<string> {
+): Promise<google.accounts.oauth2.TokenResponse> {
 	if (!window.google?.accounts?.oauth2) {
 		await injectScript(GSI_URL);
 	}
@@ -40,13 +48,8 @@ export async function retrieveAccessToken(
 		const client = window.google.accounts.oauth2.initTokenClient({
 			client_id: clientId,
 			scope: scope.replace(/,/g, " ").replace(/\s+/g, " "),
-
-			callback: ({ access_token }) => {
-				resolve(access_token);
-			},
-			error_callback: (error) => {
-				reject(error);
-			},
+			callback: resolve,
+			error_callback: reject,
 		});
 
 		client.requestAccessToken();
@@ -60,9 +63,7 @@ export async function injectScript(src: string): Promise<void> {
 				Object.assign(document.createElement("script"), {
 					src,
 					onload: resolve,
-					onerror: () => {
-						reject(`error loading ${src}`);
-					},
+					onerror: reject,
 				}),
 			);
 		} else {
