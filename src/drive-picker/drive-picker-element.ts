@@ -291,7 +291,7 @@ export class DrivePickerElement extends HTMLElement {
 					new CustomEvent("picker:authenticated", { detail: { token } }),
 				);
 				this.dispatchEvent(
-					new CustomEvent("picker:oauth:response", { detail:  response  }),
+					new CustomEvent("picker:oauth:response", { detail: response }),
 				);
 				return token;
 			})
