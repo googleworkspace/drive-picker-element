@@ -37,17 +37,18 @@ export class ClientConfigError extends Error {
 	}
 }
 
-export async function retrieveAccessToken(
-	clientId: string,
-	scope: string,
+export async function requestAccessToken(
+	tokenClientConfig: Omit<
+		google.accounts.oauth2.TokenClientConfig,
+		"callback" | "error_callback"
+	>,
 ): Promise<google.accounts.oauth2.TokenResponse> {
 	if (!window.google?.accounts?.oauth2) {
 		await injectScript(GSI_URL);
 	}
 	return new Promise((resolve, reject) => {
 		const client = window.google.accounts.oauth2.initTokenClient({
-			client_id: clientId,
-			scope: scope.replace(/,/g, " ").replace(/\s+/g, " "),
+			...tokenClientConfig,
 			callback: resolve,
 			error_callback: reject,
 		});

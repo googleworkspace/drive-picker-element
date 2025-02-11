@@ -18,7 +18,7 @@ import {
 	getBoolAttr,
 	getNumberAttribute,
 	loadApi,
-	retrieveAccessToken,
+	requestAccessToken,
 	setBoolAttrWithDefault,
 } from "../utils";
 
@@ -77,6 +77,10 @@ declare global {
  * @attr {string} relay-url - The relay URL for the picker. See [`PickerBuilder.setRelayUrl`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setrelayurl).
  * @attr {string} scope - The OAuth 2.0 scope for the picker. The default is `https://www.googleapis.com/auth/drive.file`. See [Drive API scopes](https://developers.google.com/drive/api/guides/api-specific-auth#drive-scopes).
  * @attr {string} title - The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle).
+ * @attr {string} hd - The hosted domain to restrict sign-in to.  (Optional)  See the `hd` field in the OpenID Connect docs.
+ * @attr {boolean} include-granted-scopes - Enables applications to use incremental authorization. See [`TokenClientConfig.include_granted_scopes`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig).
+ * @attr {string} login-hint - An email address or an ID token 'sub' value. Google will use the value as a hint of which user to sign in. See the `login_hint` field in the OpenID Connect docs.
+ * @attr {""|"none"|"consent"|"select_account"} prompt - A space-delimited, case-sensitive list of prompts to present the user.  See [`TokenClientConfig.prompt`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig)
  *
  * @example
  *
@@ -130,6 +134,32 @@ export class DrivePickerElement extends HTMLElement {
 		this.picker?.setVisible(value);
 	}
 
+	public get tokenClientConfig(): Omit<
+		google.accounts.oauth2.TokenClientConfig,
+		"callback" | "error_callback"
+	> {
+		const clientId = this.getAttribute("client-id");
+		const scope =
+			this.getAttribute("scope") ??
+			"https://www.googleapis.com/auth/drive.file";
+
+		if (!clientId || !scope) {
+			throw new Error("client-id and scope are required attributes");
+		}
+
+		return {
+			client_id: clientId,
+			hd: this.getAttribute("hd") ?? undefined,
+			include_granted_scopes: Boolean(
+				this.getAttribute("include-granted-scope"),
+			),
+			login_hint: this.getAttribute("login-hint") ?? undefined,
+			prompt: (this.getAttribute("prompt") ??
+				"") as google.accounts.oauth2.TokenClientConfig["prompt"],
+			scope,
+		};
+	}
+
 	attributeChangedCallback() {
 		this.build();
 		return;
@@ -181,7 +211,7 @@ export class DrivePickerElement extends HTMLElement {
 
 		// OAuth token is required either as an attribute or from the OAuth flow using the client ID and scope
 		const oauthToken =
-			this.getAttribute("oauth-token") ?? (await this.retrieveAccessToken());
+			this.getAttribute("oauth-token") ?? (await this.requestAccessToken());
 
 		if (!oauthToken) return;
 
@@ -269,13 +299,8 @@ export class DrivePickerElement extends HTMLElement {
 		);
 	}
 
-	private retrieveAccessToken(): Promise<string | undefined> {
-		return retrieveAccessToken(
-			// biome-ignore lint/style/noNonNullAssertion: just let the error bubble up when null
-			this.getAttribute("client-id")!,
-			this.getAttribute("scope") ??
-				"https://www.googleapis.com/auth/drive.file",
-		)
+	private async requestAccessToken(): Promise<string | undefined> {
+		return requestAccessToken(this.tokenClientConfig)
 			.then((response) => {
 				const { access_token: token } = response;
 				if (!token) {
