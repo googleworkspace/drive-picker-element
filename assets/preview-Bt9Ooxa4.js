@@ -1,1 +1,0 @@
-import o from"./page-YTprPs8y.js";import"./index-Jau0QtVQ.js";import"./iframe-CGNUr0UZ.js";import"../sb-preview/runtime.js";import"./index-u5I_DdWt.js";import"./index-DrFu-skq.js";import"./index-DqS0WDsh.js";const c={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}},docs:{page:o}},tags:["autodocs"]};export{c as default};
