@@ -35,7 +35,9 @@ const argsAllowedFromParams = [
 ];
 const searchParamsArgs = JSON.parse(searchParams.get("args") || "{}");
 const argValuesFromParams = Object.fromEntries(
-	argsAllowedFromParams.map((arg) => [arg, searchParamsArgs[arg] || undefined]),
+	argsAllowedFromParams
+		.map((arg) => [arg, searchParamsArgs[arg] || undefined])
+		.filter(([, value]) => value !== undefined),
 );
 
 const postHeightToParent = () => {
@@ -78,6 +80,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 });
+
 const meta: Meta = {
 	component: "drive-picker",
 	argTypes: {
@@ -85,6 +88,7 @@ const meta: Meta = {
 		...elementArgTypes["drive-picker-docs-view"],
 	},
 	args: {
+		prompt: "",
 		...argValuesFromParams,
 		"app-id": APP_ID,
 		"client-id": CLIENT_ID,
