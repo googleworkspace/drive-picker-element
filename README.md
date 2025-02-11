@@ -199,12 +199,13 @@ by using the component attributes mapped to the corresponding methods of
 
 #### Events
 
-| Name                   | Type                           | Description                                                                                                                                            |
-| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `picker:authenticated` | `{ token: string }`            | Triggered when the user authenticates with the provided OAuth client ID and scope.                                                                     |
-| `picker:canceled`      | `google.picker.ResponseObject` | Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject). |
-| `picker:picked`        | `google.picker.ResponseObject` | Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).   |
-| `picker:error`         | `google.picker.ResponseObject` | Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).                    |
+| Name                    | Type                                       | Description                                                                                                                                            |
+| ----------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `picker:oauth:error`    | `google.accounts.oauth2.ClientConfigError` | Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error).               |
+| `picker:oauth:response` | `google.accounts.oauth2.ClientConfigError` | Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model).         |
+| `picker:canceled`       | `google.picker.ResponseObject`             | Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject). |
+| `picker:picked`         | `google.picker.ResponseObject`             | Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).   |
+| `picker:error`          | `google.picker.ResponseObject`             | Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).                    |
 
 #### Slots
 
