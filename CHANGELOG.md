@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.0...v0.4.1) (2025-02-15)
+
+
+### Bug Fixes
+
+* update types for `picker:oauth:*` events ([#43](https://github.com/googleworkspace/drive-picker-element/issues/43)) ([869690f](https://github.com/googleworkspace/drive-picker-element/commit/869690f518daf05e8def184f1746486781354b4f))
+
 ## [0.4.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.3.4...v0.4.0) (2025-02-11)
 
 
