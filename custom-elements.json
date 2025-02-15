@@ -279,9 +279,9 @@
 						{
 							"name": "picker:oauth:error",
 							"type": {
-								"text": "google.accounts.oauth2.ClientConfigError"
+								"text": "google.accounts.oauth2.ClientConfigError|google.accounts.oauth2.TokenResponse"
 							},
-							"description": "Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error)."
+							"description": "Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error). Note that the `TokenResponse` object can have error fields."
 						},
 						{
 							"name": "picker:authenticated",
@@ -292,7 +292,7 @@
 						{
 							"name": "picker:oauth:response",
 							"type": {
-								"text": "google.accounts.oauth2.ClientConfigError"
+								"text": "google.accounts.oauth2.TokenResponse"
 							},
 							"description": "Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model)."
 						},

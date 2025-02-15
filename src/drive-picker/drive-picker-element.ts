@@ -55,8 +55,8 @@ declare global {
  * @fires {google.picker.ResponseObject} picker:canceled - Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
  * @fires {google.picker.ResponseObject} picker:picked - Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
  * @fires {google.picker.ResponseObject} picker:error - Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
- * @fires {google.accounts.oauth2.ClientConfigError} picker:oauth:error - Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error).
- * @fires {google.accounts.oauth2.ClientConfigError} picker:oauth:response - Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model).
+ * @fires {google.accounts.oauth2.ClientConfigError|google.accounts.oauth2.TokenResponse} picker:oauth:error - Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error). Note that the `TokenResponse` object can have error fields.
+ * @fires {google.accounts.oauth2.TokenResponse} picker:oauth:response - Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model).
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
