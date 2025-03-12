@@ -139,6 +139,8 @@ const render = ({ ...args }) => {
 	const template = document.createElement("template");
 	template.innerHTML = drivePicker.outerHTML;
 	lazyPreviewElement.appendChild(template);
+	lazyPreviewElement.style.display =
+		new URL(location.href).searchParams.get("preview") ?? "auto";
 
 	return lazyPreviewElement;
 };
