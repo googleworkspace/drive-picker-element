@@ -37,7 +37,7 @@ jobs:
           REPO: self
           BRANCH: gh-pages
           FOLDER: storybook-static
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GOOGLEWORKSPACE_BOT_TOKEN }}
           CLEAR_GLOBS_FILE: .github/.clear_pages_glob
       # only tags
       - uses: s0/git-publish-subdir-action@61eb9e6420447e7cbf010f7cce37103665c46bfa
@@ -46,7 +46,7 @@ jobs:
           REPO: self
           BRANCH: gh-pages
           FOLDER: storybook-static
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GOOGLEWORKSPACE_BOT_TOKEN }}
           TARGET: versions/tags/${{ github.ref_name }}
           CLEAR_GLOBS_FILE: .github/.clear_pages_glob
           
