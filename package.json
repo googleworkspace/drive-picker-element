@@ -94,7 +94,8 @@
 				"build:components",
 				"build:manifest",
 				"build:readme",
-				"build:storybook"
+				"build:storybook",
+				"build:props"
 			]
 		},
 		"build:components": {
@@ -105,6 +106,20 @@
 			],
 			"output": [
 				"dist/**/*.(js|ts|map)"
+			]
+		},
+		"build:props": {
+			"clean": false,
+			"command": "tsx ./scripts/props.ts",
+			"files": [
+				"custom-elements.json",
+				"scripts/props.ts"
+			],
+			"output": [
+				"src/drive-picker/props.ts"
+			],
+			"dependencies": [
+				"build:manifest"
 			]
 		},
 		"build:manifest": {

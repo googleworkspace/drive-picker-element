@@ -38,6 +38,22 @@
 						"name": "DrivePickerDocsViewElement",
 						"module": "src/index.ts"
 					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElementProps",
+					"declaration": {
+						"name": "DrivePickerElementProps",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElementProps",
+					"declaration": {
+						"name": "DrivePickerDocsViewElementProps",
+						"module": "src/index.ts"
+					}
 				}
 			]
 		},
@@ -484,12 +500,28 @@
 						"name": "DrivePickerDocsViewElement",
 						"module": "\"./drive-picker-docs-view-element\""
 					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElementProps",
+					"declaration": {
+						"name": "DrivePickerDocsViewElementProps",
+						"module": "\"./props\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElementProps",
+					"declaration": {
+						"name": "DrivePickerElementProps",
+						"module": "\"./props\""
+					}
 				}
 			]
 		},
 		{
 			"kind": "javascript-module",
-			"path": "src/drive-picker/types.ts",
+			"path": "src/drive-picker/props.ts",
 			"declarations": [],
 			"exports": []
 		}

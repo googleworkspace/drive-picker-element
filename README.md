@@ -27,6 +27,7 @@ See the framework specific demos:
   - [Listening to Events](#listening-to-events)
   - [Event Details](#event-details)
   - [Controlling Visibility](#controlling-visibility)
+  - [React and JSX](#react-and-jsx)
 - [Support](#support)
 - [Reference](#reference)
   - [`<drive-picker/>`](#drive-picker)
@@ -161,6 +162,37 @@ To make the picker visible, set the `visible` property of the `drive-picker` ele
 ```
 
 After the picker dialog has been closed, the `visible` property will be reset to `false`.
+
+### React and JSX
+
+To use the component in a React application, you can extend the global `JSX` namespace as follows:
+
+```ts
+import type {
+  DrivePickerElement,
+  DrivePickerDocsViewElement,
+  DrivePickerElementProps,
+  DrivePickerDocsViewElementProps,
+} from "@googleworkspace/drive-picker-element";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "drive-picker": React.DetailedHTMLProps<
+        React.HTMLAttributes<DrivePickerElement> & DrivePickerElementProps,
+        DrivePickerElement
+      >;
+      "drive-picker-docs-view": React.DetailedHTMLProps<
+        React.HTMLAttributes<DrivePickerDocsViewElement> &
+          DrivePickerDocsViewElementProps,
+        DrivePickerDocsViewElement
+      >;
+    }
+  }
+}
+```
+
+The above snippet can be added to a declaration file (e.g. `app.d.ts`) in your React project.
 
 ## Support
 

@@ -17,3 +17,8 @@
 export { DrivePickerElement } from "./drive-picker-element";
 
 export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";
+
+export type {
+	DrivePickerDocsViewElementProps,
+	DrivePickerElementProps,
+} from "./props";
