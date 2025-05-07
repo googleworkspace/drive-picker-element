@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.1...v0.4.2) (2025-05-07)
+
+
+### Bug Fixes
+
+* export prop types from manifest/jsdoc ([#52](https://github.com/googleworkspace/drive-picker-element/issues/52)) ([ec9f8ea](https://github.com/googleworkspace/drive-picker-element/commit/ec9f8ea55ea3a101957f25604b1de993fc8bfb47))
+
 ## [0.4.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.0...v0.4.1) (2025-02-15)
 
 
