@@ -16,9 +16,9 @@
 
 import {
 	DrivePickerDocsViewElement,
+	type DrivePickerDocsViewElementProps,
 	DrivePickerElement,
 	type DrivePickerElementProps,
-	type DrivePickerDocsViewElementProps,
 } from "./drive-picker";
 
 customElements.define("drive-picker", DrivePickerElement);

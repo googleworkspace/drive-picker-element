@@ -100,6 +100,7 @@ const resultText = await prettier.format(
 	),
 	{
 		parser: "typescript",
+		useTabs: true,
 	},
 );
 
