@@ -121,4 +121,4 @@ const licenseHeader = `/**
  */`;
 
 fs.writeFileSync(outputFile, `${licenseHeader}\n\n${resultText}`, "utf8");
-console.log(`Generated React JSX definitions at ${outputFile}`);
+console.log(`Generated Drive Picker prop type definitions at ${outputFile}`);
