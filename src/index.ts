@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { DrivePickerDocsViewElement, DrivePickerElement } from "./drive-picker";
+import {
+	DrivePickerDocsViewElement,
+	type DrivePickerDocsViewElementProps,
+	DrivePickerElement,
+	type DrivePickerElementProps,
+} from "./drive-picker";
 
 customElements.define("drive-picker", DrivePickerElement);
 customElements.define("drive-picker-docs-view", DrivePickerDocsViewElement);
@@ -28,4 +33,9 @@ declare global {
 	}
 }
 
-export type { DrivePickerElement, DrivePickerDocsViewElement };
+export type {
+	DrivePickerElement,
+	DrivePickerDocsViewElement,
+	DrivePickerElementProps,
+	DrivePickerDocsViewElementProps,
+};
