@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-export { DrivePickerElement } from "./drive-picker-element";
+export {
+	DrivePickerElement,
+	type OAuthErrorEvent,
+	type OAuthResponseEvent,
+	type PickerCanceledEvent,
+	type PickerErrorEvent,
+	type PickerPickedEvent,
+} from "./drive-picker-element";
 
 export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";
 

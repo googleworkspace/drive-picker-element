@@ -19,6 +19,11 @@ import {
 	type DrivePickerDocsViewElementProps,
 	DrivePickerElement,
 	type DrivePickerElementProps,
+	type OAuthErrorEvent,
+	type OAuthResponseEvent,
+	type PickerCanceledEvent,
+	type PickerErrorEvent,
+	type PickerPickedEvent,
 } from "./drive-picker";
 
 customElements.define("drive-picker", DrivePickerElement);
@@ -38,4 +43,9 @@ export type {
 	DrivePickerDocsViewElement,
 	DrivePickerElementProps,
 	DrivePickerDocsViewElementProps,
+	OAuthErrorEvent,
+	OAuthResponseEvent,
+	PickerCanceledEvent,
+	PickerErrorEvent,
+	PickerPickedEvent,
 };
