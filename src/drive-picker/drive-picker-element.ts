@@ -28,18 +28,25 @@ interface DrivePickerDocsViewElement extends HTMLElement {
 	view: google.picker.DocsView;
 }
 
+export type OAuthErrorEvent = CustomEvent<
+	| google.accounts.oauth2.ClientConfigError
+	| google.accounts.oauth2.TokenResponse
+>;
+export type OAuthResponseEvent =
+	CustomEvent<google.accounts.oauth2.TokenResponse>;
+export type PickerCanceledEvent = CustomEvent<google.picker.ResponseObject>;
+export type PickerPickedEvent = CustomEvent<google.picker.ResponseObject>;
+export type PickerErrorEvent = CustomEvent<unknown>;
+
 declare global {
 	interface GlobalEventHandlersEventMap {
 		/** @deprecated - Use "picker:oauth:response" */
 		"picker:authenticated": CustomEvent<{ token: string }>;
-		"picker:oauth:error": CustomEvent<
-			| google.accounts.oauth2.ClientConfigError
-			| google.accounts.oauth2.TokenResponse
-		>;
-		"picker:oauth:response": CustomEvent<google.accounts.oauth2.TokenResponse>;
-		"picker:canceled": CustomEvent<google.picker.ResponseObject>;
-		"picker:picked": CustomEvent<google.picker.ResponseObject>;
-		"picker:error": CustomEvent<unknown>;
+		"picker:oauth:error": OAuthErrorEvent;
+		"picker:oauth:response": OAuthResponseEvent;
+		"picker:canceled": PickerCanceledEvent;
+		"picker:picked": PickerPickedEvent;
+		"picker:error": PickerErrorEvent;
 	}
 }
 

@@ -495,6 +495,46 @@
 				},
 				{
 					"kind": "js",
+					"name": "OAuthErrorEvent",
+					"declaration": {
+						"name": "OAuthErrorEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthResponseEvent",
+					"declaration": {
+						"name": "OAuthResponseEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerCanceledEvent",
+					"declaration": {
+						"name": "PickerCanceledEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerErrorEvent",
+					"declaration": {
+						"name": "PickerErrorEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerPickedEvent",
+					"declaration": {
+						"name": "PickerPickedEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
 					"name": "DrivePickerDocsViewElement",
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
