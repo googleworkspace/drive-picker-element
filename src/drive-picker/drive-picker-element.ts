@@ -40,13 +40,23 @@ export type PickerErrorEvent = CustomEvent<unknown>;
 
 declare global {
 	interface GlobalEventHandlersEventMap {
-		/** @deprecated - Use "picker:oauth:response" */
+		/** @deprecated - Use "picker-oauth-error" */
 		"picker:authenticated": CustomEvent<{ token: string }>;
+		/** @deprecated - Use "picker-oauth-error" */
 		"picker:oauth:error": OAuthErrorEvent;
+		"picker-oauth-error": OAuthErrorEvent;
+		/** @deprecated - Use "picker-oauth-response" */
 		"picker:oauth:response": OAuthResponseEvent;
+		"picker-oauth-response": OAuthResponseEvent;
+		/** @deprecated - Use "picker-canceled" */
 		"picker:canceled": PickerCanceledEvent;
+		"picker-canceled": PickerCanceledEvent;
+		/** @deprecated - Use "picker-picked" */
 		"picker:picked": PickerPickedEvent;
+		"picker-picked": PickerPickedEvent;
+		/** @deprecated - Use "picker-error" */
 		"picker:error": PickerErrorEvent;
+		"picker-error": PickerErrorEvent;
 	}
 }
 
@@ -59,11 +69,11 @@ declare global {
  *
  * @element drive-picker
  *
- * @fires {google.picker.ResponseObject} picker:canceled - Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
- * @fires {google.picker.ResponseObject} picker:picked - Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
- * @fires {google.picker.ResponseObject} picker:error - Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
- * @fires {google.accounts.oauth2.ClientConfigError|google.accounts.oauth2.TokenResponse} picker:oauth:error - Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error). Note that the `TokenResponse` object can have error fields.
- * @fires {google.accounts.oauth2.TokenResponse} picker:oauth:response - Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model).
+ * @fires {PickerCanceledEvent} picker-canceled - Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+ * @fires {PickerPickedEvent} picker-picked - Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+ * @fires {PickerErrorEvent} picker-error - Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+ * @fires {OAuthErrorEvent} picker-oauth-error - Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error). Note that the `TokenResponse` object can have error fields.
+ * @fires {OAuthResponseEvent} picker-oauth-response - Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model).
  *
  * @slot - The default slot contains View elements to display in the picker.
  * Each View element should implement a property `view` of type
@@ -283,27 +293,30 @@ export class DrivePickerElement extends HTMLElement {
 	}
 
 	private callbackToDispatchEvent(detail: google.picker.ResponseObject) {
-		let eventType: keyof GlobalEventHandlersEventMap;
+		// TODO - remove deprecated events
+		let eventTypes: (keyof GlobalEventHandlersEventMap)[];
 
 		switch (detail.action) {
 			case google.picker.Action.CANCEL:
-				eventType = "picker:canceled";
+				eventTypes = ["picker:canceled", "picker-canceled"];
 				break;
 			case google.picker.Action.PICKED:
-				eventType = "picker:picked";
+				eventTypes = ["picker:picked", "picker-picked"];
 				break;
 			case google.picker.Action.ERROR:
-				eventType = "picker:error";
+				eventTypes = ["picker:error", "picker-error"];
 				break;
 			default:
 				return;
 		}
 
-		this.dispatchEvent(
-			new CustomEvent(eventType, {
-				detail,
-			}),
-		);
+		for (const eventType of eventTypes) {
+			this.dispatchEvent(
+				new CustomEvent(eventType, {
+					detail,
+				}),
+			);
+		}
 	}
 
 	private async requestAccessToken(): Promise<string | undefined> {
@@ -316,6 +329,11 @@ export class DrivePickerElement extends HTMLElement {
 							detail: response,
 						}),
 					);
+					this.dispatchEvent(
+						new CustomEvent("picker-oauth-error", {
+							detail: response,
+						}),
+					);
 					return undefined;
 				}
 				// TODO - remove deprecated event
@@ -323,13 +341,26 @@ export class DrivePickerElement extends HTMLElement {
 					new CustomEvent("picker:authenticated", { detail: { token } }),
 				);
 				this.dispatchEvent(
+					new CustomEvent("picker-oauth-response", { detail: response }),
+				);
+				// TODO - remove deprecated event
+				this.dispatchEvent(
 					new CustomEvent("picker:oauth:response", { detail: response }),
+				);
+				this.dispatchEvent(
+					new CustomEvent("picker-oauth-response", { detail: response }),
 				);
 				return token;
 			})
 			.catch((error) => {
+				// TODO - remove deprecated event
 				this.dispatchEvent(
 					new CustomEvent("picker:oauth:error", {
+						detail: error,
+					}),
+				);
+				this.dispatchEvent(
+					new CustomEvent("picker-oauth-error", {
 						detail: error,
 					}),
 				);
