@@ -46,9 +46,9 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 	static get observedAttributes() {
 		return [
 			"enable-drives",
+			"file-ids",
 			"include-folders",
 			"mime-types",
-			"file-ids",
 			"mode",
 			"owned-by-me",
 			"parent",

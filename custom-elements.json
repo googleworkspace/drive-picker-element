@@ -140,6 +140,13 @@
 							"description": "Whether to allow the user to select files from shared drives. See [`DocsView.enableDrives`](https://developers.google.com/drive/picker/reference/picker.docsview.setenabledrives)."
 						},
 						{
+							"name": "file-ids",
+							"type": {
+								"text": "string"
+							},
+							"description": "A comma-separated list of file IDs to filter the view. See [`View.setFileIds`](https://developers.google.com/workspace/drive/picker/reference/picker.docsview.setfileids)."
+						},
+						{
 							"name": "include-folders",
 							"type": {
 								"text": "\"default\"|\"true\"|\"false\""
