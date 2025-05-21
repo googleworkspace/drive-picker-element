@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.2...v0.4.3) (2025-05-21)
+
+
+### Bug Fixes
+
+* export event types ([#56](https://github.com/googleworkspace/drive-picker-element/issues/56)) ([e6cabf3](https://github.com/googleworkspace/drive-picker-element/commit/e6cabf3ac806b0523c0a1e3478a0932a6fa7e33a))
+
 ## [0.4.2](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.1...v0.4.2) (2025-05-07)
 
 
