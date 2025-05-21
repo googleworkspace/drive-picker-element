@@ -43,4 +43,9 @@ export type {
 	DrivePickerDocsViewElement,
 	DrivePickerElementProps,
 	DrivePickerDocsViewElementProps,
+	OAuthErrorEvent,
+	OAuthResponseEvent,
+	PickerCanceledEvent,
+	PickerErrorEvent,
+	PickerPickedEvent,
 };
