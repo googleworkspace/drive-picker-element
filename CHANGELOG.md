@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.3...v0.4.4) (2025-05-21)
+
+
+### Bug Fixes
+
+* use dash instead of colon in event names ([#58](https://github.com/googleworkspace/drive-picker-element/issues/58)) ([e1d17d0](https://github.com/googleworkspace/drive-picker-element/commit/e1d17d02ba86b662bce0477a7a626b72d2f3bcc0))
+
 ## [0.4.3](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.2...v0.4.3) (2025-05-21)
 
 
