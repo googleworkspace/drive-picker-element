@@ -54,6 +54,46 @@
 						"name": "DrivePickerDocsViewElementProps",
 						"module": "src/index.ts"
 					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthErrorEvent",
+					"declaration": {
+						"name": "OAuthErrorEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthResponseEvent",
+					"declaration": {
+						"name": "OAuthResponseEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerCanceledEvent",
+					"declaration": {
+						"name": "PickerCanceledEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerErrorEvent",
+					"declaration": {
+						"name": "PickerErrorEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerPickedEvent",
+					"declaration": {
+						"name": "PickerPickedEvent",
+						"module": "src/index.ts"
+					}
 				}
 			]
 		},
@@ -295,7 +335,13 @@
 						{
 							"name": "picker:oauth:error",
 							"type": {
-								"text": "google.accounts.oauth2.ClientConfigError|google.accounts.oauth2.TokenResponse"
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"name": "picker-oauth-error",
+							"type": {
+								"text": "OAuthErrorEvent"
 							},
 							"description": "Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error). Note that the `TokenResponse` object can have error fields."
 						},
@@ -306,32 +352,38 @@
 							}
 						},
 						{
-							"name": "picker:oauth:response",
+							"name": "picker-oauth-response",
 							"type": {
-								"text": "google.accounts.oauth2.TokenResponse"
+								"text": "OAuthResponseEvent"
 							},
 							"description": "Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model)."
 						},
 						{
+							"name": "picker:oauth:response",
 							"type": {
-								"text": "google.picker.ResponseObject"
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"type": {
+								"text": "PickerCanceledEvent"
 							},
 							"description": "Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).",
-							"name": "picker:canceled"
+							"name": "picker-canceled"
 						},
 						{
 							"type": {
-								"text": "google.picker.ResponseObject"
+								"text": "PickerPickedEvent"
 							},
 							"description": "Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).",
-							"name": "picker:picked"
+							"name": "picker-picked"
 						},
 						{
 							"type": {
-								"text": "google.picker.ResponseObject"
+								"text": "PickerErrorEvent"
 							},
 							"description": "Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).",
-							"name": "picker:error"
+							"name": "picker-error"
 						}
 					],
 					"attributes": [
