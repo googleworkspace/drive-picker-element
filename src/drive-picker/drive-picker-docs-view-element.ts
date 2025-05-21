@@ -24,6 +24,7 @@ type ViewId = keyof typeof google.picker.ViewId;
  * @attr {"default"|"true"|"false"} enable-drives - Whether to allow the user to select files from shared drives. See [`DocsView.enableDrives`](https://developers.google.com/drive/picker/reference/picker.docsview.setenabledrives).
  * @attr {"default"|"true"|"false"} include-folders - Whether to include folders in the view. See [`DocsView.includeFolders`](https://developers.google.com/drive/picker/reference/picker.docsview.setincludefolders).
  * @attr {string} mime-types - A comma-separated list of MIME types to filter the view. See [`View.setMimeTypes`](https://developers.google.com/drive/picker/reference/picker.view.setmimetypes).
+ * @attr {string} file-ids - A comma-separated list of file IDs to filter the view. See [`View.setFileIds`](https://developers.google.com/workspace/drive/picker/reference/picker.docsview.setfileids).
  * @attr {string} mode - The mode of the view. See [`DocsViewMode`](https://developers.google.com/drive/picker/reference/picker.docsviewmode).
  * @attr {"default"|"true"|"false"} owned-by-me - Whether to show files owned by the user. See [`DocsView.ownedByMe`](https://developers.google.com/drive/picker/reference/picker.docsview.setownedbyme).
  * @attr {string} parent - The ID of the folder to view. See [`DocsView.setParent`](https://developers.google.com/drive/picker/reference/picker.docsview.setparent).
@@ -45,6 +46,7 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 	static get observedAttributes() {
 		return [
 			"enable-drives",
+			"file-ids",
 			"include-folders",
 			"mime-types",
 			"mode",
@@ -82,6 +84,9 @@ export class DrivePickerDocsViewElement extends HTMLElement {
 
 		const mimetypes = this.getAttribute("mime-types");
 		if (mimetypes !== null) view.setMimeTypes(mimetypes);
+
+		const fileIds = this.getAttribute("file-ids");
+		if (fileIds !== null) view.setFileIds(fileIds);
 
 		const mode = this.getAttribute("mode");
 		if (mode)

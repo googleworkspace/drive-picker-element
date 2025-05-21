@@ -55,6 +55,8 @@ export interface DrivePickerElementProps {
 export interface DrivePickerDocsViewElementProps {
 	/** Whether to allow the user to select files from shared drives. See [`DocsView.enableDrives`](https://developers.google.com/drive/picker/reference/picker.docsview.setenabledrives).*/
 	"enable-drives"?: "default" | "true" | "false";
+	/** A comma-separated list of file IDs to filter the view. See [`View.setFileIds`](https://developers.google.com/workspace/drive/picker/reference/picker.docsview.setfileids).*/
+	"file-ids"?: string;
 	/** Whether to include folders in the view. See [`DocsView.includeFolders`](https://developers.google.com/drive/picker/reference/picker.docsview.setincludefolders).*/
 	"include-folders"?: "default" | "true" | "false";
 	/** A comma-separated list of MIME types to filter the view. See [`View.setMimeTypes`](https://developers.google.com/drive/picker/reference/picker.view.setmimetypes).*/
