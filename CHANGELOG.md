@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.4...v0.5.0) (2025-05-21)
+
+
+### Features
+
+* add support for `setFileIds` in Docs View ([#60](https://github.com/googleworkspace/drive-picker-element/issues/60)) ([2dc3719](https://github.com/googleworkspace/drive-picker-element/commit/2dc37190edb28245de9aac7fa308c54bf53ce7fe))
+
 ## [0.4.4](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.3...v0.4.4) (2025-05-21)
 
 
