@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.5.0...v0.5.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* update main and types fields in package.json ([#66](https://github.com/googleworkspace/drive-picker-element/issues/66)) ([345f68e](https://github.com/googleworkspace/drive-picker-element/commit/345f68e21038d9428b24b65b5e2ed5276e0e4a41))
+
 ## [0.5.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.4.4...v0.5.0) (2025-05-21)
 
 
