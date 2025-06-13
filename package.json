@@ -24,6 +24,8 @@
 		"web-components"
 	],
 	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"browser": "./dist/index.iife.min.js",
