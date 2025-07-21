@@ -277,6 +277,14 @@
 						},
 						{
 							"kind": "field",
+							"name": "debounceTimer",
+							"type": {
+								"text": "number | undefined"
+							},
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
 							"name": "visible",
 							"type": {
 								"text": "boolean"
@@ -292,6 +300,11 @@
 							},
 							"privacy": "public",
 							"readonly": true
+						},
+						{
+							"kind": "method",
+							"name": "scheduleBuild",
+							"privacy": "private"
 						},
 						{
 							"kind": "method",
@@ -407,6 +420,14 @@
 								"text": "string"
 							},
 							"description": "The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2)."
+						},
+						{
+							"name": "debounce-delay",
+							"type": {
+								"text": "number"
+							},
+							"description": "The debounce delay in milliseconds before building the picker after an attribute change.",
+							"default": "0"
 						},
 						{
 							"name": "developer-key",

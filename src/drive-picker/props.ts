@@ -19,6 +19,8 @@ export interface DrivePickerElementProps {
 	"app-id"?: string;
 	/** The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2).*/
 	"client-id"?: string;
+	/** The debounce delay in milliseconds before building the picker after an attribute change.*/
+	"debounce-delay"?: number;
 	/** The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey).*/
 	"developer-key"?: string;
 	/** Hides the title bar of the picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar).*/

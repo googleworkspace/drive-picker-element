@@ -81,6 +81,7 @@ declare global {
  * @attr {string} app-id - The Google Drive app ID. See [`PickerBuilder.setAppId`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setappid).
  * @attr {string} client-id - The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2).
  * @attr {string} developer-key - The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey).
+ * @attr {number} [debounce-delay=0] - The debounce delay in milliseconds before building the picker after an attribute change.
  * @attr {"default"|"true"|"false"} hide-title-bar - Hides the title bar of the
  * picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar).
  * @attr {string} locale - The locale to use for the picker. See [`PickerBuilder.setLocale`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setlocale).
@@ -116,6 +117,7 @@ export class DrivePickerElement extends HTMLElement {
 		return [
 			"app-id",
 			"client-id",
+			"debounce-delay",
 			"developer-key",
 			"hide-title-bar",
 			"locale",
@@ -134,6 +136,7 @@ export class DrivePickerElement extends HTMLElement {
 	private observer: MutationObserver | undefined;
 	private google: typeof google | undefined;
 	private loading: Promise<void> | undefined;
+	private debounceTimer: number | undefined;
 
 	/**
 	 * The visibility of the picker.
@@ -178,8 +181,18 @@ export class DrivePickerElement extends HTMLElement {
 	}
 
 	attributeChangedCallback() {
-		this.build();
-		return;
+		this.scheduleBuild();
+	}
+
+	private scheduleBuild() {
+		// Clear any previously scheduled build to ensure we don't build multiple times
+		clearTimeout(this.debounceTimer);
+
+		// Schedule a new build to run after a short delay.
+		// This coalesces multiple rapid changes into a single build call.
+		this.debounceTimer = window.setTimeout(() => {
+			this.build();
+		}, getNumberAttribute(this, "debounce-delay") ?? 0);
 	}
 
 	private async build() {
@@ -269,7 +282,7 @@ export class DrivePickerElement extends HTMLElement {
 	async connectedCallback(): Promise<void> {
 		this.loading = loadApi().then((google) => {
 			this.google = google;
-			this.build();
+			this.scheduleBuild();
 		});
 
 		// Watch for changes in the picker element slot and their attributes
@@ -281,7 +294,7 @@ export class DrivePickerElement extends HTMLElement {
 			);
 
 			if (filteredMutations.length) {
-				this.build();
+				this.scheduleBuild();
 			}
 		});
 
