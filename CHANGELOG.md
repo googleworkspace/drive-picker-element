@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.5.1...v0.6.0) (2025-07-21)
+
+
+### Features
+
+* add a debounce mechanism ([#70](https://github.com/googleworkspace/drive-picker-element/issues/70)) ([e0f5e2c](https://github.com/googleworkspace/drive-picker-element/commit/e0f5e2c47465b558d36e81c1d7c10aeb86a9bb57))
+
 ## [0.5.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.5.0...v0.5.1) (2025-06-13)
 
 
