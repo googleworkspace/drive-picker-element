@@ -1,6 +1,6 @@
 {
 	"name": "@googleworkspace/drive-picker-element",
-	"version": "0.5.1",
+	"version": "0.6.0",
 	"description": "A web component for Google Drive Picker",
 	"license": "Apache-2.0",
 	"author": {
