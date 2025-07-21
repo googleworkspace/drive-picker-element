@@ -282,7 +282,6 @@ export class DrivePickerElement extends HTMLElement {
 	async connectedCallback(): Promise<void> {
 		this.loading = loadApi().then((google) => {
 			this.google = google;
-			this.scheduleBuild();
 		});
 
 		// Watch for changes in the picker element slot and their attributes
