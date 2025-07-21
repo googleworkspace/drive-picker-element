@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.6.0...v0.6.1) (2025-07-21)
+
+
+### Bug Fixes
+
+* remove redundant build from connectedCallback ([#72](https://github.com/googleworkspace/drive-picker-element/issues/72)) ([b9abb6b](https://github.com/googleworkspace/drive-picker-element/commit/b9abb6b37437abaaa5785afe7c81ff90f661efe7))
+
 ## [0.6.0](https://github.com/googleworkspace/drive-picker-element/compare/v0.5.1...v0.6.0) (2025-07-21)
 
 
