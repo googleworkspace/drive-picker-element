@@ -176,7 +176,7 @@ import type {
 } from "@googleworkspace/drive-picker-element";
 
 declare global {
-  namespace JSX {
+  namespace React.JSX {
     interface IntrinsicElements {
       "drive-picker": React.DetailedHTMLProps<
         React.HTMLAttributes<DrivePickerElement> & DrivePickerElementProps,
