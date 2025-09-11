@@ -181,6 +181,8 @@ export class DrivePickerElement extends HTMLElement {
 	}
 
 	attributeChangedCallback() {
+		if (!this.isConnected) return;
+
 		this.scheduleBuild();
 	}
 
@@ -302,6 +304,8 @@ export class DrivePickerElement extends HTMLElement {
 			subtree: true,
 			attributes: true,
 		});
+
+		this.scheduleBuild();
 	}
 
 	private callbackToDispatchEvent(detail: google.picker.ResponseObject) {
