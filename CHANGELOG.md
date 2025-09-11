@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/googleworkspace/drive-picker-element/compare/v0.6.1...v0.6.2) (2025-09-11)
+
+
+### Bug Fixes
+
+* ensure component initializes on connection ([58b1ccc](https://github.com/googleworkspace/drive-picker-element/commit/58b1ccc4028d07b297a87f69405303c6d6a71032))
+
 ## [0.6.1](https://github.com/googleworkspace/drive-picker-element/compare/v0.6.0...v0.6.1) (2025-07-21)
 
 
