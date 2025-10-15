@@ -114,8 +114,6 @@ The `drive-picker` component emits several events that you can listen to. Here i
 </script>
 ```
 
-> **Note**: The component also emits deprecated event names with colons (e.g., `picker:picked`). Use the hyphenated versions (e.g., `picker-picked`) instead, especially when working with React or other frameworks that may have issues with special characters in event names.
-
 ### Event Details
 
 Most of these events return the [`Picker ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject) as the event detail. For example, the `"picker-picked"` `CustomEvent` contains details about the selected files:
