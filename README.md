@@ -108,19 +108,21 @@ The `drive-picker` component emits several events that you can listen to. Here i
 
 <script>
   const element = document.querySelector("drive-picker");
-  element.addEventListener("picker:authenticated", console.log);
-  element.addEventListener("picker:picked", console.log);
-  element.addEventListener("picker:canceled", console.log);
+  element.addEventListener("picker-oauth-response", console.log);
+  element.addEventListener("picker-picked", console.log);
+  element.addEventListener("picker-canceled", console.log);
 </script>
 ```
 
+> **Note**: The component also emits deprecated event names with colons (e.g., `picker:picked`). Use the hyphenated versions (e.g., `picker-picked`) instead, especially when working with React or other frameworks that may have issues with special characters in event names.
+
 ### Event Details
 
-Most of these events return the [`Picker ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject) as the event detail. For example, the `"picker:picked"` `CustomEvent` contains details about the selected files:
+Most of these events return the [`Picker ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject) as the event detail. For example, the `"picker-picked"` `CustomEvent` contains details about the selected files:
 
 ```js
 {
-  "type": "picker:picked",
+  "type": "picker-picked",
   "detail": {
     "action": "picked",
     "docs": [
@@ -137,13 +139,16 @@ Most of these events return the [`Picker ResponseObject`](https://developers.goo
 }
 ```
 
-The `"picker:authenticated"` event returns the `token` as the event detail:
+The `"picker-oauth-response"` event returns the OAuth token response as the event detail:
 
 ```js
 {
-  "type": "picker:authenticated",
+  "type": "picker-oauth-response",
   "detail": {
-    "token": "OMITTED"
+    "access_token": "OMITTED",
+    "expires_in": 3599,
+    "scope": "https://www.googleapis.com/auth/drive.file",
+    "token_type": "Bearer"
   }
 }
 ```
@@ -193,6 +198,90 @@ declare global {
 ```
 
 The above snippet can be added to a declaration file (e.g. `app.d.ts`) in your React project.
+
+#### Using Events in React/Next.js
+
+When working with React or Next.js, you need to use `useEffect` and `useRef` to properly attach event listeners to the web component. Here's a complete example:
+
+```tsx
+import { useEffect, useRef, useState } from "react";
+import type { DrivePickerElement, PickerPickedEvent } from "@googleworkspace/drive-picker-element";
+
+export default function DrivePicker() {
+  const pickerRef = useRef<DrivePickerElement>(null);
+  const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Dynamically import the web component
+    import("@googleworkspace/drive-picker-element");
+  }, []);
+
+  useEffect(() => {
+    const pickerElement = pickerRef.current;
+    if (!pickerElement) return;
+
+    // Use the non-deprecated event names (with hyphens, not colons)
+    const handlePicked = (e: Event) => {
+      const event = e as PickerPickedEvent;
+      console.log("Files picked:", event.detail);
+      setSelectedFiles(event.detail.docs || []);
+    };
+
+    const handleCanceled = (e: Event) => {
+      console.log("Picker canceled");
+    };
+
+    const handleOAuthError = (e: Event) => {
+      console.error("OAuth error:", e);
+    };
+
+    // Add event listeners
+    pickerElement.addEventListener("picker-picked", handlePicked);
+    pickerElement.addEventListener("picker-canceled", handleCanceled);
+    pickerElement.addEventListener("picker-oauth-error", handleOAuthError);
+
+    // Cleanup function to remove event listeners
+    return () => {
+      pickerElement.removeEventListener("picker-picked", handlePicked);
+      pickerElement.removeEventListener("picker-canceled", handleCanceled);
+      pickerElement.removeEventListener("picker-oauth-error", handleOAuthError);
+    };
+  }, []);
+
+  return (
+    <div>
+      <drive-picker
+        ref={pickerRef}
+        client-id="YOUR_CLIENT_ID"
+        app-id="YOUR_APP_ID"
+      >
+        <drive-picker-docs-view></drive-picker-docs-view>
+      </drive-picker>
+      
+      {selectedFiles.length > 0 && (
+        <div>
+          <h3>Selected Files:</h3>
+          <ul>
+            {selectedFiles.map((file) => (
+              <li key={file.id}>{file.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+**Important notes for React/Next.js:**
+
+1. **Use hyphenated event names** (`picker-picked`, `picker-canceled`, etc.) instead of the deprecated colon-based names (`picker:picked`, `picker:canceled`, etc.). React and some frameworks have issues with special characters in event names.
+
+2. **Dynamic import**: In Next.js, import the component dynamically inside `useEffect` to avoid server-side rendering issues, since web components need to run in the browser.
+
+3. **Proper cleanup**: Always remove event listeners in the cleanup function to prevent memory leaks.
+
+4. **Wait for the element**: Make sure the ref is populated before adding event listeners.
 
 ## Support
 
