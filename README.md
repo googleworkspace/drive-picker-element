@@ -275,13 +275,11 @@ export default function DrivePicker() {
 
 **Important notes for React/Next.js:**
 
-1. **Use hyphenated event names** (`picker-picked`, `picker-canceled`, etc.) instead of the deprecated colon-based names (`picker:picked`, `picker:canceled`, etc.). React and some frameworks have issues with special characters in event names.
+1. **Dynamic import**: In Next.js, import the component dynamically inside `useEffect` to avoid server-side rendering issues, since web components need to run in the browser.
 
-2. **Dynamic import**: In Next.js, import the component dynamically inside `useEffect` to avoid server-side rendering issues, since web components need to run in the browser.
+2. **Proper cleanup**: Always remove event listeners in the cleanup function to prevent memory leaks.
 
-3. **Proper cleanup**: Always remove event listeners in the cleanup function to prevent memory leaks.
-
-4. **Wait for the element**: Make sure the ref is populated before adding event listeners.
+3. **Wait for the element**: Make sure the ref is populated before adding event listeners.
 
 ## Support
 
