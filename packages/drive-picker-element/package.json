@@ -40,7 +40,7 @@
 		"url": "https://github.com/googleworkspace/drive-picker-element.git"
 	},
 	"scripts": {
-		"build": "tsup",
+		"build": "cem analyze --config cem.config.js && tsup",
 		"bundlewatch": "bundlewatch",
 		"check": "tsc --noEmit",
 		"prepack": "pnpm build",
