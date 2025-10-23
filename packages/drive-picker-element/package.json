@@ -41,7 +41,6 @@
 	},
 	"scripts": {
 		"build": "cem analyze --config cem.config.js && tsup",
-		"bundlewatch": "bundlewatch",
 		"check": "tsc --noEmit",
 		"prepack": "pnpm build",
 		"storybook": "storybook dev -p 6006",
@@ -64,7 +63,6 @@
 		"@types/unist": "catalog:",
 		"browserslist": "catalog:",
 		"browserslist-to-esbuild": "catalog:",
-		"bundlewatch": "catalog:",
 		"custom-elements-manifest": "catalog:",
 		"mdast-util-from-markdown": "catalog:",
 		"prettier": "catalog:",
@@ -81,21 +79,6 @@
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://wombat-dressing-room.appspot.com"
-	},
-	"bundlewatch": {
-		"files": [
-			{
-				"path": "dist/index.iife.min.js",
-				"maxSize": "2.25kB"
-			}
-		],
-		"ci": {
-			"repoBranchBase": "main",
-			"trackBranches": [
-				"main",
-				"next"
-			]
-		}
 	},
 	"provenance": true
 }
