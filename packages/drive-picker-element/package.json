@@ -1,0 +1,84 @@
+{
+	"name": "@googleworkspace/drive-picker-element",
+	"version": "0.6.2",
+	"description": "A web component for Google Drive Picker",
+	"license": "Apache-2.0",
+	"author": {
+		"name": "Justin Poehnelt",
+		"email": "jpoehnelt@google.com",
+		"url": "https://justin.poehnelt.com"
+	},
+	"keywords": [
+		"google",
+		"drive",
+		"google-drive",
+		"picker",
+		"drive-picker",
+		"googleworkspace",
+		"workspace",
+		"webcomponent",
+		"web-components"
+	],
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"browser": "./dist/index.iife.min.js",
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./drive-picker": {
+			"types": "./dist/drive-picker/index.d.ts",
+			"import": "./dist/drive-picker/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"homepage": "https://github.com/googleworkspace/drive-picker-element",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/googleworkspace/drive-picker-element.git"
+	},
+	"scripts": {
+		"build": "cem analyze --config cem.config.js && tsup",
+		"check": "tsc --noEmit",
+		"prepack": "pnpm build",
+		"storybook": "storybook dev -p 6006",
+		"test": "echo \"No tests yet.\""
+	},
+	"devDependencies": {
+		"@custom-elements-manifest/analyzer": "catalog:",
+		"@storybook/addon-essentials": "catalog:",
+		"@storybook/blocks": "catalog:",
+		"@storybook/csf": "catalog:",
+		"@storybook/types": "catalog:",
+		"@storybook/web-components": "catalog:",
+		"@storybook/web-components-vite": "catalog:",
+		"@types/gapi": "catalog:",
+		"@types/google.accounts": "catalog:",
+		"@types/google.picker": "catalog:",
+		"@types/mdast": "catalog:",
+		"@types/mocha": "catalog:",
+		"@types/node": "catalog:",
+		"@types/unist": "catalog:",
+		"browserslist": "catalog:",
+		"browserslist-to-esbuild": "catalog:",
+		"custom-elements-manifest": "catalog:",
+		"mdast-util-from-markdown": "catalog:",
+		"prettier": "catalog:",
+		"remark": "catalog:",
+		"remark-behead": "catalog:",
+		"remark-gfm": "catalog:",
+		"remark-github": "catalog:",
+		"remark-toc": "catalog:",
+		"storybook": "catalog:",
+		"tsup": "catalog:",
+		"tsx": "catalog:"
+	},
+	"customElements": "dist/custom-elements.json",
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://wombat-dressing-room.appspot.com"
+	},
+	"provenance": true
+}

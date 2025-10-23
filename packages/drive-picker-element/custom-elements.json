@@ -1,0 +1,649 @@
+{
+	"schemaVersion": "1.0.0",
+	"readme": "",
+	"modules": [
+		{
+			"kind": "javascript-module",
+			"path": "src/index.ts",
+			"declarations": [],
+			"exports": [
+				{
+					"kind": "custom-element-definition",
+					"name": "drive-picker",
+					"declaration": {
+						"name": "DrivePickerElement",
+						"module": "/src/drive-picker"
+					}
+				},
+				{
+					"kind": "custom-element-definition",
+					"name": "drive-picker-docs-view",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "/src/drive-picker"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElement",
+					"declaration": {
+						"name": "DrivePickerElement",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElement",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElementProps",
+					"declaration": {
+						"name": "DrivePickerElementProps",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElementProps",
+					"declaration": {
+						"name": "DrivePickerDocsViewElementProps",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthErrorEvent",
+					"declaration": {
+						"name": "OAuthErrorEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthResponseEvent",
+					"declaration": {
+						"name": "OAuthResponseEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerCanceledEvent",
+					"declaration": {
+						"name": "PickerCanceledEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerErrorEvent",
+					"declaration": {
+						"name": "PickerErrorEvent",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerPickedEvent",
+					"declaration": {
+						"name": "PickerPickedEvent",
+						"module": "src/index.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/drive-picker/drive-picker-docs-view-element.ts",
+			"declarations": [
+				{
+					"kind": "class",
+					"description": "The `drive-picker-docs-view` element is used to define a [`google.picker.DocsView`](https://developers.google.com/drive/picker/reference/picker.docsview).",
+					"name": "DrivePickerDocsViewElement",
+					"members": [
+						{
+							"kind": "field",
+							"name": "view",
+							"type": {
+								"text": "google.picker.DocsView"
+							},
+							"privacy": "public",
+							"description": "Gets the Google Drive Picker view based on the current attribute values.",
+							"return": {
+								"type": {
+									"text": "google.picker.DocsView"
+								}
+							},
+							"readonly": true
+						},
+						{
+							"kind": "field",
+							"name": "viewId",
+							"type": {
+								"text": "google.picker.ViewId | undefined"
+							},
+							"privacy": "private",
+							"readonly": true
+						}
+					],
+					"attributes": [
+						{
+							"name": "enable-drives",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Whether to allow the user to select files from shared drives. See [`DocsView.enableDrives`](https://developers.google.com/drive/picker/reference/picker.docsview.setenabledrives)."
+						},
+						{
+							"name": "file-ids",
+							"type": {
+								"text": "string"
+							},
+							"description": "A comma-separated list of file IDs to filter the view. See [`View.setFileIds`](https://developers.google.com/workspace/drive/picker/reference/picker.docsview.setfileids)."
+						},
+						{
+							"name": "include-folders",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Whether to include folders in the view. See [`DocsView.includeFolders`](https://developers.google.com/drive/picker/reference/picker.docsview.setincludefolders)."
+						},
+						{
+							"name": "mime-types",
+							"type": {
+								"text": "string"
+							},
+							"description": "A comma-separated list of MIME types to filter the view. See [`View.setMimeTypes`](https://developers.google.com/drive/picker/reference/picker.view.setmimetypes)."
+						},
+						{
+							"name": "mode",
+							"type": {
+								"text": "string"
+							},
+							"description": "The mode of the view. See [`DocsViewMode`](https://developers.google.com/drive/picker/reference/picker.docsviewmode)."
+						},
+						{
+							"name": "owned-by-me",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Whether to show files owned by the user. See [`DocsView.ownedByMe`](https://developers.google.com/drive/picker/reference/picker.docsview.setownedbyme)."
+						},
+						{
+							"name": "parent",
+							"type": {
+								"text": "string"
+							},
+							"description": "The ID of the folder to view. See [`DocsView.setParent`](https://developers.google.com/drive/picker/reference/picker.docsview.setparent)."
+						},
+						{
+							"name": "query",
+							"type": {
+								"text": "string"
+							},
+							"description": "The query string to filter the view. See [`View.setQuery`](https://developers.google.com/drive/picker/reference/picker.view.setquery)."
+						},
+						{
+							"name": "select-folder-enabled",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Whether to allow the user to select folders. See [`DocsView.selectFolderEnabled`](https://developers.google.com/drive/picker/reference/picker.docsview.setselectfolderenabled)."
+						},
+						{
+							"name": "starred",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Whether to show starred files. See [`DocsView.starred`](https://developers.google.com/drive/picker/reference/picker.docsview.setstarred)."
+						},
+						{
+							"name": "view-id",
+							"type": {
+								"text": "string"
+							},
+							"description": "The `keyof typeof google.picker.ViewId`. For example, `\"DOCS\"`, which is equivalent to `google.picker.ViewId.DOCS`. See [`ViewId`](https://developers.google.com/drive/picker/reference/picker.viewid)."
+						}
+					],
+					"superclass": {
+						"name": "HTMLElement"
+					},
+					"tagName": "drive-picker-docs-view",
+					"customElement": true
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElement",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "src/drive-picker/drive-picker-docs-view-element.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/drive-picker/drive-picker-element.ts",
+			"declarations": [
+				{
+					"kind": "class",
+					"description": "The `drive-picker` web component provides a convenient way to declaratively\nbuild\n[`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)\nby using the component attributes mapped to the corresponding methods of\n[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder).",
+					"name": "DrivePickerElement",
+					"slots": [
+						{
+							"description": "The default slot contains View elements to display in the picker. Each View element should implement a property `view` of type `google.picker.View`.",
+							"name": ""
+						}
+					],
+					"members": [
+						{
+							"kind": "field",
+							"name": "picker",
+							"type": {
+								"text": "google.picker.Picker | undefined"
+							},
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "observer",
+							"type": {
+								"text": "MutationObserver | undefined"
+							},
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "google",
+							"type": {
+								"text": "typeof google | undefined"
+							},
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "loading",
+							"type": {
+								"text": "Promise<void> | undefined"
+							},
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "debounceTimer",
+							"type": {
+								"text": "number | undefined"
+							},
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "visible",
+							"type": {
+								"text": "boolean"
+							},
+							"privacy": "public",
+							"description": "Controls the visibility of the picker after the picker dialog has been\nclosed. If any of the attributes change, the picker will be rebuilt and\nthe visibility will be reset."
+						},
+						{
+							"kind": "field",
+							"name": "tokenClientConfig",
+							"type": {
+								"text": "Omit<\n\t\tgoogle.accounts.oauth2.TokenClientConfig,\n\t\t\"callback\" | \"error_callback\"\n\t>"
+							},
+							"privacy": "public",
+							"readonly": true
+						},
+						{
+							"kind": "method",
+							"name": "scheduleBuild",
+							"privacy": "private"
+						},
+						{
+							"kind": "method",
+							"name": "build",
+							"privacy": "private"
+						},
+						{
+							"kind": "field",
+							"name": "views",
+							"type": {
+								"text": "(View | google.picker.ViewId)[]"
+							},
+							"privacy": "private",
+							"description": "The `google.Picker.View` objects to display in the picker as defined by the slot elements.",
+							"readonly": true
+						},
+						{
+							"kind": "method",
+							"name": "callbackToDispatchEvent",
+							"privacy": "private",
+							"parameters": [
+								{
+									"name": "detail",
+									"type": {
+										"text": "google.picker.ResponseObject"
+									}
+								}
+							]
+						},
+						{
+							"kind": "method",
+							"name": "requestAccessToken",
+							"privacy": "private",
+							"return": {
+								"type": {
+									"text": "Promise<string | undefined>"
+								}
+							}
+						}
+					],
+					"events": [
+						{
+							"name": "eventType",
+							"type": {
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"name": "picker:oauth:error",
+							"type": {
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"name": "picker-oauth-error",
+							"type": {
+								"text": "OAuthErrorEvent"
+							},
+							"description": "Triggered when an error occurs in the OAuth flow. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error). Note that the `TokenResponse` object can have error fields."
+						},
+						{
+							"name": "picker:authenticated",
+							"type": {
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"name": "picker-oauth-response",
+							"type": {
+								"text": "OAuthResponseEvent"
+							},
+							"description": "Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model)."
+						},
+						{
+							"name": "picker:oauth:response",
+							"type": {
+								"text": "CustomEvent"
+							}
+						},
+						{
+							"type": {
+								"text": "PickerCanceledEvent"
+							},
+							"description": "Triggered when the user cancels the picker dialog. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).",
+							"name": "picker-canceled"
+						},
+						{
+							"type": {
+								"text": "PickerPickedEvent"
+							},
+							"description": "Triggered when the user picks one or more items. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).",
+							"name": "picker-picked"
+						},
+						{
+							"type": {
+								"text": "PickerErrorEvent"
+							},
+							"description": "Triggered when an error occurs. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).",
+							"name": "picker-error"
+						}
+					],
+					"attributes": [
+						{
+							"name": "app-id",
+							"type": {
+								"text": "string"
+							},
+							"description": "The Google Drive app ID. See [`PickerBuilder.setAppId`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setappid)."
+						},
+						{
+							"name": "client-id",
+							"type": {
+								"text": "string"
+							},
+							"description": "The OAuth 2.0 client ID. See [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2)."
+						},
+						{
+							"name": "debounce-delay",
+							"type": {
+								"text": "number"
+							},
+							"description": "The debounce delay in milliseconds before building the picker after an attribute change.",
+							"default": "0"
+						},
+						{
+							"name": "developer-key",
+							"type": {
+								"text": "string"
+							},
+							"description": "The API key for accessing Google Picker API. See [`PickerBuilder.setDeveloperKey`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setdeveloperkey)."
+						},
+						{
+							"name": "hide-title-bar",
+							"type": {
+								"text": "\"default\"|\"true\"|\"false\""
+							},
+							"description": "Hides the title bar of the picker if set to true. See [`PickerBuilder.hideTitleBar`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.hidetitlebar)."
+						},
+						{
+							"name": "locale",
+							"type": {
+								"text": "string"
+							},
+							"description": "The locale to use for the picker. See [`PickerBuilder.setLocale`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setlocale)."
+						},
+						{
+							"name": "max-items",
+							"type": {
+								"text": "number"
+							},
+							"description": "The maximum number of items that can be selected. See [`PickerBuilder.setMaxItems`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setmaxitems)."
+						},
+						{
+							"name": "mine-only",
+							"type": {
+								"text": "boolean"
+							},
+							"description": "If set to true, only shows files owned by the user. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature)."
+						},
+						{
+							"name": "multiselect",
+							"type": {
+								"text": "boolean"
+							},
+							"description": "Enables multiple file selection if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature)."
+						},
+						{
+							"name": "nav-hidden",
+							"type": {
+								"text": "boolean"
+							},
+							"description": "Hides the navigation pane if set to true. See [`PickerBuilder.enableFeature`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.enablefeature)."
+						},
+						{
+							"name": "oauth-token",
+							"type": {
+								"text": "string"
+							},
+							"description": "The OAuth 2.0 token for authentication. See [`PickerBuilder.setOAuthToken`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setoauthtoken)."
+						},
+						{
+							"name": "origin",
+							"type": {
+								"text": "string"
+							},
+							"description": "The origin parameter for the picker. See [`PickerBuilder.setOrigin`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setorigin)."
+						},
+						{
+							"name": "relay-url",
+							"type": {
+								"text": "string"
+							},
+							"description": "The relay URL for the picker. See [`PickerBuilder.setRelayUrl`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.setrelayurl)."
+						},
+						{
+							"name": "scope",
+							"type": {
+								"text": "string"
+							},
+							"description": "The OAuth 2.0 scope for the picker. The default is `https://www.googleapis.com/auth/drive.file`. See [Drive API scopes](https://developers.google.com/drive/api/guides/api-specific-auth#drive-scopes)."
+						},
+						{
+							"name": "title",
+							"type": {
+								"text": "string"
+							},
+							"description": "The title of the picker. See [`PickerBuilder.setTitle`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder.settitle)."
+						},
+						{
+							"type": {
+								"text": "string"
+							},
+							"description": "The hosted domain to restrict sign-in to.  (Optional)  See the `hd` field in the OpenID Connect docs.",
+							"name": "hd"
+						},
+						{
+							"type": {
+								"text": "boolean"
+							},
+							"description": "Enables applications to use incremental authorization. See [`TokenClientConfig.include_granted_scopes`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig).",
+							"name": "include-granted-scopes"
+						},
+						{
+							"type": {
+								"text": "string"
+							},
+							"description": "An email address or an ID token 'sub' value. Google will use the value as a hint of which user to sign in. See the `login_hint` field in the OpenID Connect docs.",
+							"name": "login-hint"
+						},
+						{
+							"type": {
+								"text": "\"\"|\"none\"|\"consent\"|\"select_account\""
+							},
+							"description": "A space-delimited, case-sensitive list of prompts to present the user.  See [`TokenClientConfig.prompt`](https://developers.google.com/identity/oauth2/web/reference/js-reference#TokenClientConfig)",
+							"name": "prompt"
+						}
+					],
+					"superclass": {
+						"name": "HTMLElement"
+					},
+					"tagName": "drive-picker",
+					"customElement": true
+				}
+			],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "DrivePickerElement",
+					"declaration": {
+						"name": "DrivePickerElement",
+						"module": "src/drive-picker/drive-picker-element.ts"
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/drive-picker/index.ts",
+			"declarations": [],
+			"exports": [
+				{
+					"kind": "js",
+					"name": "DrivePickerElement",
+					"declaration": {
+						"name": "DrivePickerElement",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthErrorEvent",
+					"declaration": {
+						"name": "OAuthErrorEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "OAuthResponseEvent",
+					"declaration": {
+						"name": "OAuthResponseEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerCanceledEvent",
+					"declaration": {
+						"name": "PickerCanceledEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerErrorEvent",
+					"declaration": {
+						"name": "PickerErrorEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "PickerPickedEvent",
+					"declaration": {
+						"name": "PickerPickedEvent",
+						"module": "\"./drive-picker-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElement",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "\"./drive-picker-docs-view-element\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerDocsViewElementProps",
+					"declaration": {
+						"name": "DrivePickerDocsViewElementProps",
+						"module": "\"./props\""
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElementProps",
+					"declaration": {
+						"name": "DrivePickerElementProps",
+						"module": "\"./props\""
+					}
+				}
+			]
+		},
+		{
+			"kind": "javascript-module",
+			"path": "src/drive-picker/props.ts",
+			"declarations": [],
+			"exports": []
+		}
+	]
+}
