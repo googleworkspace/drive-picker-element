@@ -89,22 +89,14 @@ export const elementArgTypes: {
 						"prompt",
 						"login-hint",
 						"include-granted-scopes",
-					].includes(attr.name)
+					].includes(attr.name) &&
+					inputType.table
 				) {
-					// biome-ignore lint/style/noNonNullAssertion: <explanation>
-					inputType!.table!.category = "OAuth";
+					inputType.table.category = "OAuth";
 				}
 
 				return [attr.name, inputType];
 			}),
-			// ...getElementEvents(tagName).map((event) => [
-			// 	event.name,
-			// 	{
-			// 		name: event.name,
-			// 		description: event.description,
-			// 		table: { category: "Events", action: event.name },
-			// 	},
-			// ]),
 		]),
 	]),
 );

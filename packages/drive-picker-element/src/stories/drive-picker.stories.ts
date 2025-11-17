@@ -15,11 +15,10 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/web-components";
-import type { LazyPreviewElement } from "./utils/lazy-preview-element";
-import { elementArgTypes, getElementEvents } from "./utils/manifest-helpers";
-
 import { setAttributes } from "./utils/attribute-helpers";
 import { APP_ID, CLIENT_ID, META_PARAMETERS } from "./utils/common";
+import type { LazyPreviewElement } from "./utils/lazy-preview-element";
+import { elementArgTypes, getElementEvents } from "./utils/manifest-helpers";
 
 import "./utils/lazy-preview-element";
 import "..";
