@@ -18,37 +18,43 @@ on:
     branches:
       - main
   workflow_dispatch:
+  repository_dispatch:
+    types: [release]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+  pages: write
 jobs:
   release:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:    
-      contents: write
-      pull-requests: write
-      pages: write
-      id-token: write
     steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          token: ${{secrets.GOOGLEWORKSPACE_BOT_TOKEN}}
-          release-type: node
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           cache: "pnpm"
       - run: pnpm install
       - run: pnpm build
-      - run: git status
       - run: |
-          pnpm config set '//wombat-dressing-room.appspot.com/:_authToken' "${NPM_WOMBAT_TOKEN}"
-          pnpm publish --no-git-checks --provenance
+          git config --global user.name "googleworkspace-bot"
+          git config --global user.email "googleworkspace-bot@google.com"
+      - uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
+        id: changesets
         env:
-          NPM_WOMBAT_TOKEN: ${{ secrets.NPM_WOMBAT_TOKEN }}
-        if: ${{ steps.release.outputs.release_created }}
+          GITHUB_TOKEN: ${{secrets.GOOGLEWORKSPACE_BOT_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_WOMBAT_TOKEN}}
+        with:
+          version: pnpm run changeset:version
+          publish: pnpm run changeset:publish
+          commit: "ci: Version Packages"
+          title: "ci: Version Packages"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,177 +1,25 @@
 {
-	"name": "@googleworkspace/drive-picker-element",
-	"version": "0.6.2",
-	"description": "A web component for Google Drive Picker",
-	"license": "Apache-2.0",
-	"author": {
-		"name": "Justin Poehnelt",
-		"email": "jpoehnelt@google.com",
-		"url": "https://justin.poehnelt.com"
-	},
-	"keywords": [
-		"google",
-		"drive",
-		"google-drive",
-		"picker",
-		"drive-picker",
-		"googleworkspace",
-		"workspace",
-		"react",
-		"angular",
-		"vue",
-		"svelte",
-		"webcomponent",
-		"web-components"
-	],
-	"type": "module",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"browser": "./dist/index.iife.min.js",
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
-		},
-		"./drive-picker": {
-			"types": "./dist/drive-picker/index.d.ts",
-			"import": "./dist/drive-picker/index.js"
-		},
-		"./package.json": "./package.json"
-	},
-	"homepage": "https://github.com/googleworkspace/drive-picker-element",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/googleworkspace/drive-picker-element.git"
-	},
+	"name": "root",
+	"private": true,
 	"scripts": {
-		"build": "wireit",
-		"bundlewatch": "wireit",
-		"check": "tsc --noEmit",
-		"format": "biome check --fix .",
-		"lint": "biome check .",
-		"prepack": "pnpm build",
+		"build": "turbo build",
+		"changeset": "changeset",
+		"check": "turbo check",
+		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile && pnpm prettier:write",
+		"changeset:publish": "changeset publish",
+		"format": "prettier --write . && biome check --write .",
+		"lint": "prettier --write . && biome check --write .",
 		"prepare": "husky",
-		"storybook": "wireit",
-		"test": "echo \"No tests yet.\""
+		"test": "turbo test"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@custom-elements-manifest/analyzer": "^0.10.4",
-		"@storybook/addon-essentials": "^8.6.4",
-		"@storybook/blocks": "^8.6.4",
-		"@storybook/csf": "^0.1.13",
-		"@storybook/types": "^8.6.4",
-		"@storybook/web-components": "^8.6.4",
-		"@storybook/web-components-vite": "^8.6.4",
-		"@types/gapi": "^0.0.47",
-		"@types/google.accounts": "^0.0.15",
-		"@types/google.picker": "^0.0.49",
-		"@types/mdast": "^4.0.4",
-		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.13.10",
-		"@types/unist": "^3.0.3",
-		"browserslist": "^4.24.4",
-		"browserslist-to-esbuild": "^2.1.1",
-		"bundlewatch": "^0.4.0",
-		"custom-elements-manifest": "^2.1.0",
-		"husky": "^9.1.7",
-		"lint-staged": "^15.4.3",
-		"mdast-util-from-markdown": "^2.0.2",
-		"prettier": "^3.5.3",
-		"remark": "^15.0.1",
-		"remark-behead": "^3.1.0",
-		"remark-gfm": "^4.0.1",
-		"remark-github": "^12.0.0",
-		"remark-toc": "^9.0.0",
-		"storybook": "^8.6.4",
-		"tsup": "^8.4.0",
-		"tsx": "^4.19.3",
-		"typescript": "^5.8.2",
-		"wireit": "^0.14.11"
-	},
-	"customElements": "dist/custom-elements.json",
-	"wireit": {
-		"build": {
-			"dependencies": [
-				"build:components",
-				"build:manifest",
-				"build:readme",
-				"build:storybook",
-				"build:props"
-			]
-		},
-		"build:components": {
-			"command": "tsup",
-			"files": [
-				"src/**/*.ts",
-				"tsup.config.ts"
-			],
-			"output": [
-				"dist/**/*.(js|ts|map)"
-			]
-		},
-		"build:props": {
-			"clean": false,
-			"command": "tsx ./scripts/props.ts",
-			"files": [
-				"custom-elements.json",
-				"scripts/props.ts"
-			],
-			"output": [
-				"src/drive-picker/props.ts"
-			],
-			"dependencies": [
-				"build:manifest"
-			]
-		},
-		"build:manifest": {
-			"command": "cem analyze --config cem.config.js && biome check --fix custom-elements.json",
-			"files": [
-				"src/**/*.ts",
-				"cem.config.js"
-			],
-			"output": [
-				"custom-elements.json"
-			]
-		},
-		"build:readme": {
-			"clean": false,
-			"command": "tsx ./scripts/docs.ts",
-			"files": [
-				"custom-elements.json",
-				"scripts/**/*.ts",
-				"README.md"
-			],
-			"output": [
-				"README.md"
-			],
-			"dependencies": [
-				"build:manifest"
-			]
-		},
-		"build:storybook": {
-			"command": "storybook build",
-			"files": [
-				"src/**/*.ts",
-				"stories/**/*.ts"
-			],
-			"output": [
-				"dist/storybook"
-			]
-		},
-		"bundlewatch": {
-			"command": "bundlewatch",
-			"dependencies": [
-				"build:components"
-			]
-		},
-		"storybook": {
-			"service": true,
-			"command": "storybook dev -p 6006",
-			"dependencies": [
-				"build:manifest"
-			]
-		}
+		"@biomejs/biome": "catalog:",
+		"@changesets/cli": "catalog:",
+		"husky": "catalog:",
+		"lint-staged": "catalog:",
+		"prettier": "catalog:",
+		"turbo": "catalog:",
+		"typescript": "catalog:"
 	},
 	"husky": {
 		"hooks": {
@@ -179,26 +27,12 @@
 		}
 	},
 	"lint-staged": {
-		"*": "pnpm build && pnpm format && pnpm lint && pnpm check"
-	},
-	"publishConfig": {
-		"access": "public",
-		"registry": "https://wombat-dressing-room.appspot.com"
-	},
-	"packageManager": "pnpm@9.3.0",
-	"bundlewatch": {
-		"files": [
-			{
-				"path": "dist/index.iife.min.js",
-				"maxSize": "2.25kB"
-			}
+		"**/*.{js,ts,json,mjs,cjs}": [
+			"biome check --write --no-errors-on-unmatched"
 		],
-		"ci": {
-			"repoBranchBase": "main",
-			"trackBranches": [
-				"main",
-				"next"
-			]
-		}
-	}
+		"**/*.{html,yaml,yml,md}": [
+			"prettier --write"
+		]
+	},
+	"packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34"
 }
