@@ -339,13 +339,10 @@ by using the component attributes mapped to the corresponding methods of
 
 #### Properties
 
-| Name      | Type      | Description                                                            |
-| --------- | --------- | ---------------------------------------------------------------------- |
-| `visible` | `boolean` | Controls the visibility of the picker after the picker dialog has been |
-
-closed. If any of the attributes change, the picker will be rebuilt and
-the visibility will be reset. |
-| `tokenClientConfig` | \`Omit< | |
+| Name                | Type      | Description                                                                                                                                                                          |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `visible`           | `boolean` | Controls the visibility of the picker after the picker dialog has been&#xA;closed. If any of the attributes change, the picker will be rebuilt and&#xA;the visibility will be reset. |
+| `tokenClientConfig` | \`Omit<   |                                                                                                                                                                                      |
 
 ```
 	google.accounts.oauth2.TokenClientConfig,
