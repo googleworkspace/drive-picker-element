@@ -56,6 +56,8 @@ jobs:
           publish: pnpm run changeset:publish
           commit: "ci: Version Packages"
           title: "ci: Version Packages"
+          commitMode: github-api
+          setupGitUser: false
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
