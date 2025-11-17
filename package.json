@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo build",
-		"build:storybook": "turbo storybook-build",
+		"build:storybook": "turbo build:storybook",
 		"changeset": "changeset",
 		"check": "turbo check",
 		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile && pnpm format",
