@@ -19,6 +19,10 @@
 			"dependsOn": ["build"],
 			"outputs": []
 		},
+		"build:docs": {
+			"dependsOn": ["build"],
+			"outputs": ["README.md"]
+		},
 		"build:storybook": {
 			"dependsOn": ["build"],
 			"outputs": ["storybook-static/**"]

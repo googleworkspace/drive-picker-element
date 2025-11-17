@@ -42,6 +42,7 @@
 	"scripts": {
 		"build": "cem analyze --config cem.config.js && tsup",
 		"build:storybook": "storybook build",
+		"build:docs": "tsx scripts/docs.ts",
 		"check": "tsc --noEmit",
 		"prepack": "pnpm build",
 		"storybook": "storybook dev -p 6006",
@@ -76,7 +77,7 @@
 		"tsup": "catalog:",
 		"tsx": "catalog:"
 	},
-	"customElements": "dist/custom-elements.json",
+	"customElements": "custom-elements.json",
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://wombat-dressing-room.appspot.com"

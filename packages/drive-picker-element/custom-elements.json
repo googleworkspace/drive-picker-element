@@ -570,7 +570,7 @@
 					"name": "DrivePickerDocsViewElement",
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
-						"module": "\"./drive-picker-docs-view-element\""
+						"module": "./drive-picker-docs-view-element"
 					}
 				},
 				{
@@ -578,7 +578,7 @@
 					"name": "DrivePickerElement",
 					"declaration": {
 						"name": "DrivePickerElement",
-						"module": "\"./drive-picker-element\""
+						"module": "./drive-picker-element"
 					}
 				},
 				{
@@ -586,7 +586,7 @@
 					"name": "OAuthErrorEvent",
 					"declaration": {
 						"name": "OAuthErrorEvent",
-						"module": "\"./drive-picker-element\""
+						"module": "./drive-picker-element"
 					}
 				},
 				{
@@ -594,7 +594,7 @@
 					"name": "OAuthResponseEvent",
 					"declaration": {
 						"name": "OAuthResponseEvent",
-						"module": "\"./drive-picker-element\""
+						"module": "./drive-picker-element"
 					}
 				},
 				{
@@ -602,7 +602,7 @@
 					"name": "PickerCanceledEvent",
 					"declaration": {
 						"name": "PickerCanceledEvent",
-						"module": "\"./drive-picker-element\""
+						"module": "./drive-picker-element"
 					}
 				},
 				{
@@ -610,7 +610,7 @@
 					"name": "PickerErrorEvent",
 					"declaration": {
 						"name": "PickerErrorEvent",
-						"module": "\"./drive-picker-element\""
+						"module": "./drive-picker-element"
 					}
 				},
 				{
@@ -618,7 +618,7 @@
 					"name": "PickerPickedEvent",
 					"declaration": {
 						"name": "PickerPickedEvent",
-						"module": "\"./drive-picker-element\""
+						"module": "./drive-picker-element"
 					}
 				},
 				{
@@ -626,7 +626,7 @@
 					"name": "DrivePickerDocsViewElementProps",
 					"declaration": {
 						"name": "DrivePickerDocsViewElementProps",
-						"module": "\"./props\""
+						"module": "./props"
 					}
 				},
 				{
@@ -634,7 +634,7 @@
 					"name": "DrivePickerElementProps",
 					"declaration": {
 						"name": "DrivePickerElementProps",
-						"module": "\"./props\""
+						"module": "./props"
 					}
 				}
 			]
