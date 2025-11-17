@@ -54,7 +54,11 @@ function isCustomElementDeclaration(
 	return (declaration as CustomElementDeclaration)?.customElement === true;
 }
 
-function makeTable<T>(title, cells: CELLS.CELL<T>[], rows: T[]): Node[] {
+function makeTable<T>(
+	title: string,
+	cells: CELLS.CELL<T>[],
+	rows: T[],
+): Node[] {
 	return [
 		h2(text(title)),
 		table(

@@ -567,6 +567,14 @@
 			"exports": [
 				{
 					"kind": "js",
+					"name": "DrivePickerDocsViewElement",
+					"declaration": {
+						"name": "DrivePickerDocsViewElement",
+						"module": "\"./drive-picker-docs-view-element\""
+					}
+				},
+				{
+					"kind": "js",
 					"name": "DrivePickerElement",
 					"declaration": {
 						"name": "DrivePickerElement",
@@ -611,14 +619,6 @@
 					"declaration": {
 						"name": "PickerPickedEvent",
 						"module": "\"./drive-picker-element\""
-					}
-				},
-				{
-					"kind": "js",
-					"name": "DrivePickerDocsViewElement",
-					"declaration": {
-						"name": "DrivePickerDocsViewElement",
-						"module": "\"./drive-picker-docs-view-element\""
 					}
 				},
 				{
