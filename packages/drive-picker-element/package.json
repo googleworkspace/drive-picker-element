@@ -41,6 +41,7 @@
 	},
 	"scripts": {
 		"build": "cem analyze --config cem.config.js && tsup",
+		"build:storybook": "storybook build",
 		"check": "tsc --noEmit",
 		"prepack": "pnpm build",
 		"storybook": "storybook dev -p 6006",

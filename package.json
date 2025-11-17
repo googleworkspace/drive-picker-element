@@ -3,9 +3,10 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo build",
+		"build:storybook": "turbo storybook-build",
 		"changeset": "changeset",
 		"check": "turbo check",
-		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
+		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile && pnpm format",
 		"changeset:publish": "changeset publish",
 		"format": "prettier --write . && biome check --write .",
 		"lint": "prettier --write . && biome check --write .",

@@ -42,6 +42,7 @@ jobs:
           cache: "pnpm"
       - run: pnpm install
       - run: pnpm build
+      - run: pnpm build:storybook
       - run: |
           git config --global user.name "googleworkspace-bot"
           git config --global user.email "googleworkspace-bot@google.com"
@@ -58,6 +59,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: "storybook-static"
+          path: "packages/drive-picker-element/storybook-static"
       - id: deployment
         uses: actions/deploy-pages@v4
