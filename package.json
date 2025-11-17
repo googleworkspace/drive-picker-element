@@ -5,7 +5,7 @@
 		"build": "turbo build",
 		"changeset": "changeset",
 		"check": "turbo check",
-		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile && pnpm prettier:write",
+		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
 		"changeset:publish": "changeset publish",
 		"format": "prettier --write . && biome check --write .",
 		"lint": "prettier --write . && biome check --write .",
