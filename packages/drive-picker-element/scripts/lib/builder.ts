@@ -20,9 +20,11 @@ import type {
 	InlineCode,
 	Paragraph,
 	PhrasingContent,
+	Table,
+	TableCell,
+	TableRow,
 	Text,
 } from "mdast";
-import type { Table, TableCell, TableRow } from "mdast";
 
 export const inlineCode = (value: string): InlineCode => ({
 	type: "inlineCode",

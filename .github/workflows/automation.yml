@@ -13,7 +13,7 @@
 # limitations under the License.
 ---
 name: Automation
-on: [ push, pull_request, workflow_dispatch ]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   dependabot:
     runs-on: ubuntu-latest
@@ -26,4 +26,3 @@ jobs:
         run: gh pr review --approve "$PR_URL"
       - name: merge
         run: gh pr merge --auto --squash --delete-branch "$PR_URL"
-  

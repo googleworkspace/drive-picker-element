@@ -29,9 +29,6 @@ export type CELL<T = Attribute | ClassMember> = {
 	get: (x: T) => TableCell;
 };
 
-const formatParam = (param: { name?: string; type?: { text: string } }) =>
-	`${param?.name}${param?.type?.text ? `: ${param.type.text}` : ""}`;
-
 export const DEFAULT: CELL<Attribute> = {
 	heading: "Default",
 	get: (x) => tableCell(inlineCode(x.default ?? "")),

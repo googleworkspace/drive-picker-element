@@ -15,6 +15,13 @@
  */
 
 import fs from "node:fs";
+import type { ClassMethod } from "custom-elements-manifest";
+import type {
+	CustomElementDeclaration,
+	Declaration,
+	Package,
+} from "custom-elements-manifest/schema";
+import type { Root } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import prettier from "prettier";
 import { remark } from "remark";
@@ -32,14 +39,6 @@ import {
 	tableRow,
 	text,
 } from "./lib/builder";
-
-import type { ClassMethod } from "custom-elements-manifest";
-import type {
-	CustomElementDeclaration,
-	Declaration,
-	Package,
-} from "custom-elements-manifest/schema";
-import type { Root } from "mdast";
 import * as CELLS from "./lib/cells";
 
 const START = "<!-- START docs -->";

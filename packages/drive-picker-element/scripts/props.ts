@@ -15,14 +15,13 @@
  */
 
 import fs from "node:fs";
-import prettier from "prettier";
-import ts, { factory } from "typescript";
-
 import type {
 	CustomElementDeclaration,
 	Declaration,
 	Package,
 } from "custom-elements-manifest/schema";
+import prettier from "prettier";
+import ts, { factory } from "typescript";
 
 const manifest = JSON.parse(
 	fs.readFileSync("custom-elements.json", "utf-8"),

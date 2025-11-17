@@ -49,7 +49,7 @@ catalogs:
       specifier: ^10.0.10
       version: 10.0.10
     '@types/node':
-      specifier: ^22.13.10
+      specifier: 'catalog:'
       version: 22.13.10
     '@types/unist':
       specifier: ^3.0.3

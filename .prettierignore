@@ -15,3 +15,5 @@
 **/.turbo
 **/.cache
 **/node_modules
+
+**/CHANGELOG.md

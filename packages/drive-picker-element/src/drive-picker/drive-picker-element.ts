@@ -247,8 +247,7 @@ export class DrivePickerElement extends HTMLElement {
 
 		if (!oauthToken) return;
 
-		// biome-ignore lint/style/noNonNullAssertion: <explanation>
-		builder = builder.setOAuthToken(oauthToken!);
+		builder = builder.setOAuthToken(oauthToken);
 
 		if (getBoolAttr(this, "multiselect")) {
 			builder = builder.enableFeature(

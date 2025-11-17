@@ -15,7 +15,7 @@
  */
 
 import browserslistToEsbuild from "browserslist-to-esbuild";
-import { type Options, defineConfig } from "tsup";
+import { defineConfig, type Options } from "tsup";
 
 const defaultOptions: Options = {
 	sourcemap: true,
@@ -56,7 +56,13 @@ export default defineConfig((overrideOptions) => [
 	},
 ]);
 
-function outExtension({ format, options }) {
+function outExtension({
+	format,
+	options,
+}: {
+	format: string;
+	options: Options;
+}) {
 	let js = "";
 
 	if (format !== "esm") {
