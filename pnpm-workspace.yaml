@@ -36,3 +36,6 @@ catalog:
   tsx: ^4.19.3
   turbo: latest
   typescript: latest
+
+onlyBuiltDependencies:
+  - esbuild
