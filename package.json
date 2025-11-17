@@ -1,38 +1,38 @@
 {
-  "name": "drive-picker-element-monorepo",
-  "private": true,
-  "scripts": {
-    "build": "turbo build",
-    "changeset": "changeset",
-    "check": "turbo check",
-    "ci:publish": "changeset publish",
-    "ci:version": "changeset version && pnpm install --lockfile-only",
-    "format": "prettier --write . && biome check --write .",
-    "lint": "prettier --write . && biome check --write .",
-    "prepare": "husky",
-    "test": "turbo test"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "catalog:",
-    "@changesets/cli": "catalog:",
-    "husky": "catalog:",
-    "lint-staged": "catalog:",
-    "prettier": "catalog:",
-    "turbo": "catalog:",
-    "typescript": "catalog:"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.{js,ts,json,mjs,cjs}": [
-      "biome check --write --no-errors-on-unmatched"
-    ],
-    "**/*.{html,yaml,yml,md}": [
-      "prettier --write"
-    ]
-  },
-  "packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34"
+	"name": "root",
+	"private": true,
+	"scripts": {
+		"build": "turbo build",
+		"changeset": "changeset",
+		"check": "turbo check",
+		"changeset:version": "changeset version && pnpm install --no-frozen-lockfile && pnpm prettier:write",
+		"changeset:publish": "changeset publish",
+		"format": "prettier --write . && biome check --write .",
+		"lint": "prettier --write . && biome check --write .",
+		"prepare": "husky",
+		"test": "turbo test"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:",
+		"@changesets/cli": "catalog:",
+		"husky": "catalog:",
+		"lint-staged": "catalog:",
+		"prettier": "catalog:",
+		"turbo": "catalog:",
+		"typescript": "catalog:"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"**/*.{js,ts,json,mjs,cjs}": [
+			"biome check --write --no-errors-on-unmatched"
+		],
+		"**/*.{html,yaml,yml,md}": [
+			"prettier --write"
+		]
+	},
+	"packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34"
 }
