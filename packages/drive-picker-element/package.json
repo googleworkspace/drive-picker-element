@@ -79,8 +79,7 @@
 	},
 	"customElements": "custom-elements.json",
 	"publishConfig": {
-		"access": "public",
-		"registry": "https://wombat-dressing-room.appspot.com"
+		"access": "public"
 	},
 	"provenance": true
 }

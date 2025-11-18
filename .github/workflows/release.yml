@@ -52,7 +52,7 @@ jobs:
         id: changesets
         env:
           GITHUB_TOKEN: ${{secrets.GOOGLEWORKSPACE_BOT_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_WOMBAT_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
         with:
           version: pnpm run changeset:version
           publish: pnpm run changeset:publish
