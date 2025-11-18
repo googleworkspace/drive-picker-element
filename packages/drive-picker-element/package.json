@@ -80,6 +80,5 @@
 	"customElements": "custom-elements.json",
 	"publishConfig": {
 		"access": "public"
-	},
-	"provenance": true
+	}
 }
