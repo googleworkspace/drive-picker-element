@@ -1,5 +1,11 @@
 # @googleworkspace/drive-picker-element
 
+## 0.6.5
+
+### Patch Changes
+
+- e0d4ab6: Fix provenance for package.
+
 ## 0.6.4
 
 ### Patch Changes
