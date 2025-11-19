@@ -12,6 +12,7 @@ This repository is a monorepo for Google Workspace Drive Picker web components.
 | Package                                                                    | Description                                                                                                                  |
 | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | [`@googleworkspace/drive-picker-element`](./packages/drive-picker-element) | The [Google Drive Picker] web component offers a seamless way to integrate the Google Picker API into your web applications. |
+| [`@googleworkspace/drive-picker-react`](./packages/drive-picker-react)     | A React wrapper for the [Google Drive Picker] web component.                                                                 |
 
 ## Support
 
