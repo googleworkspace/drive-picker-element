@@ -1,5 +1,11 @@
 # @googleworkspace/drive-picker-react
 
+## 0.1.1
+
+### Patch Changes
+
+- 1f99e74: Fix package.json fields for provenance.
+
 ## 0.1.0
 
 ### Minor Changes
