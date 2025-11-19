@@ -15,6 +15,11 @@
 		"react",
 		"drive-picker"
 	],
+	"homepage": "https://github.com/googleworkspace/drive-picker-element",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/googleworkspace/drive-picker-element.git"
+	},
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
