@@ -1,5 +1,11 @@
 # @googleworkspace/drive-picker-element
 
+## 0.7.0
+
+### Minor Changes
+
+- 16fae9d: Add React wrapper package.
+
 ## 0.6.5
 
 ### Patch Changes
