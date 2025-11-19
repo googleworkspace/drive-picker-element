@@ -1,5 +1,6 @@
 packages:
   - packages/*
+  - examples/*
 
 catalog:
   "@biomejs/biome": ^2.2.7
@@ -18,6 +19,8 @@ catalog:
   "@types/mocha": ^10.0.10
   "@types/node": latest
   "@types/unist": ^3.0.3
+  "@types/react": ^19.2.0
+  "@types/react-dom": ^19.2.0
   browserslist: ^4.28.0
   browserslist-to-esbuild: ^2.1.1
   bundlewatch: ^0.4.0
@@ -26,6 +29,8 @@ catalog:
   lint-staged: latest
   mdast-util-from-markdown: ^2.0.2
   prettier: ^3.5.3
+  react: ^19.2.0
+  react-dom: ^19.2.0
   remark: ^15.0.1
   remark-behead: ^3.1.0
   remark-gfm: ^4.0.1

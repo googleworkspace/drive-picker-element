@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";
-export {
-	DRIVE_PICKER_EVENTS,
-	DrivePickerElement,
-	type OAuthErrorEvent,
-	type OAuthResponseEvent,
-	type PickerCanceledEvent,
-	type PickerErrorEvent,
-	type PickerPickedEvent,
-} from "./drive-picker-element";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
 
-export type {
-	DrivePickerDocsViewElementProps,
-	DrivePickerElementProps,
-} from "./props";
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+	throw new Error("Failed to find the root element");
+}
+ReactDOM.createRoot(rootElement).render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+);

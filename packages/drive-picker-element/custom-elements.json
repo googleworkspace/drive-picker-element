@@ -94,6 +94,14 @@
 						"name": "PickerPickedEvent",
 						"module": "src/index.ts"
 					}
+				},
+				{
+					"kind": "js",
+					"name": "DRIVE_PICKER_EVENTS",
+					"declaration": {
+						"name": "DRIVE_PICKER_EVENTS",
+						"module": "src/index.ts"
+					}
 				}
 			]
 		},
@@ -232,6 +240,15 @@
 			"kind": "javascript-module",
 			"path": "src/drive-picker/drive-picker-element.ts",
 			"declarations": [
+				{
+					"kind": "variable",
+					"name": "DRIVE_PICKER_EVENTS",
+					"type": {
+						"text": "{\n\tPICKED: \"picker:picked\",\n\tCANCELED: \"picker:canceled\",\n\tOAUTH_ERROR: \"picker:oauth:error\",\n\tOAUTH_RESPONSE: \"picker:oauth:response\",\n}"
+					},
+					"default": "{ PICKED: \"picker:picked\", CANCELED: \"picker:canceled\", OAUTH_ERROR: \"picker:oauth:error\", OAUTH_RESPONSE: \"picker:oauth:response\", }",
+					"description": "Events that can be emitted by the `drive-picker` web component."
+				},
 				{
 					"kind": "class",
 					"description": "The `drive-picker` web component provides a convenient way to declaratively\nbuild\n[`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)\nby using the component attributes mapped to the corresponding methods of\n[`google.picker.PickerBuilder`](https://developers.google.com/drive/picker/reference/picker.pickerbuilder).",
@@ -552,6 +569,14 @@
 			"exports": [
 				{
 					"kind": "js",
+					"name": "DRIVE_PICKER_EVENTS",
+					"declaration": {
+						"name": "DRIVE_PICKER_EVENTS",
+						"module": "src/drive-picker/drive-picker-element.ts"
+					}
+				},
+				{
+					"kind": "js",
 					"name": "DrivePickerElement",
 					"declaration": {
 						"name": "DrivePickerElement",
@@ -571,6 +596,14 @@
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
 						"module": "./drive-picker-docs-view-element"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DRIVE_PICKER_EVENTS",
+					"declaration": {
+						"name": "DRIVE_PICKER_EVENTS",
+						"module": "./drive-picker-element"
 					}
 				},
 				{

@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";
-export {
-	DRIVE_PICKER_EVENTS,
-	DrivePickerElement,
-	type OAuthErrorEvent,
-	type OAuthResponseEvent,
-	type PickerCanceledEvent,
-	type PickerErrorEvent,
-	type PickerPickedEvent,
-} from "./drive-picker-element";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
-export type {
-	DrivePickerDocsViewElementProps,
-	DrivePickerElementProps,
-} from "./props";
+// https://vitejs.dev/config/
+export default defineConfig({
+	plugins: [react()],
+});
