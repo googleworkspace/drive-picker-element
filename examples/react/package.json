@@ -1,0 +1,23 @@
+{
+	"name": "react-example",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"@googleworkspace/drive-picker-react": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "^4.2.1",
+		"typescript": "catalog:",
+		"vite": "^5.2.0"
+	}
+}
