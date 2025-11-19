@@ -61,19 +61,6 @@ declare global {
 }
 
 /**
- * Events that can be emitted by the `drive-picker` web component.
- */
-export const DRIVE_PICKER_EVENTS: Record<
-	string,
-	keyof GlobalEventHandlersEventMap
-> = {
-	PICKED: "picker:picked",
-	CANCELED: "picker:canceled",
-	OAUTH_ERROR: "picker:oauth:error",
-	OAUTH_RESPONSE: "picker:oauth:response",
-} as const;
-
-/**
  * The `drive-picker` web component provides a convenient way to declaratively
  * build
  * [`google.picker.Picker`](https://developers.google.com/drive/picker/reference/picker)

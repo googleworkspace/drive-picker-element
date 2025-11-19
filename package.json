@@ -2,7 +2,7 @@
 	"name": "root",
 	"private": true,
 	"scripts": {
-		"build": "turbo build",
+		"build": "turbo build && pnpm format",
 		"build:docs": "turbo build:docs",
 		"build:storybook": "turbo build:storybook",
 		"changeset": "changeset",

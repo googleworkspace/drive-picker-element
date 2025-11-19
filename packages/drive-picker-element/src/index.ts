@@ -15,7 +15,6 @@
  */
 
 import {
-	DRIVE_PICKER_EVENTS,
 	DrivePickerDocsViewElement,
 	type DrivePickerDocsViewElementProps,
 	DrivePickerElement,
@@ -50,5 +49,3 @@ export type {
 	PickerErrorEvent,
 	PickerPickedEvent,
 };
-
-export { DRIVE_PICKER_EVENTS };

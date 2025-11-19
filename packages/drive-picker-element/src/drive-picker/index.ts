@@ -16,7 +16,6 @@
 
 export { DrivePickerDocsViewElement } from "./drive-picker-docs-view-element";
 export {
-	DRIVE_PICKER_EVENTS,
 	DrivePickerElement,
 	type OAuthErrorEvent,
 	type OAuthResponseEvent,
