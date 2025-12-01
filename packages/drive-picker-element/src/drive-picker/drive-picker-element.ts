@@ -213,7 +213,13 @@ export class DrivePickerElement extends HTMLElement {
 		);
 
 		const appId = this.getAttribute("app-id");
-		if (appId !== null) builder = builder.setAppId(appId);
+		if (appId !== null) {
+			builder = builder.setAppId(appId);
+		} else {
+			console.warn(
+				"drive-picker: app-id attribute is missing. This may cause issues with backend API integration.",
+			);
+		}
 
 		const developerKey = this.getAttribute("developer-key");
 		if (developerKey !== null) builder = builder.setDeveloperKey(developerKey);
