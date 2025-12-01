@@ -59,7 +59,10 @@ export async function requestAccessToken(
 
 export async function injectScript(src: string): Promise<void> {
 	return new Promise((resolve, reject) => {
-		if (!document.querySelector(`script[src="${src}"]`)) {
+		const script = document.querySelector<HTMLScriptElement>(
+			`script[src="${src}"]`,
+		);
+		if (!script) {
 			document.head.appendChild(
 				Object.assign(document.createElement("script"), {
 					src,
@@ -68,7 +71,8 @@ export async function injectScript(src: string): Promise<void> {
 				}),
 			);
 		} else {
-			resolve();
+			script.addEventListener("load", () => resolve());
+			script.addEventListener("error", (e) => reject(e));
 		}
 	});
 }
