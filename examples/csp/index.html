@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drive Picker CSP Example</title>
+    <!-- 
+      Content Security Policy (CSP)
+      
+      script-src: 
+        - 'self': Allow scripts from this origin
+        - https://apis.google.com: Required for Google API Client Library
+        - https://accounts.google.com: Required for Google Identity Services
+      
+      frame-src:
+        - 'self': Allow frames from this origin
+        - https://docs.google.com: Required for the Picker iframe
+        - https://drive.google.com: Required for the Picker iframe
+        - https://accounts.google.com: Required for authentication frames
+      
+      style-src:
+        - 'self': Allow styles from this origin
+        - 'unsafe-inline': Required for some Google styles (can be tightened with nonces)
+        
+      img-src:
+        - 'self': Allow images from this origin
+        - https://*.googleusercontent.com: Required for profile pictures and thumbnails
+
+      font-src:
+        - 'self': Allow fonts from this origin
+        - https://fonts.gstatic.com: Required for Google Fonts
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' https://apis.google.com https://accounts.google.com;
+        frame-src 'self' https://docs.google.com https://drive.google.com https://accounts.google.com;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' https://*.googleusercontent.com;
+        connect-src 'self' https://*.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+      "
+    />
+
+    <!-- 
+      Pre-load Google API scripts.
+      This prevents the drive-picker-element from attempting to dynamically inject them,
+      which might be blocked by stricter CSPs (e.g. if script-src didn't allow dynamic injection).
+    -->
+<script src="https://apis.google.com/js/api.js" async defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Drive Picker CSP Example</h1>
+      <p>
+        This example demonstrates how to use the Drive Picker with a Content
+        Security Policy.
+      </p>
+
+      <!-- 
+        Replace client-id and app-id with your own values.
+        You can also set them via JavaScript.
+      -->
+      <drive-picker id="picker" client-id="YOUR_CLIENT_ID" app-id="YOUR_APP_ID">
+        <drive-picker-docs-view></drive-picker-docs-view>
+      </drive-picker>
+
+      <button id="open-picker">Open Picker</button>
+      <div id="result"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
