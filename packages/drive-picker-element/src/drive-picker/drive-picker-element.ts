@@ -213,7 +213,7 @@ export class DrivePickerElement extends HTMLElement {
 		);
 
 		const appId = this.getAttribute("app-id");
-		if (appId !== null) {
+		if (appId) {
 			builder = builder.setAppId(appId);
 		} else {
 			console.warn(
