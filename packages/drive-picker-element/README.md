@@ -26,6 +26,7 @@ See the framework specific demos:
   - [Event Details](#event-details)
   - [Controlling Visibility](#controlling-visibility)
   - [React and JSX](#react-and-jsx)
+  - [Content Security Policy (CSP)](#content-security-policy-csp)
 - [Support](#support)
 - [Reference](#reference)
   - [`<drive-picker/>`](#drive-picker)
@@ -280,6 +281,41 @@ export default function DrivePicker() {
 2. **Proper cleanup**: Always remove event listeners in the cleanup function to prevent memory leaks.
 
 3. **Wait for the element**: Make sure the ref is populated before adding event listeners.
+
+### Content Security Policy (CSP)
+
+This library dynamically loads the Google API scripts (`https://apis.google.com/js/api.js` and `https://accounts.google.com/gsi/client`) if they are not already present. This may violate strict CSP settings that disallow dynamic script injection or restrict script sources.
+
+To use this library in a strict CSP environment:
+
+1.  **Pre-load the scripts**: Manually include the Google API scripts in your HTML using `<script>` tags that comply with your CSP (e.g., using a `nonce` or allowing the domain).
+
+    ```html
+    <script src="https://apis.google.com/js/api.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    ```
+
+2.  **Ensure global objects are available**: The library checks for `window.gapi` and `window.google.accounts.oauth2`. If these are present, it skips the dynamic injection.
+
+3.  **Allow Google domains in CSP**: You must allow the picker's origin and other Google domains in your `Content-Security-Policy`. Here is a complete example:
+
+    ```http
+    Content-Security-Policy:
+      default-src 'self';
+      script-src 'self' https://apis.google.com https://accounts.google.com;
+      frame-src 'self' https://docs.google.com https://drive.google.com https://accounts.google.com;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' https://*.googleusercontent.com;
+      connect-src 'self' https://*.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+    ```
+
+    **Notes:**
+    - The `frame-src` domains are required for the Picker iframe and authentication. The exact domains may vary, but these are the most common.
+    - `style-src: 'unsafe-inline'` may be required for some styles injected by the Picker. For a stricter policy, you can use [nonces](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src#unsafe_inline_styles).
+
+**Note for Chrome Extensions (Manifest V3):**
+The underlying Google Picker API relies on `gapi`, which is [not supported in Manifest V3 extensions](https://github.com/google/google-api-javascript-client/blob/master/docs/start.md#supported-environments). Therefore, this library may not function in that environment regardless of CSP settings.
 
 ## Support
 

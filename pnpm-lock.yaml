@@ -144,6 +144,19 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
+  examples/csp:
+    dependencies:
+      '@googleworkspace/drive-picker-element':
+        specifier: workspace:*
+        version: link:../../packages/drive-picker-element
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: ^5.2.0
+        version: 5.4.21(@types/node@24.10.1)
+
   examples/react:
     dependencies:
       '@googleworkspace/drive-picker-react':

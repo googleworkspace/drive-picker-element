@@ -13,7 +13,8 @@
 		"lint": "prettier --write . && biome check --write .",
 		"prepare": "husky",
 		"test": "turbo test",
-		"dev": "turbo dev"
+		"dev": "turbo dev",
+		"preview": "turbo preview"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
