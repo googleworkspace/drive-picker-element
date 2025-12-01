@@ -1,5 +1,11 @@
 # @googleworkspace/drive-picker-element
 
+## 0.7.1
+
+### Patch Changes
+
+- e7d5f8c: Add a console warning when the `app-id` attribute is missing. While the picker may function without it, `app-id` is often required for backend API integration (e.g., `drive.files.get`). This warning helps developers identify potential configuration issues earlier.
+
 ## 0.7.0
 
 ### Minor Changes
