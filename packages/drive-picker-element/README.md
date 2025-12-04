@@ -25,7 +25,7 @@ See the framework specific demos:
   - [Listening to Events](#listening-to-events)
   - [Event Details](#event-details)
   - [Controlling Visibility](#controlling-visibility)
-  - [React and JSX](#react-and-jsx)
+  - [React](#react)
   - [Content Security Policy (CSP)](#content-security-policy-csp)
 - [Support](#support)
 - [Reference](#reference)
@@ -166,121 +166,11 @@ To make the picker visible, set the `visible` property of the `drive-picker` ele
 
 After the picker dialog has been closed, the `visible` property will be reset to `false`.
 
-### React and JSX
+### React
 
-To use the component in a React application, you can extend the global `JSX` namespace as follows:
+For React applications, we recommend using the official React wrapper package: [`@googleworkspace/drive-picker-react`](https://www.npmjs.com/package/@googleworkspace/drive-picker-react).
 
-```ts
-import type {
-  DrivePickerElement,
-  DrivePickerDocsViewElement,
-  DrivePickerElementProps,
-  DrivePickerDocsViewElementProps,
-} from "@googleworkspace/drive-picker-element";
-
-declare global {
-  namespace React.JSX {
-    interface IntrinsicElements {
-      "drive-picker": React.DetailedHTMLProps<
-        React.HTMLAttributes<DrivePickerElement> & DrivePickerElementProps,
-        DrivePickerElement
-      >;
-      "drive-picker-docs-view": React.DetailedHTMLProps<
-        React.HTMLAttributes<DrivePickerDocsViewElement> &
-          DrivePickerDocsViewElementProps,
-        DrivePickerDocsViewElement
-      >;
-    }
-  }
-}
-```
-
-The above snippet can be added to a declaration file (e.g. `app.d.ts`) in your React project.
-
-#### Using Events in React/Next.js
-
-When working with React or Next.js, you need to use `useEffect` and `useRef` to properly attach event listeners to the web component. Here's a complete example:
-
-```tsx
-import { useEffect, useRef, useState } from "react";
-import type {
-  DrivePickerElement,
-  PickerPickedEvent,
-} from "@googleworkspace/drive-picker-element";
-
-export default function DrivePicker() {
-  const pickerRef = useRef<DrivePickerElement>(null);
-  const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
-
-  useEffect(() => {
-    // Dynamically import the web component
-    import("@googleworkspace/drive-picker-element");
-  }, []);
-
-  useEffect(() => {
-    const pickerElement = pickerRef.current;
-    if (!pickerElement) return;
-
-    // Use the non-deprecated event names (with hyphens, not colons)
-    const handlePicked = (e: Event) => {
-      const event = e as PickerPickedEvent;
-      console.log("Files picked:", event.detail);
-      setSelectedFiles(event.detail.docs || []);
-    };
-
-    const handleCanceled = (e: Event) => {
-      console.log("Picker canceled");
-    };
-
-    const handleOAuthError = (e: Event) => {
-      console.error("OAuth error:", e);
-    };
-
-    // Add event listeners
-    pickerElement.addEventListener("picker-picked", handlePicked);
-    pickerElement.addEventListener("picker-canceled", handleCanceled);
-    pickerElement.addEventListener("picker-oauth-error", handleOAuthError);
-
-    // Cleanup function to remove event listeners
-    return () => {
-      pickerElement.removeEventListener("picker-picked", handlePicked);
-      pickerElement.removeEventListener("picker-canceled", handleCanceled);
-      pickerElement.removeEventListener("picker-oauth-error", handleOAuthError);
-    };
-  }, []);
-
-  return (
-    <div>
-      <drive-picker
-        ref={pickerRef}
-        client-id="YOUR_CLIENT_ID"
-        app-id="YOUR_APP_ID"
-      >
-        <drive-picker-docs-view></drive-picker-docs-view>
-      </drive-picker>
-
-      {selectedFiles.length > 0 && (
-        <div>
-          <h3>Selected Files:</h3>
-          <ul>
-            {selectedFiles.map((file) => (
-              <li key={file.id}>{file.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-}
-```
-
-**Important notes for React/Next.js:**
-
-1. **Dynamic import**: In Next.js, import the component dynamically inside `useEffect` to avoid server-side rendering issues, since web components need to run in the browser.
-
-2. **Proper cleanup**: Always remove event listeners in the cleanup function to prevent memory leaks.
-
-3. **Wait for the element**: Make sure the ref is populated before adding event listeners.
+Please refer to the [package documentation](../drive-picker-react/README.md) for usage instructions.
 
 ### Content Security Policy (CSP)
 
@@ -288,31 +178,31 @@ This library dynamically loads the Google API scripts (`https://apis.google.com/
 
 To use this library in a strict CSP environment:
 
-1.  **Pre-load the scripts**: Manually include the Google API scripts in your HTML using `<script>` tags that comply with your CSP (e.g., using a `nonce` or allowing the domain).
+1. **Pre-load the scripts**: Manually include the Google API scripts in your HTML using `<script>` tags that comply with your CSP (e.g., using a `nonce` or allowing the domain).
 
-    ```html
-    <script src="https://apis.google.com/js/api.js" async defer></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    ```
+   ```html
+   <script src="https://apis.google.com/js/api.js" async defer></script>
+   <script src="https://accounts.google.com/gsi/client" async defer></script>
+   ```
 
-2.  **Ensure global objects are available**: The library checks for `window.gapi` and `window.google.accounts.oauth2`. If these are present, it skips the dynamic injection.
+2. **Ensure global objects are available**: The library checks for `window.gapi` and `window.google.accounts.oauth2`. If these are present, it skips the dynamic injection.
 
-3.  **Allow Google domains in CSP**: You must allow the picker's origin and other Google domains in your `Content-Security-Policy`. Here is a complete example:
+3. **Allow Google domains in CSP**: You must allow the picker's origin and other Google domains in your `Content-Security-Policy`. Here is a complete example:
 
-    ```http
-    Content-Security-Policy:
-      default-src 'self';
-      script-src 'self' https://apis.google.com https://accounts.google.com;
-      frame-src 'self' https://docs.google.com https://drive.google.com https://accounts.google.com;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' https://*.googleusercontent.com;
-      connect-src 'self' https://*.googleapis.com;
-      font-src 'self' https://fonts.gstatic.com;
-    ```
+   ```http
+   Content-Security-Policy:
+     default-src 'self';
+     script-src 'self' https://apis.google.com https://accounts.google.com;
+     frame-src 'self' https://docs.google.com https://drive.google.com https://accounts.google.com;
+     style-src 'self' 'unsafe-inline';
+     img-src 'self' https://*.googleusercontent.com;
+     connect-src 'self' https://*.googleapis.com;
+     font-src 'self' https://fonts.gstatic.com;
+   ```
 
-    **Notes:**
-    - The `frame-src` domains are required for the Picker iframe and authentication. The exact domains may vary, but these are the most common.
-    - `style-src: 'unsafe-inline'` may be required for some styles injected by the Picker. For a stricter policy, you can use [nonces](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src#unsafe_inline_styles).
+   **Notes:**
+   - The `frame-src` domains are required for the Picker iframe and authentication. The exact domains may vary, but these are the most common.
+   - `style-src: 'unsafe-inline'` may be required for some styles injected by the Picker. For a stricter policy, you can use [nonces](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src#unsafe_inline_styles).
 
 **Note for Chrome Extensions (Manifest V3):**
 The underlying Google Picker API relies on `gapi`, which is [not supported in Manifest V3 extensions](https://github.com/google/google-api-javascript-client/blob/master/docs/start.md#supported-environments). Therefore, this library may not function in that environment regardless of CSP settings.

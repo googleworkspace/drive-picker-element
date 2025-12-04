@@ -48,5 +48,5 @@ picker.addEventListener("picker-canceled", () => {
 
 picker.addEventListener("picker-oauth-error", (e) => {
 	console.error("OAuth Error", e);
-	resultDiv.textContent = "OAuth Error: " + JSON.stringify(e);
+	resultDiv.textContent = `OAuth Error: ${JSON.stringify(e)}`;
 });
