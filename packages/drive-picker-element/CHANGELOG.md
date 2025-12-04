@@ -1,5 +1,13 @@
 # @googleworkspace/drive-picker-element
 
+## 0.7.2
+
+### Patch Changes
+
+- 1a2fafb: Added Content Security Policy (CSP) guide and example.
+- c37edb5: Fix: `injectScript` now always injects a new script element to avoid race conditions with `async` loading. It also copies all attributes (including `nonce` and `integrity`) from any existing script tag to ensure CSP compliance.
+- 2f1276b: Update README to point to @googleworkspace/drive-picker-react for React usage.
+
 ## 0.7.1
 
 ### Patch Changes
