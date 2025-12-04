@@ -1,5 +1,14 @@
 # @googleworkspace/drive-picker-react
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [1a2fafb]
+- Updated dependencies [c37edb5]
+- Updated dependencies [2f1276b]
+  - @googleworkspace/drive-picker-element@0.7.2
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # react-example
 
+## 0.1.3
+
+### Patch Changes
+
+- @googleworkspace/drive-picker-react@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
