@@ -170,7 +170,7 @@ After the picker dialog has been closed, the `visible` property will be reset to
 
 For React applications, we recommend using the official React wrapper package: [`@googleworkspace/drive-picker-react`](https://www.npmjs.com/package/@googleworkspace/drive-picker-react).
 
-Please refer to the [package documentation](../drive-picker-react/README.md) for usage instructions.
+Please refer to the [package documentation](https://github.com/googleworkspace/drive-picker-element/tree/main/packages/drive-picker-react) for usage instructions.
 
 ### Content Security Policy (CSP)
 
