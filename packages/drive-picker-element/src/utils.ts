@@ -67,6 +67,9 @@ export async function requestAccessToken(
  * To ensure compatibility with Content Security Policy (CSP) and other requirements, this function
  * copies all attributes (including `nonce`, `integrity`, `crossorigin`, etc.) from any existing
  * script tag with the same src to the new script tag.
+ *
+ * Note: The script at the provided `src` must be idempotent, as it may be executed multiple times
+ * if it is already present in the document.
  */
 export async function injectScript(src: string): Promise<void> {
 	return new Promise((resolve, reject) => {
