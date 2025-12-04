@@ -57,23 +57,50 @@ export async function requestAccessToken(
 	});
 }
 
+/**
+ * Injects a script into the document head.
+ *
+ * This function always creates and appends a new script element, even if a script with the same src
+ * already exists. This is done to avoid race conditions where an existing script might have already
+ * loaded (or failed) before we could attach event listeners, causing the promise to hang indefinitely.
+ *
+ * To ensure compatibility with Content Security Policy (CSP) and other requirements, this function
+ * copies all attributes (including `nonce`, `integrity`, `crossorigin`, etc.) from any existing
+ * script tag with the same src to the new script tag.
+ */
 export async function injectScript(src: string): Promise<void> {
 	return new Promise((resolve, reject) => {
-		const script = document.querySelector<HTMLScriptElement>(
+		const newScript = document.createElement("script");
+		newScript.src = src;
+		newScript.onload = () => resolve();
+		newScript.onerror = (err) => reject(err);
+
+		// Check for an existing script to copy attributes from.
+		// This is important for CSP compliance (nonce, integrity) and other attributes.
+		const existingScript = document.querySelector<HTMLScriptElement>(
 			`script[src="${src}"]`,
 		);
-		if (!script) {
-			document.head.appendChild(
-				Object.assign(document.createElement("script"), {
-					src,
-					onload: resolve,
-					onerror: reject,
-				}),
+		if (existingScript) {
+			console.log(
+				`drive-picker: appending a copy of an existing script ${src}`,
 			);
-		} else {
-			script.addEventListener("load", () => resolve());
-			script.addEventListener("error", (e) => reject(e));
+			// Copy all attributes except those that would conflict or are handled manually
+			Array.from(existingScript.attributes).forEach((attr) => {
+				if (["id", "src", "onload", "onerror"].includes(attr.name)) {
+					return;
+				}
+				newScript.setAttribute(attr.name, attr.value);
+			});
+
+			// Nonce must be copied as a property because it's not always exposed in attributes.
+			// The nonce attribute is hidden from getAttribute() and attributes for security reasons.
+			// It is safe to reuse the same nonce for multiple scripts on the same page (same HTTP response).
+			if (existingScript.nonce) {
+				newScript.nonce = existingScript.nonce;
+			}
 		}
+
+		document.head.appendChild(newScript);
 	});
 }
 
