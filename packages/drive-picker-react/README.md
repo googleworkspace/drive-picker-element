@@ -71,3 +71,37 @@ For more details on the event payloads, see the [Event Details section of the `@
 ## Reference
 
 This component is a wrapper. For detailed information about the underlying web component's attributes, events, and slots, please refer to the [`@googleworkspace/drive-picker-element` README](https://github.com/googleworkspace/drive-picker-element/tree/main/packages/drive-picker-element).
+
+## Server-Side Rendering (SSR)
+
+This component is designed to work in client-side environments only, as it relies on browser-specific APIs (like `customElements`).
+
+The component includes the `"use client"` directive, which makes it compatible with React Server Components (RSC) in frameworks like Next.js.
+
+However, if you encounter issues with SSR or prefer to be explicit, you can use dynamic imports to disable SSR for this component.
+
+### Next.js Example
+
+Using `next/dynamic`:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const DrivePicker = dynamic(
+  () => import('@googleworkspace/drive-picker-react').then((mod) => mod.DrivePicker),
+  { ssr: false }
+);
+
+const DrivePickerDocsView = dynamic(
+  () => import('@googleworkspace/drive-picker-react').then((mod) => mod.DrivePickerDocsView),
+  { ssr: false }
+);
+
+function App() {
+  return (
+    <DrivePicker ...>
+      <DrivePickerDocsView ... />
+    </DrivePicker>
+  );
+}
+```
