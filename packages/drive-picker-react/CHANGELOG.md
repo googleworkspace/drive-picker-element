@@ -1,5 +1,16 @@
 # @googleworkspace/drive-picker-react
 
+## 0.2.0
+
+### Minor Changes
+
+- be90299: Add SSR support by enforcing client-side rendering and using dynamic imports.
+
+### Patch Changes
+
+- Updated dependencies [5d13681]
+  - @googleworkspace/drive-picker-element@0.7.3
+
 ## 0.1.3
 
 ### Patch Changes

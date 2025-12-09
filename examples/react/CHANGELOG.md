@@ -1,5 +1,12 @@
 # react-example
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [be90299]
+  - @googleworkspace/drive-picker-react@0.2.0
+
 ## 0.1.3
 
 ### Patch Changes

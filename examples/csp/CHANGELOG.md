@@ -1,5 +1,12 @@
 # csp-example
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [5d13681]
+  - @googleworkspace/drive-picker-element@0.7.3
+
 ## 0.0.1
 
 ### Patch Changes
