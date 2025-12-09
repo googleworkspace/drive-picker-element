@@ -1,5 +1,11 @@
 # @googleworkspace/drive-picker-element
 
+## 0.7.3
+
+### Patch Changes
+
+- 5d13681: Update link to React component in README.
+
 ## 0.7.2
 
 ### Patch Changes
