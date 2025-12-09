@@ -10,10 +10,9 @@ The Google Picker API is a JavaScript API that allows users to select or upload 
 
 Explore the [storybook demo](https://googleworkspace.github.io/drive-picker-element/?path=/docs/stories-drive-picker--docs) to see the component in action.
 
-See the framework specific demos:
+See the framework specific components:
 
-- [React](https://codesandbox.io/p/sandbox/xenodochial-leaf-j2xtdq)
-- [Svelte](https://codesandbox.io/p/sandbox/svelte-drive-picker-kd9swx)
+- [React](#react)
 
 ## Index
 
