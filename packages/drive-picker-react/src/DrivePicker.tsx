@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Copyright 2025 Google LLC
  *
@@ -19,8 +21,7 @@ import type {
 	DrivePickerElementProps,
 } from "@googleworkspace/drive-picker-element";
 import type React from "react";
-import { useRef } from "react";
-import "@googleworkspace/drive-picker-element";
+import { useEffect, useRef } from "react";
 import type { DrivePickerDocsViewProps } from "./DrivePickerDocsView";
 import {
 	type DrivePickerEventHandlers,
@@ -79,6 +80,10 @@ export const DrivePicker: React.FC<DrivePickerProps> = (props) => {
 		onOauthError,
 		onOauthResponse,
 	});
+
+	useEffect(() => {
+		import("@googleworkspace/drive-picker-element");
+	}, []);
 
 	return (
 		<drive-picker ref={ref} {...rest}>
