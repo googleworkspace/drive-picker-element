@@ -39,10 +39,10 @@ declare global {
 }
 
 export type {
-	DrivePickerElement,
 	DrivePickerDocsViewElement,
-	DrivePickerElementProps,
 	DrivePickerDocsViewElementProps,
+	DrivePickerElement,
+	DrivePickerElementProps,
 	OAuthErrorEvent,
 	OAuthResponseEvent,
 	PickerCanceledEvent,

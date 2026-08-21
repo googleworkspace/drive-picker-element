@@ -344,15 +344,36 @@ export class DrivePickerElement extends HTMLElement {
 		return requestAccessToken(this.tokenClientConfig)
 			.then((response) => {
 				const { access_token: token } = response;
-				if (!token) {
+				const requiredScope =
+					this.getAttribute("scope") ??
+					"https://www.googleapis.com/auth/drive.file";
+				const requiredScopes = requiredScope.trim().split(/\s+/);
+				const hasAllScopes =
+					token && window.google?.accounts?.oauth2?.hasGrantedAllScopes
+						? window.google.accounts.oauth2.hasGrantedAllScopes(
+								response,
+								requiredScopes[0],
+								...requiredScopes.slice(1),
+							)
+						: Boolean(token);
+
+				if (!token || !hasAllScopes) {
+					const errorDetail = !token
+						? response
+						: {
+								...response,
+								error: "insufficient_scope",
+								error_description:
+									"The user did not grant all required scopes.",
+							};
 					this.dispatchEvent(
 						new CustomEvent("picker:oauth:error", {
-							detail: response,
+							detail: errorDetail,
 						}),
 					);
 					this.dispatchEvent(
 						new CustomEvent("picker-oauth-error", {
-							detail: response,
+							detail: errorDetail,
 						}),
 					);
 					return undefined;
@@ -360,9 +381,6 @@ export class DrivePickerElement extends HTMLElement {
 				// TODO - remove deprecated event
 				this.dispatchEvent(
 					new CustomEvent("picker:authenticated", { detail: { token } }),
-				);
-				this.dispatchEvent(
-					new CustomEvent("picker-oauth-response", { detail: response }),
 				);
 				// TODO - remove deprecated event
 				this.dispatchEvent(
