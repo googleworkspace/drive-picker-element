@@ -20,8 +20,7 @@ import type {
 	DrivePickerElement,
 	DrivePickerElementProps,
 } from "@googleworkspace/drive-picker-element";
-import type React from "react";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import type { DrivePickerDocsViewProps } from "./DrivePickerDocsView";
 import {
 	type DrivePickerEventHandlers,
@@ -63,20 +62,32 @@ export interface DrivePickerProps
  * </DrivePicker>
  * ```
  */
-export const DrivePicker: React.FC<DrivePickerProps> = (props) => {
+export const DrivePicker = React.forwardRef<
+	DrivePickerElement,
+	DrivePickerProps
+>((props, forwardedRef) => {
 	const {
 		onPicked,
 		onCanceled,
+		onPickerError,
+		onError,
 		onOauthError,
 		onOauthResponse,
 		children,
 		...rest
 	} = props;
-	const ref = useRef<DrivePickerElement>(null);
+	const innerRef = useRef<DrivePickerElement>(null);
 
-	useDrivePickerEvents(ref, {
+	React.useImperativeHandle(
+		forwardedRef,
+		() => innerRef.current as DrivePickerElement,
+	);
+
+	useDrivePickerEvents(innerRef, {
 		onPicked,
 		onCanceled,
+		onPickerError,
+		onError,
 		onOauthError,
 		onOauthResponse,
 	});
@@ -86,8 +97,10 @@ export const DrivePicker: React.FC<DrivePickerProps> = (props) => {
 	}, []);
 
 	return (
-		<drive-picker ref={ref} {...rest}>
+		<drive-picker ref={innerRef} {...rest}>
 			{children}
 		</drive-picker>
 	);
-};
+});
+
+DrivePicker.displayName = "DrivePicker";

@@ -33,7 +33,7 @@
 	"scripts": {
 		"build": "tsup src/index.ts --format esm --dts",
 		"check": "tsc --noEmit",
-		"test": "vitest"
+		"test": "vitest run"
 	},
 	"peerDependencies": {
 		"react": ">=16.8.0",
@@ -46,13 +46,13 @@
 		"@testing-library/react": "^16.3.0",
 		"@types/react": "^18.2.0",
 		"@types/react-dom": "^18.2.0",
-		"@vitest/coverage-v8": "^4.0.10",
+		"@vitest/coverage-v8": "^2.1.8",
 		"jsdom": "^27.2.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"tsup": "catalog:",
 		"typescript": "catalog:",
-		"vitest": "^4.0.10"
+		"vitest": "^2.1.8"
 	},
 	"publishConfig": {
 		"access": "public"
