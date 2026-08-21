@@ -29,3 +29,4 @@ docs/**/*.md
 
 .turbo
 .env
+.next
