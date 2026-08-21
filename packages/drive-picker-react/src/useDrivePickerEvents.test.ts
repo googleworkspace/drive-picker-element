@@ -86,8 +86,12 @@ describe("useDrivePickerEvents", () => {
 
 		renderHook(() => useDrivePickerEvents(mockRef, { onPicked, onCanceled }));
 
-		const pickedListener = addEventListenerSpy.mock.calls[0][1];
-		const canceledListener = addEventListenerSpy.mock.calls[1][1];
+		const pickedListener = addEventListenerSpy.mock.calls[0][1] as (
+			e: Event,
+		) => void;
+		const canceledListener = addEventListenerSpy.mock.calls[1][1] as (
+			e: Event,
+		) => void;
 
 		const mockPickedEvent = new CustomEvent("picker-picked", {
 			detail: { docs: [{ id: "1", name: "file1" }] },
@@ -106,22 +110,45 @@ describe("useDrivePickerEvents", () => {
 		expect(onCanceled).toHaveBeenCalledWith(mockCanceledEvent);
 	});
 
-	it("should not add listeners for undefined handlers", () => {
-		const handlers = {
-			onPicked: vi.fn(),
-			onCanceled: undefined,
-		};
+	it("should bind onPickerError and onError to picker-error event", () => {
+		const onPickerError = vi.fn();
+		renderHook(() => useDrivePickerEvents(mockRef, { onPickerError }));
 
-		renderHook(() => useDrivePickerEvents(mockRef, handlers));
-
-		expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
 		expect(addEventListenerSpy).toHaveBeenCalledWith(
-			"picker-picked",
+			"picker-error",
 			expect.any(Function),
 		);
-		expect(addEventListenerSpy).not.toHaveBeenCalledWith(
-			"picker-canceled",
+
+		const errorListener = addEventListenerSpy.mock.calls[0][1] as (
+			e: Event,
+		) => void;
+		const mockErrorEvent = new CustomEvent("picker-error", {
+			detail: { action: "error", error: "403" },
+		});
+		errorListener(mockErrorEvent);
+
+		expect(onPickerError).toHaveBeenCalledTimes(1);
+		expect(onPickerError).toHaveBeenCalledWith(mockErrorEvent);
+	});
+
+	it("should fallback to onError when onPickerError is not provided", () => {
+		const onError = vi.fn();
+		renderHook(() => useDrivePickerEvents(mockRef, { onError }));
+
+		expect(addEventListenerSpy).toHaveBeenCalledWith(
+			"picker-error",
 			expect.any(Function),
 		);
+
+		const errorListener = addEventListenerSpy.mock.calls[0][1] as (
+			e: Event,
+		) => void;
+		const mockErrorEvent = new CustomEvent("picker-error", {
+			detail: { action: "error", error: "403" },
+		});
+		errorListener(mockErrorEvent);
+
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(onError).toHaveBeenCalledWith(mockErrorEvent);
 	});
 });

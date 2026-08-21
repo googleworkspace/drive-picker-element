@@ -19,6 +19,7 @@ import type {
 	OAuthErrorEvent,
 	OAuthResponseEvent,
 	PickerCanceledEvent,
+	PickerErrorEvent,
 	PickerPickedEvent,
 } from "@googleworkspace/drive-picker-element";
 import { useEffect } from "react";
@@ -34,6 +35,16 @@ export interface DrivePickerEventHandlers {
 	 * @param e The event object. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
 	 */
 	onCanceled?: (e: PickerCanceledEvent) => void;
+	/**
+	 * A callback function that is called when an error occurs in the picker.
+	 * @param e The event object. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+	 */
+	onPickerError?: (e: PickerErrorEvent) => void;
+	/**
+	 * An alias for `onPickerError`.
+	 * @param e The event object. See [`ResponseObject`](https://developers.google.com/drive/picker/reference/picker.responseobject).
+	 */
+	onError?: (e: PickerErrorEvent) => void;
 	/**
 	 * A callback function that is called when an error occurs in the OAuth flow.
 	 * @param e The event object. See the [error guide](https://developers.google.com/identity/oauth2/web/guides/error).
@@ -62,15 +73,25 @@ export function useDrivePickerEvents(
 	ref: React.RefObject<DrivePickerElement>,
 	handlers: DrivePickerEventHandlers,
 ) {
-	const { onPicked, onCanceled, onOauthError, onOauthResponse } = handlers;
+	const {
+		onPicked,
+		onCanceled,
+		onPickerError,
+		onError,
+		onOauthError,
+		onOauthResponse,
+	} = handlers;
 
 	useEffect(() => {
 		const element = ref.current;
 		if (!element) return;
 
+		const pickerErrorHandler = onPickerError ?? onError;
+
 		const eventMap = {
 			"picker-picked": onPicked,
 			"picker-canceled": onCanceled,
+			"picker-error": pickerErrorHandler,
 			"picker-oauth-error": onOauthError,
 			"picker-oauth-response": onOauthResponse,
 		};
@@ -90,5 +111,13 @@ export function useDrivePickerEvents(
 				element.removeEventListener(eventName, listener);
 			});
 		};
-	}, [ref, onPicked, onCanceled, onOauthError, onOauthResponse]);
+	}, [
+		ref,
+		onPicked,
+		onCanceled,
+		onPickerError,
+		onError,
+		onOauthError,
+		onOauthResponse,
+	]);
 }

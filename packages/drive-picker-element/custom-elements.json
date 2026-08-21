@@ -25,14 +25,6 @@
 				},
 				{
 					"kind": "js",
-					"name": "DrivePickerElement",
-					"declaration": {
-						"name": "DrivePickerElement",
-						"module": "src/index.ts"
-					}
-				},
-				{
-					"kind": "js",
 					"name": "DrivePickerDocsViewElement",
 					"declaration": {
 						"name": "DrivePickerDocsViewElement",
@@ -41,17 +33,25 @@
 				},
 				{
 					"kind": "js",
-					"name": "DrivePickerElementProps",
+					"name": "DrivePickerDocsViewElementProps",
 					"declaration": {
-						"name": "DrivePickerElementProps",
+						"name": "DrivePickerDocsViewElementProps",
 						"module": "src/index.ts"
 					}
 				},
 				{
 					"kind": "js",
-					"name": "DrivePickerDocsViewElementProps",
+					"name": "DrivePickerElement",
 					"declaration": {
-						"name": "DrivePickerDocsViewElementProps",
+						"name": "DrivePickerElement",
+						"module": "src/index.ts"
+					}
+				},
+				{
+					"kind": "js",
+					"name": "DrivePickerElementProps",
+					"declaration": {
+						"name": "DrivePickerElementProps",
 						"module": "src/index.ts"
 					}
 				},
@@ -372,17 +372,17 @@
 							}
 						},
 						{
+							"name": "picker:oauth:response",
+							"type": {
+								"text": "CustomEvent"
+							}
+						},
+						{
 							"name": "picker-oauth-response",
 							"type": {
 								"text": "OAuthResponseEvent"
 							},
 							"description": "Triggered when an OAuth flow completes. See the [token model guide](https://developers.google.com/identity/oauth2/web/guides/use-token-model)."
-						},
-						{
-							"name": "picker:oauth:response",
-							"type": {
-								"text": "CustomEvent"
-							}
 						},
 						{
 							"type": {

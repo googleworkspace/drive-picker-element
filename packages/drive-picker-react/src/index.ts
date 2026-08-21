@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+export type {
+	DrivePickerDocsViewElement,
+	DrivePickerDocsViewElementProps,
+	DrivePickerElement,
+	DrivePickerElementProps,
+	OAuthErrorEvent,
+	OAuthResponseEvent,
+	PickerCanceledEvent,
+	PickerErrorEvent,
+	PickerPickedEvent,
+} from "@googleworkspace/drive-picker-element";
 export * from "./DrivePicker";
 export * from "./DrivePickerDocsView";
 export type { DrivePickerEventHandlers } from "./useDrivePickerEvents";
