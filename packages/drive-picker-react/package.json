@@ -52,7 +52,7 @@
 		"react-dom": "^18.2.0",
 		"tsup": "catalog:",
 		"typescript": "catalog:",
-		"vitest": "^4.0.10"
+		"vitest": "^4.1.0"
 	},
 	"publishConfig": {
 		"access": "public"
