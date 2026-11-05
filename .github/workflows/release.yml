@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           token: ${{ secrets.GOOGLEWORKSPACE_BOT_TOKEN }}
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           cache: "pnpm"
@@ -48,21 +48,68 @@ jobs:
       - run: |
           git config --global user.name "googleworkspace-bot"
           git config --global user.email "googleworkspace-bot@google.com"
+      - name: Authenticate to Google Cloud for OSS Exit Gate
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: 'projects/305452601764/locations/global/workloadIdentityPools/builders/providers/github'
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3
+      - name: Clean up stale releases from staging repo
+        run: |
+          # clean up stale releases from staging repo
+          packages=$(gcloud artifacts packages list \
+              --project="oss-exit-gate-prod" \
+              --location="us" \
+              --repository="drive-picker-element--npm" \
+              --format="value(name)" 2>/dev/null)
+
+          echo "${packages}" | xargs -r -I {} sh -c '
+              package_name=$(basename "{}")
+              echo "Deleting package: $package_name..."
+              gcloud artifacts packages delete "{}" \
+                  --project="oss-exit-gate-prod" \
+                  --location="us" \
+                  --repository="drive-picker-element--npm" \
+                  --quiet
+          '
+
+      - name: Configure npmrc for OSS Exit Gate Artifact Registry
+        env:
+          ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+        run: |
+          cat << 'NPMRC' > "$HOME/.npmrc"
+          registry=https://us-npm.pkg.dev/oss-exit-gate-prod/drive-picker-element--npm/
+          //us-npm.pkg.dev/oss-exit-gate-prod/drive-picker-element--npm/:always-auth=true
+          //us-npm.pkg.dev/oss-exit-gate-prod/drive-picker-element--npm/:_authToken=${ACCESS_TOKEN}
+          NPMRC
       - uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         id: changesets
         env:
           GITHUB_TOKEN: ${{secrets.GOOGLEWORKSPACE_BOT_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-          NPM_CONFIG_PROVENANCE: true
         with:
           version: pnpm run changeset:version
           publish: pnpm run changeset:publish
           commit: "ci: Version Packages"
           title: "ci: Version Packages"
           setupGitUser: false
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Trigger OSS Exit Gate release
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          rm -f "$HOME/.npmrc"
+          cat << 'MANIFEST' > manifest.json
+          {
+            "publish_all": true
+          }
+          MANIFEST
+          gcloud storage cp manifest.json "gs://oss-exit-gate-prod-projects-bucket/drive-picker-element/npm/manifests/manifest-${RUN_ID}-${RUN_ATTEMPT}.json"
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: "packages/drive-picker-element/storybook-static"
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
